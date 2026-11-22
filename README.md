@@ -3,7 +3,7 @@
 **SCSE4041 Prompt Engineering, Mini Project (Milestone 2)**
 Team **SPARTANS DO CODE**, Bennett University
 
-🔗 **Prototype:** PROTOTYPE_LINK
+🔗 **Prototype:** https://skillit-spartans.streamlit.app
 🎬 **Reel:** REEL_LINK
 
 ## What it does

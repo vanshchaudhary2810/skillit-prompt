@@ -152,8 +152,8 @@ def version_result_text(v):
            f"{s['edge_invalid_passed']}/{s['edge_invalid_total']}. ")
     if c:
         txt += f"Same input run {c['runs']} times: gap-list overlap (Jaccard) {c['mean_jaccard']}. "
-    if v == "v3" and s.get("readiness_rule_ok") is not None:
-        txt += f"Readiness score followed the formula in {s['readiness_rule_ok']} runs. "
+    if v in ("v3", "v4") and s.get("readiness_rule_ok") is not None:
+        txt += f"Readiness score within 5 points of the formula in {s['readiness_rule_ok']}/11 scored runs. "
     txt += f"Tests passed: {s['passed']}/{n}."
     return txt
 
@@ -191,7 +191,7 @@ def technical_report_flow(in_m2=False):
             "Prompt files in /prompts are the single source of truth for the app and the experiments.", "small"),
           P("3. Tools and models", "h3"),
           P(f"Google Gemini through the REST API (model used in the experiments: <b>{E(MODEL)}</b>, free tier, with automatic fallback to "
-            "a Flash-Lite model). Python 3, Streamlit, requests and pandas. Hosted on Streamlit Community Cloud, with the API key kept in Streamlit Secrets. "
+            "another Gemini model if the quota runs out). Python 3, Streamlit, requests and pandas. Hosted on Streamlit Community Cloud, with the API key kept in Streamlit Secrets. "
             "Gemini replaced the ChatGPT/Claude plan from Milestone 1 because its free API lets anyone open the public prototype without cost. "
             "The larger gemini-3.6-flash ran out of free daily quota during testing, so every version was run on Flash-Lite.", "small"),
           P("4. Prompt design", "h3"),
@@ -222,7 +222,8 @@ def footer(canvas, doc):
     canvas.saveState()
     canvas.setFont("DV", 7.5)
     canvas.setFillColor(colors.HexColor("#6B7280"))
-    canvas.drawString(2 * cm, 1.2 * cm, f"{team['team_id']} · {team['team_name']} · {team['project_title']}")
+    tid = "" if " " in team["team_id"] else f"{team['team_id']} · "
+    canvas.drawString(2 * cm, 1.2 * cm, f"{tid}{team['team_name']} · {team['project_title']}")
     canvas.drawRightString(A4[0] - 2 * cm, 1.2 * cm, f"Page {doc.page}")
     canvas.restoreState()
 
@@ -367,7 +368,7 @@ def build_m2(path):
            P("Prompt iteration log", "h2"),
            table([["Version", "What changed", "Why it was changed", "Result after the change (measured on the 14-input test set)"]]
                  + [[f"<b>{v}</b>", E(what), E(why), E(version_result_text(v))] for v, what, why in ITERATIONS],
-                 [1.3 * cm, 5.0 * cm, 4.2 * cm, 6.5 * cm]),
+                 [1.6 * cm, 4.9 * cm, 4.1 * cm, 6.4 * cm]),
            Spacer(1, 6),
            P("Full text of each version", "h3"),
            P("All four versions were run on the same 14 inputs with the same model; numbers come from test-data/results.json.", "small"),
@@ -399,7 +400,7 @@ def build_m2(path):
                      E(r["actual"]) + (f"<br/><font color='#B91C1C'>{E(r['reasons'])}</font>" if r["reasons"] else ""),
                      f"<b><font color='{'#15803D' if r['pass'] else '#B91C1C'}'>{'Pass' if r['pass'] else 'Fail'}</font></b>"]
                     for r in v3rows],
-                 [1.2 * cm, 3.6 * cm, 1.3 * cm, 4.2 * cm, 5.3 * cm, 1.4 * cm]),
+                 [1.2 * cm, 3.5 * cm, 1.6 * cm, 4.0 * cm, 5.3 * cm, 1.4 * cm]),
            Spacer(1, 8), P("Same test set on all four versions", "h3"),
            table([["Metric"] + VERS] + [[E(lbl)] + [E(str(fn(SUMMARY[v]))) for v in VERS] for lbl, fn in COMPARE],
                  [6.2 * cm, 2.7 * cm, 2.7 * cm, 2.7 * cm, 2.7 * cm]),
@@ -438,7 +439,7 @@ def build_m2(path):
 
 
 MODULES = json.loads((DOCS / "modules.json").read_text(encoding="utf-8")) if (DOCS / "modules.json").exists() else []
-SCREENSHOTS = [("T01.png", "Screenshot 1: Test T01 (Data Analyst, 6 h/week, 4 weeks), readiness score, gap table and week plan"),
+SCREENSHOTS = [("T01.png", "Screenshot 1: Test T01 (Data Analyst, 6 h/week, 4 weeks), readiness score and ranked gap table"),
                ("T07.png", "Screenshot 2: Test T07 (messy text 'py, ML, js, reactjs, gud at excell...' matched to Full Stack Developer)"),
                ("T10.png", "Screenshot 3: Test T10 (vague role 'any IT job with good salary'): chain stops and suggests roles")]
 COMPARE = [
@@ -450,6 +451,7 @@ COMPARE = [
     ("Runs with false gaps", lambda s: s["runs_with_false_gaps"]),
     ("Edge + invalid tests passed (of 8)", lambda s: s["edge_invalid_passed"]),
     ("T01 x3 gap-list consistency (Jaccard)", lambda s: (s.get("consistency_T01") or {}).get("mean_jaccard", "n/a")),
+    ("Readiness within 5 points of the formula (of 11 scored runs)", lambda s: s["readiness_rule_ok"] if s.get("readiness_rule_ok") is not None else "n/a"),
 ]
 
 

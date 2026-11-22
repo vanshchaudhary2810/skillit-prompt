@@ -4,8 +4,8 @@
  ["P3 Gap Analyser", "Ranks gaps, estimates hours, computes readiness score", "Working", "Readiness formula also checked in code"],
  ["P4 Plan Builder + resource retrieval", "Week-wise plan within the hour limit using only retrieved resource IDs", "Working", "64 curated free resources"],
  ["Validator (automatic checks)", "Rule-based checks: JSON, weeks, hours, resources, false gaps, readiness", "Working", "Shown in the app and used for the test table"],
- ["Streamlit web app", "Form, 5 example inputs, results, prompt trace, JSON download, v1/v2/v3 switch", "Working", "Deployed on Streamlit Community Cloud"],
- ["Experiment runner", "Runs v1/v2/v3 on all test inputs, scores them, saves outputs", "Working", "code/run_experiments.py"],
+ ["Streamlit web app", "Form, 5 example inputs, results, prompt trace, JSON download, v1/v2/v3/v4 switch", "Working", "Deployed on Streamlit Community Cloud"],
+ ["Experiment runner", "Runs v1/v2/v3/v4 on all test inputs, scores them, saves outputs", "Working", "code/run_experiments.py"],
  ["Multi-model comparison", "Run the same chain on ChatGPT/Claude and compare with Gemini (Milestone 1 plan)", "Not started", "Planned for Milestone 3"],
  ["Live job-posting / course API", "Refresh role skills and free courses from live sources (senior's suggestion)", "Not started", "Planned for Milestone 3; static curated list for now"]
 ]

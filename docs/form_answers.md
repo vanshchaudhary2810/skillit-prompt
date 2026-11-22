@@ -14,8 +14,8 @@ Items in CAPITALS (like TEAM_ID) are filled in once we have the real results and
 | 8 Project type (max 2) | Custom web app (Streamlit) · Prompt chain / workflow with RAG grounding *(pick the 2 closest options shown in the form)* |
 | 9 Main AI tool and model | Google Gemini API, gemini-3.5-flash-lite (free tier), called from a Streamlit web app |
 | 10 Number of prompts | 4 |
-| 11 Prototype link | PROTOTYPE_LINK |
-| 12 Repository link | REPO_LINK |
+| 11 Prototype link | https://skillit-spartans.streamlit.app |
+| 12 Repository link | https://github.com/vanshchaudhary2810/skillit-prompt |
 | 13 Reel link | REEL_LINK |
 | 14 Reel length (s) | REEL_SECONDS |
 | 15 Supporting document type | Technical report |

@@ -7,7 +7,7 @@
   "faculty": "Ankit Vijay Bansal",
   "course": "SCSE4041 Prompt Engineering",
   "links": {
-    "prototype": "PROTOTYPE_LINK",
+    "prototype": "https://skillit-spartans.streamlit.app",
     "repository": "https://github.com/vanshchaudhary2810/skillit-prompt",
     "reel": "REEL_LINK"
   },
