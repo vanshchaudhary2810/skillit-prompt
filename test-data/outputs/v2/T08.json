@@ -1,0 +1,545 @@
+{
+  "version": "v2",
+  "inputs": {
+    "student_skills": "Python basics",
+    "target_role": "Data Scientist",
+    "weekly_hours": 2,
+    "num_weeks": 4
+  },
+  "steps": [
+    {
+      "id": "P1",
+      "name": "Skill Normaliser",
+      "prompt_file": "prompts/v2/P1_skill_normaliser.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Read the student's skills below and convert them into a clean list of skills with a level for each (beginner, intermediate or advanced).\n\nStudent skills: Python basics\n\nReturn JSON only in this format:\n{\"skills\": [{\"name\": \"...\", \"level\": \"beginner|intermediate|advanced\"}]}",
+      "raw": "```json\n{\"skills\": [{\"name\": \"Python basics\", \"level\": \"beginner\"}]}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 0.99,
+      "parsed": {
+        "skills": [
+          {
+            "name": "Python basics",
+            "level": "beginner"
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    },
+    {
+      "id": "P2",
+      "name": "Role Requirements",
+      "prompt_file": "prompts/v2/P2_role_requirements.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "List the skills a fresher needs for an entry-level Data Scientist job. Split them into must-have and good-to-have skills and give the level needed for each.\n\nReturn JSON only in this format:\n{\"must_have\": [{\"skill\": \"...\", \"required_level\": \"beginner|intermediate|advanced\"}], \"good_to_have\": [{\"skill\": \"...\", \"required_level\": \"...\"}]}",
+      "raw": "{\n  \"must_have\": [\n    {\n      \"skill\": \"Python Programming\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"SQL and Database Management\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"Exploratory Data Analysis (EDA)\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"Machine Learning Fundamentals\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Statistics and Probability\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"Data Visualization (e.g., Matplotlib, Seaborn, Tableau)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Git and Version Control\",\n      \"required_level\": \"beginner\"\n    }\n  ],\n  \"good_to_have\": [\n    {\n      \"skill\": \"Cloud Platforms (AWS, GCP, or Azure)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Deep Learning (TensorFlow or PyTorch)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Big Data Technologies (Spark, Hadoop)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Docker and Containerization\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Natural Language Processing (NLP)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"MLOps and Model Deployment\",\n      \"required_level\": \"beginner\"\n    }\n  ]\n}",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 1.77,
+      "parsed": {
+        "must_have": [
+          {
+            "skill": "Python Programming",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "SQL and Database Management",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "Exploratory Data Analysis (EDA)",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "Machine Learning Fundamentals",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Statistics and Probability",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "Data Visualization (e.g., Matplotlib, Seaborn, Tableau)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Git and Version Control",
+            "required_level": "beginner"
+          }
+        ],
+        "good_to_have": [
+          {
+            "skill": "Cloud Platforms (AWS, GCP, or Azure)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Deep Learning (TensorFlow or PyTorch)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Big Data Technologies (Spark, Hadoop)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Docker and Containerization",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Natural Language Processing (NLP)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "MLOps and Model Deployment",
+            "required_level": "beginner"
+          }
+        ]
+      },
+      "json_strict": true,
+      "json_ok": true
+    },
+    {
+      "id": "P3",
+      "name": "Gap Analyser",
+      "prompt_file": "prompts/v2/P3_gap_analyser.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Compare the student's skills with the role requirements and list the skill gaps, most important first.\n\nStudent skills (JSON): {\"skills\": [{\"name\": \"Python basics\", \"level\": \"beginner\"}]}\nRole requirements (JSON): {\"must_have\": [{\"skill\": \"Python Programming\", \"required_level\": \"intermediate\"}, {\"skill\": \"SQL and Database Management\", \"required_level\": \"intermediate\"}, {\"skill\": \"Exploratory Data Analysis (EDA)\", \"required_level\": \"intermediate\"}, {\"skill\": \"Machine Learning Fundamentals\", \"required_level\": \"beginner\"}, {\"skill\": \"Statistics and Probability\", \"required_level\": \"intermediate\"}, {\"skill\": \"Data Visualization (e.g., Matplotlib, Seaborn, Tableau)\", \"required_level\": \"beginner\"}, {\"skill\": \"Git and Version Control\", \"required_level\": \"beginner\"}], \"good_to_have\": [{\"skill\": \"Cloud Platforms (AWS, GCP, or Azure)\", \"required_level\": \"beginner\"}, {\"skill\": \"Deep Learning (TensorFlow or PyTorch)\", \"required_level\": \"beginner\"}, {\"skill\": \"Big Data Technologies (Spark, Hadoop)\", \"required_level\": \"beginner\"}, {\"skill\": \"Docker and Containerization\", \"required_level\": \"beginner\"}, {\"skill\": \"Natural Language Processing (NLP)\", \"required_level\": \"beginner\"}, {\"skill\": \"MLOps and Model Deployment\", \"required_level\": \"beginner\"}]}\n\nReturn JSON only in this format:\n{\"gaps\": [{\"skill\": \"...\", \"current_level\": \"none|beginner|intermediate\", \"required_level\": \"...\", \"priority\": \"high|medium|low\"}]}",
+      "raw": "```json\n{\"gaps\": [{\"skill\": \"SQL and Database Management\", \"current_level\": \"none\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"Exploratory Data Analysis (EDA)\", \"current_level\": \"none\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"Statistics and Probability\", \"current_level\": \"none\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"Python Programming\", \"current_level\": \"beginner\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"Data Visualization (e.g., Matplotlib, Seaborn, Tableau)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"Git and Version Control\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"Machine Learning Fundamentals\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"Cloud Platforms (AWS, GCP, or Azure)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Deep Learning (TensorFlow or PyTorch)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Big Data Technologies (Spark, Hadoop)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Docker and Containerization\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Natural Language Processing (NLP)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"MLOps and Model Deployment\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}]}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 1.27,
+      "parsed": {
+        "gaps": [
+          {
+            "skill": "SQL and Database Management",
+            "current_level": "none",
+            "required_level": "intermediate",
+            "priority": "high"
+          },
+          {
+            "skill": "Exploratory Data Analysis (EDA)",
+            "current_level": "none",
+            "required_level": "intermediate",
+            "priority": "high"
+          },
+          {
+            "skill": "Statistics and Probability",
+            "current_level": "none",
+            "required_level": "intermediate",
+            "priority": "high"
+          },
+          {
+            "skill": "Python Programming",
+            "current_level": "beginner",
+            "required_level": "intermediate",
+            "priority": "high"
+          },
+          {
+            "skill": "Data Visualization (e.g., Matplotlib, Seaborn, Tableau)",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "medium"
+          },
+          {
+            "skill": "Git and Version Control",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "medium"
+          },
+          {
+            "skill": "Machine Learning Fundamentals",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "medium"
+          },
+          {
+            "skill": "Cloud Platforms (AWS, GCP, or Azure)",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "Deep Learning (TensorFlow or PyTorch)",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "Big Data Technologies (Spark, Hadoop)",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "Docker and Containerization",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "Natural Language Processing (NLP)",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "MLOps and Model Deployment",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    },
+    {
+      "id": "P4",
+      "name": "Plan Builder",
+      "prompt_file": "prompts/v2/P4_plan_builder.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Build a 4-week learning plan that closes these skill gaps. The student can study at most 2 hours per week. For every week give the focus skills, the learning resources with links, practice tasks and the hours.\n\nSkill gaps (JSON): [{\"skill\": \"SQL and Database Management\", \"current_level\": \"none\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"Exploratory Data Analysis (EDA)\", \"current_level\": \"none\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"Statistics and Probability\", \"current_level\": \"none\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"Python Programming\", \"current_level\": \"beginner\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"Data Visualization (e.g., Matplotlib, Seaborn, Tableau)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"Git and Version Control\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"Machine Learning Fundamentals\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"Cloud Platforms (AWS, GCP, or Azure)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Deep Learning (TensorFlow or PyTorch)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Big Data Technologies (Spark, Hadoop)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Docker and Containerization\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Natural Language Processing (NLP)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"MLOps and Model Deployment\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}]\n\nReturn JSON only in this format:\n{\"weeks\": [{\"week\": 1, \"focus_skills\": [\"...\"], \"resources\": [{\"title\": \"...\", \"url\": \"...\"}], \"practice_tasks\": [\"...\"], \"total_hours\": 0}]}",
+      "raw": "```json\n{\"weeks\": [{\"week\": 1, \"focus_skills\": [\"Python Programming\", \"Git and Version Control\"], \"resources\": [{\"title\": \"Kaggle Python Course\", \"url\": \"https://www.kaggle.com/learn/python\"}, {\"title\": \"GitHub Skills Introduction to Git\", \"url\": \"https://skills.github.com/\"}], \"practice_tasks\": [\"Complete the first 3 modules of Kaggle Python and write a script to calculate basic statistics on a list of numbers.\", \"Initialize a local Git repository, commit your Python script, and push it to GitHub.\"], \"total_hours\": 2}, {\"week\": 2, \"focus_skills\": [\"SQL and Database Management\", \"Exploratory Data Analysis (EDA)\"], \"resources\": [{\"title\": \"Khan Academy Intro to SQL\", \"url\": \"https://www.khanacademy.org/computing/computer-programming/sql\"}, {\"title\": \"Kaggle Pandas Course\", \"url\": \"https://www.kaggle.com/learn/pandas\"}], \"practice_tasks\": [\"Practice basic SELECT, WHERE, and GROUP BY queries on a practice database.\", \"Load a CSV dataset using Pandas in Python and find missing values and basic summary statistics.\"], \"total_hours\": 2}, {\"week\": 3, \"focus_skills\": [\"Statistics and Probability\", \"Data Visualization (e.g., Matplotlib, Seaborn, Tableau)\"], \"resources\": [{\"title\": \"StatQuest with Josh Starmer (Probability & Statistics)\", \"url\": \"https://statquest.org/\"}, {\"title\": \"Kaggle Data Visualization Course\", \"url\": \"https://www.kaggle.com/learn/data-visualization\"}], \"practice_tasks\": [\"Calculate mean, median, standard deviation, and understand probability distributions using a small dataset.\", \"Create a histogram and a scatter plot using Seaborn/Matplotlib based on the dataset from Week 2.\"], \"total_hours\": 2}, {\"week\": 4, \"focus_skills\": [\"Machine Learning Fundamentals\", \"Cloud Platforms (AWS, GCP, or Azure)\"], \"resources\": [{\"title\": \"Google Cloud Computing Foundations Course\", \"url\": \"https://www.cloudskillsboost.google/journeys/11\"}, {\"title\": \"Scikit-Learn 10-Minute Tutorial\", \"url\": \"https://scikit-learn.org/stable/tutorial/basic/tutorial.html\"}], \"practice_tasks\": [\"Complete an introductory module on Google Cloud to understand cloud basics.\", \"Build a simple linear regression or decision tree model using Scikit-Learn on a sample dataset.\"], \"total_hours\": 2}]}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 2.02,
+      "parsed": {
+        "weeks": [
+          {
+            "week": 1,
+            "focus_skills": [
+              "Python Programming",
+              "Git and Version Control"
+            ],
+            "resources": [
+              {
+                "title": "Kaggle Python Course",
+                "url": "https://www.kaggle.com/learn/python"
+              },
+              {
+                "title": "GitHub Skills Introduction to Git",
+                "url": "https://skills.github.com/"
+              }
+            ],
+            "practice_tasks": [
+              "Complete the first 3 modules of Kaggle Python and write a script to calculate basic statistics on a list of numbers.",
+              "Initialize a local Git repository, commit your Python script, and push it to GitHub."
+            ],
+            "total_hours": 2
+          },
+          {
+            "week": 2,
+            "focus_skills": [
+              "SQL and Database Management",
+              "Exploratory Data Analysis (EDA)"
+            ],
+            "resources": [
+              {
+                "title": "Khan Academy Intro to SQL",
+                "url": "https://www.khanacademy.org/computing/computer-programming/sql"
+              },
+              {
+                "title": "Kaggle Pandas Course",
+                "url": "https://www.kaggle.com/learn/pandas"
+              }
+            ],
+            "practice_tasks": [
+              "Practice basic SELECT, WHERE, and GROUP BY queries on a practice database.",
+              "Load a CSV dataset using Pandas in Python and find missing values and basic summary statistics."
+            ],
+            "total_hours": 2
+          },
+          {
+            "week": 3,
+            "focus_skills": [
+              "Statistics and Probability",
+              "Data Visualization (e.g., Matplotlib, Seaborn, Tableau)"
+            ],
+            "resources": [
+              {
+                "title": "StatQuest with Josh Starmer (Probability & Statistics)",
+                "url": "https://statquest.org/"
+              },
+              {
+                "title": "Kaggle Data Visualization Course",
+                "url": "https://www.kaggle.com/learn/data-visualization"
+              }
+            ],
+            "practice_tasks": [
+              "Calculate mean, median, standard deviation, and understand probability distributions using a small dataset.",
+              "Create a histogram and a scatter plot using Seaborn/Matplotlib based on the dataset from Week 2."
+            ],
+            "total_hours": 2
+          },
+          {
+            "week": 4,
+            "focus_skills": [
+              "Machine Learning Fundamentals",
+              "Cloud Platforms (AWS, GCP, or Azure)"
+            ],
+            "resources": [
+              {
+                "title": "Google Cloud Computing Foundations Course",
+                "url": "https://www.cloudskillsboost.google/journeys/11"
+              },
+              {
+                "title": "Scikit-Learn 10-Minute Tutorial",
+                "url": "https://scikit-learn.org/stable/tutorial/basic/tutorial.html"
+              }
+            ],
+            "practice_tasks": [
+              "Complete an introductory module on Google Cloud to understand cloud basics.",
+              "Build a simple linear regression or decision tree model using Scikit-Learn on a sample dataset."
+            ],
+            "total_hours": 2
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    }
+  ],
+  "status": "ok",
+  "final": {
+    "profile": {
+      "skills": [
+        {
+          "name": "Python basics",
+          "level": "beginner"
+        }
+      ]
+    },
+    "requirements": {
+      "must_have": [
+        {
+          "skill": "Python Programming",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "SQL and Database Management",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "Exploratory Data Analysis (EDA)",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "Machine Learning Fundamentals",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Statistics and Probability",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "Data Visualization (e.g., Matplotlib, Seaborn, Tableau)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Git and Version Control",
+          "required_level": "beginner"
+        }
+      ],
+      "good_to_have": [
+        {
+          "skill": "Cloud Platforms (AWS, GCP, or Azure)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Deep Learning (TensorFlow or PyTorch)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Big Data Technologies (Spark, Hadoop)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Docker and Containerization",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Natural Language Processing (NLP)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "MLOps and Model Deployment",
+          "required_level": "beginner"
+        }
+      ]
+    },
+    "gaps": {
+      "gaps": [
+        {
+          "skill": "SQL and Database Management",
+          "current_level": "none",
+          "required_level": "intermediate",
+          "priority": "high"
+        },
+        {
+          "skill": "Exploratory Data Analysis (EDA)",
+          "current_level": "none",
+          "required_level": "intermediate",
+          "priority": "high"
+        },
+        {
+          "skill": "Statistics and Probability",
+          "current_level": "none",
+          "required_level": "intermediate",
+          "priority": "high"
+        },
+        {
+          "skill": "Python Programming",
+          "current_level": "beginner",
+          "required_level": "intermediate",
+          "priority": "high"
+        },
+        {
+          "skill": "Data Visualization (e.g., Matplotlib, Seaborn, Tableau)",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "medium"
+        },
+        {
+          "skill": "Git and Version Control",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "medium"
+        },
+        {
+          "skill": "Machine Learning Fundamentals",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "medium"
+        },
+        {
+          "skill": "Cloud Platforms (AWS, GCP, or Azure)",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "Deep Learning (TensorFlow or PyTorch)",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "Big Data Technologies (Spark, Hadoop)",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "Docker and Containerization",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "Natural Language Processing (NLP)",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "MLOps and Model Deployment",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        }
+      ]
+    },
+    "plan": {
+      "weeks": [
+        {
+          "week": 1,
+          "focus_skills": [
+            "Python Programming",
+            "Git and Version Control"
+          ],
+          "resources": [
+            {
+              "title": "Kaggle Python Course",
+              "url": "https://www.kaggle.com/learn/python"
+            },
+            {
+              "title": "GitHub Skills Introduction to Git",
+              "url": "https://skills.github.com/"
+            }
+          ],
+          "practice_tasks": [
+            "Complete the first 3 modules of Kaggle Python and write a script to calculate basic statistics on a list of numbers.",
+            "Initialize a local Git repository, commit your Python script, and push it to GitHub."
+          ],
+          "total_hours": 2
+        },
+        {
+          "week": 2,
+          "focus_skills": [
+            "SQL and Database Management",
+            "Exploratory Data Analysis (EDA)"
+          ],
+          "resources": [
+            {
+              "title": "Khan Academy Intro to SQL",
+              "url": "https://www.khanacademy.org/computing/computer-programming/sql"
+            },
+            {
+              "title": "Kaggle Pandas Course",
+              "url": "https://www.kaggle.com/learn/pandas"
+            }
+          ],
+          "practice_tasks": [
+            "Practice basic SELECT, WHERE, and GROUP BY queries on a practice database.",
+            "Load a CSV dataset using Pandas in Python and find missing values and basic summary statistics."
+          ],
+          "total_hours": 2
+        },
+        {
+          "week": 3,
+          "focus_skills": [
+            "Statistics and Probability",
+            "Data Visualization (e.g., Matplotlib, Seaborn, Tableau)"
+          ],
+          "resources": [
+            {
+              "title": "StatQuest with Josh Starmer (Probability & Statistics)",
+              "url": "https://statquest.org/"
+            },
+            {
+              "title": "Kaggle Data Visualization Course",
+              "url": "https://www.kaggle.com/learn/data-visualization"
+            }
+          ],
+          "practice_tasks": [
+            "Calculate mean, median, standard deviation, and understand probability distributions using a small dataset.",
+            "Create a histogram and a scatter plot using Seaborn/Matplotlib based on the dataset from Week 2."
+          ],
+          "total_hours": 2
+        },
+        {
+          "week": 4,
+          "focus_skills": [
+            "Machine Learning Fundamentals",
+            "Cloud Platforms (AWS, GCP, or Azure)"
+          ],
+          "resources": [
+            {
+              "title": "Google Cloud Computing Foundations Course",
+              "url": "https://www.cloudskillsboost.google/journeys/11"
+            },
+            {
+              "title": "Scikit-Learn 10-Minute Tutorial",
+              "url": "https://scikit-learn.org/stable/tutorial/basic/tutorial.html"
+            }
+          ],
+          "practice_tasks": [
+            "Complete an introductory module on Google Cloud to understand cloud basics.",
+            "Build a simple linear regression or decision tree model using Scikit-Learn on a sample dataset."
+          ],
+          "total_hours": 2
+        }
+      ]
+    }
+  },
+  "model": "gemini-3.5-flash-lite",
+  "run_at": "2026-11-22T02:24:51",
+  "wall_time_s": 23.3
+}

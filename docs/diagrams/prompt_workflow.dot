@@ -1,0 +1,12 @@
+digraph G { rankdir=TB; node [fontname="Helvetica", fontsize=11, style="rounded,filled", shape=box, fillcolor="#EEF2FF", color="#4F46E5"]; edge [fontname="Helvetica", fontsize=9, color="#555555"];
+in [label="Student input\nskills text, target role, hours/week, weeks", fillcolor="#FEF3C7", color="#B45309"];
+p1 [label="P1 Skill Normaliser\n(LLM, JSON)"]; d1 [label="status ==\ninvalid_input?", shape=diamond, fillcolor="#FFFFFF"];
+r1 [label="Retrieve top-3 role profiles\n(roles.json, fuzzy match)", fillcolor="#DCFCE7", color="#15803D"];
+p2 [label="P2 Role Requirements\n(LLM, grounded, JSON)"]; d2 [label="status ==\nunknown_role?", shape=diamond, fillcolor="#FFFFFF"];
+p3 [label="P3 Gap Analyser\n(LLM, JSON)"];
+r2 [label="Retrieve free resources\nfor gap skills (resources.json)", fillcolor="#DCFCE7", color="#15803D"];
+p4 [label="P4 Plan Builder\n(LLM, grounded, JSON)"];
+v [label="Validator (code)\nJSON, weeks, hours <= limit,\nresource IDs, false gaps, readiness", fillcolor="#FEE2E2", color="#B91C1C"];
+out [label="Streamlit UI\ngap table + week plan + links + checks", fillcolor="#FEF3C7", color="#B45309"];
+s1 [label="Ask student to list\nreal skills", fillcolor="#F3F4F6", color="#6B7280"]; s2 [label="Suggest up to 3 roles", fillcolor="#F3F4F6", color="#6B7280"];
+in -> p1 -> d1; d1 -> s1 [label="yes"]; d1 -> r1 [label="no"]; r1 -> p2 -> d2; d2 -> s2 [label="yes"]; d2 -> p3 [label="no"]; p3 -> r2 -> p4 -> v -> out; }

@@ -1,0 +1,9 @@
+# v2 - P2 Role Requirements
+# Model settings: default (temperature 1.0). Skills come from the model's own knowledge (no grounding).
+### SYSTEM
+You are a career mentor for engineering students.
+### USER
+List the skills a fresher needs for an entry-level {target_role} job. Split them into must-have and good-to-have skills and give the level needed for each.
+
+Return JSON only in this format:
+{"must_have": [{"skill": "...", "required_level": "beginner|intermediate|advanced"}], "good_to_have": [{"skill": "...", "required_level": "..."}]}

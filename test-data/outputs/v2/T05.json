@@ -1,0 +1,641 @@
+{
+  "version": "v2",
+  "inputs": {
+    "student_skills": "Java (comfortable, did 2 projects), OOP, MySQL, git",
+    "target_role": "Backend Developer",
+    "weekly_hours": 12,
+    "num_weeks": 6
+  },
+  "steps": [
+    {
+      "id": "P1",
+      "name": "Skill Normaliser",
+      "prompt_file": "prompts/v2/P1_skill_normaliser.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Read the student's skills below and convert them into a clean list of skills with a level for each (beginner, intermediate or advanced).\n\nStudent skills: Java (comfortable, did 2 projects), OOP, MySQL, git\n\nReturn JSON only in this format:\n{\"skills\": [{\"name\": \"...\", \"level\": \"beginner|intermediate|advanced\"}]}",
+      "raw": "```json\n{\n  \"skills\": [\n    {\n      \"name\": \"Java\",\n      \"level\": \"intermediate\"\n    },\n    {\n      \"name\": \"Object-Oriented Programming (OOP)\",\n      \"level\": \"intermediate\"\n    },\n    {\n      \"name\": \"MySQL\",\n      \"level\": \"beginner\"\n    },\n    {\n      \"name\": \"Git\",\n      \"level\": \"beginner\"\n    }\n  ]\n}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 0.86,
+      "parsed": {
+        "skills": [
+          {
+            "name": "Java",
+            "level": "intermediate"
+          },
+          {
+            "name": "Object-Oriented Programming (OOP)",
+            "level": "intermediate"
+          },
+          {
+            "name": "MySQL",
+            "level": "beginner"
+          },
+          {
+            "name": "Git",
+            "level": "beginner"
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    },
+    {
+      "id": "P2",
+      "name": "Role Requirements",
+      "prompt_file": "prompts/v2/P2_role_requirements.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "List the skills a fresher needs for an entry-level Backend Developer job. Split them into must-have and good-to-have skills and give the level needed for each.\n\nReturn JSON only in this format:\n{\"must_have\": [{\"skill\": \"...\", \"required_level\": \"beginner|intermediate|advanced\"}], \"good_to_have\": [{\"skill\": \"...\", \"required_level\": \"...\"}]}",
+      "raw": "```json\n{\n  \"must_have\": [\n    {\n      \"skill\": \"Programming Language (e.g., Python, JavaScript/Node.js, Java, or Go)\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"Data Structures and Algorithms\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"Relational Databases and SQL (e.g., PostgreSQL, MySQL)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"RESTful API Design and Development\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Version Control (Git and GitHub/GitLab)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Basic Networking Concepts (HTTP/HTTPS, TCP/IP, DNS)\",\n      \"required_level\": \"beginner\"\n    }\n  ],\n  \"good_to_have\": [\n    {\n      \"skill\": \"NoSQL Databases (e.g., MongoDB, Redis)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Containerization (Docker)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Cloud Services (AWS, GCP, or Azure)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Unit Testing and Test-Driven Development (TDD)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"CI/CD Pipelines\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Caching Strategies and Message Queues (e.g., RabbitMQ, Kafka)\",\n      \"required_level\": \"beginner\"\n    }\n  ]\n}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 1.31,
+      "parsed": {
+        "must_have": [
+          {
+            "skill": "Programming Language (e.g., Python, JavaScript/Node.js, Java, or Go)",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "Data Structures and Algorithms",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "Relational Databases and SQL (e.g., PostgreSQL, MySQL)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "RESTful API Design and Development",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Version Control (Git and GitHub/GitLab)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Basic Networking Concepts (HTTP/HTTPS, TCP/IP, DNS)",
+            "required_level": "beginner"
+          }
+        ],
+        "good_to_have": [
+          {
+            "skill": "NoSQL Databases (e.g., MongoDB, Redis)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Containerization (Docker)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Cloud Services (AWS, GCP, or Azure)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Unit Testing and Test-Driven Development (TDD)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "CI/CD Pipelines",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Caching Strategies and Message Queues (e.g., RabbitMQ, Kafka)",
+            "required_level": "beginner"
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    },
+    {
+      "id": "P3",
+      "name": "Gap Analyser",
+      "prompt_file": "prompts/v2/P3_gap_analyser.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Compare the student's skills with the role requirements and list the skill gaps, most important first.\n\nStudent skills (JSON): {\"skills\": [{\"name\": \"Java\", \"level\": \"intermediate\"}, {\"name\": \"Object-Oriented Programming (OOP)\", \"level\": \"intermediate\"}, {\"name\": \"MySQL\", \"level\": \"beginner\"}, {\"name\": \"Git\", \"level\": \"beginner\"}]}\nRole requirements (JSON): {\"must_have\": [{\"skill\": \"Programming Language (e.g., Python, JavaScript/Node.js, Java, or Go)\", \"required_level\": \"intermediate\"}, {\"skill\": \"Data Structures and Algorithms\", \"required_level\": \"intermediate\"}, {\"skill\": \"Relational Databases and SQL (e.g., PostgreSQL, MySQL)\", \"required_level\": \"beginner\"}, {\"skill\": \"RESTful API Design and Development\", \"required_level\": \"beginner\"}, {\"skill\": \"Version Control (Git and GitHub/GitLab)\", \"required_level\": \"beginner\"}, {\"skill\": \"Basic Networking Concepts (HTTP/HTTPS, TCP/IP, DNS)\", \"required_level\": \"beginner\"}], \"good_to_have\": [{\"skill\": \"NoSQL Databases (e.g., MongoDB, Redis)\", \"required_level\": \"beginner\"}, {\"skill\": \"Containerization (Docker)\", \"required_level\": \"beginner\"}, {\"skill\": \"Cloud Services (AWS, GCP, or Azure)\", \"required_level\": \"beginner\"}, {\"skill\": \"Unit Testing and Test-Driven Development (TDD)\", \"required_level\": \"beginner\"}, {\"skill\": \"CI/CD Pipelines\", \"required_level\": \"beginner\"}, {\"skill\": \"Caching Strategies and Message Queues (e.g., RabbitMQ, Kafka)\", \"required_level\": \"beginner\"}]}\n\nReturn JSON only in this format:\n{\"gaps\": [{\"skill\": \"...\", \"current_level\": \"none|beginner|intermediate\", \"required_level\": \"...\", \"priority\": \"high|medium|low\"}]}",
+      "raw": "{\n  \"gaps\": [\n    {\n      \"skill\": \"Data Structures and Algorithms\",\n      \"current_level\": \"none\",\n      \"required_level\": \"intermediate\",\n      \"priority\": \"high\"\n    },\n    {\n      \"skill\": \"RESTful API Design and Development\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"high\"\n    },\n    {\n      \"skill\": \"Basic Networking Concepts (HTTP/HTTPS, TCP/IP, DNS)\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"medium\"\n    },\n    {\n      \"skill\": \"Unit Testing and Test-Driven Development (TDD)\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"medium\"\n    },\n    {\n      \"skill\": \"Containerization (Docker)\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"low\"\n    },\n    {\n      \"skill\": \"Cloud Services (AWS, GCP, or Azure)\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"low\"\n    },\n    {\n      \"skill\": \"CI/CD Pipelines\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"low\"\n    },\n    {\n      \"skill\": \"NoSQL Databases (e.g., MongoDB, Redis)\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"low\"\n    },\n    {\n      \"skill\": \"Caching Strategies and Message Queues (e.g., RabbitMQ, Kafka)\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"low\"\n    }\n  ]\n}",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 1.45,
+      "parsed": {
+        "gaps": [
+          {
+            "skill": "Data Structures and Algorithms",
+            "current_level": "none",
+            "required_level": "intermediate",
+            "priority": "high"
+          },
+          {
+            "skill": "RESTful API Design and Development",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "high"
+          },
+          {
+            "skill": "Basic Networking Concepts (HTTP/HTTPS, TCP/IP, DNS)",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "medium"
+          },
+          {
+            "skill": "Unit Testing and Test-Driven Development (TDD)",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "medium"
+          },
+          {
+            "skill": "Containerization (Docker)",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "Cloud Services (AWS, GCP, or Azure)",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "CI/CD Pipelines",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "NoSQL Databases (e.g., MongoDB, Redis)",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "Caching Strategies and Message Queues (e.g., RabbitMQ, Kafka)",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          }
+        ]
+      },
+      "json_strict": true,
+      "json_ok": true
+    },
+    {
+      "id": "P4",
+      "name": "Plan Builder",
+      "prompt_file": "prompts/v2/P4_plan_builder.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Build a 6-week learning plan that closes these skill gaps. The student can study at most 12 hours per week. For every week give the focus skills, the learning resources with links, practice tasks and the hours.\n\nSkill gaps (JSON): [{\"skill\": \"Data Structures and Algorithms\", \"current_level\": \"none\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"RESTful API Design and Development\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"high\"}, {\"skill\": \"Basic Networking Concepts (HTTP/HTTPS, TCP/IP, DNS)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"Unit Testing and Test-Driven Development (TDD)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"Containerization (Docker)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Cloud Services (AWS, GCP, or Azure)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"CI/CD Pipelines\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"NoSQL Databases (e.g., MongoDB, Redis)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Caching Strategies and Message Queues (e.g., RabbitMQ, Kafka)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}]\n\nReturn JSON only in this format:\n{\"weeks\": [{\"week\": 1, \"focus_skills\": [\"...\"], \"resources\": [{\"title\": \"...\", \"url\": \"...\"}], \"practice_tasks\": [\"...\"], \"total_hours\": 0}]}",
+      "raw": "```json\n{\n  \"weeks\": [\n    {\n      \"week\": 1,\n      \"focus_skills\": [\n        \"Data Structures and Algorithms\",\n        \"Basic Networking Concepts (HTTP/HTTPS, TCP/IP, DNS)\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"GeeksforGeeks Data Structures\",\n          \"url\": \"https://www.geeksforgeeks.org/data-structures/\"\n        },\n        {\n          \"title\": \"MDN HTTP Overview\",\n          \"url\": \"https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview\"\n        },\n        {\n          \"title\": \"Computer Networking Introduction - Kurose & Ross Companion\",\n          \"url\": \"https://gaia.cs.umass.edu/kurose_ross/online-lectures.php\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Implement basic array and linked list operations from scratch in your preferred language.\",\n        \"Solve 3 easy-level array/string problems on LeetCode.\",\n        \"Use Wireshark or browser developer tools to inspect HTTP request and response headers for a live website.\"\n      ],\n      \"total_hours\": 12\n    },\n    {\n      \"week\": 2,\n      \"focus_skills\": [\n        \"Data Structures and Algorithms\",\n        \"RESTful API Design and Development\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"LeetCode Getting Started Guide\",\n          \"url\": \"https://leetcode.com/explore/interview/card/top-interview-questions-easy/92/array/546/\"\n        },\n        {\n          \"title\": \"REST API Tutorial\",\n          \"url\": \"https://restfulapi.net/\"\n        },\n        {\n          \"title\": \"Node.js & Express API Tutorial\",\n          \"url\": \"https://expressjs.com/en/starter/installing.html\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Study stacks, queues, and basic recursion; solve 3 related problems on LeetCode.\",\n        \"Design the resource endpoints (URL paths, HTTP methods, status codes) for a simple Blog API.\",\n        \"Build a basic CRUD REST API using Express.js (or Flask/FastAPI) with in-memory data storage.\"\n      ],\n      \"total_hours\": 12\n    },\n    {\n      \"week\": 3,\n      \"focus_skills\": [\n        \"Data Structures and Algorithms\",\n        \"Unit Testing and Test-Driven Development (TDD)\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"Visualgo (Data Structures and Algorithms Visualizations)\",\n          \"url\": \"https://visualgo.net/\"\n        },\n        {\n          \"title\": \"Jest Getting Started Documentation\",\n          \"url\": \"https://jestjs.io/docs/getting-started\"\n        },\n        {\n          \"title\": \"Introduction to TDD by Martin Fowler\",\n          \"url\": \"https://martinfowler.com/bliki/TestDrivenDevelopment.html\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Learn basic sorting algorithms (Bubble, Merge, Quick) and hash tables; solve 3 hash table problems.\",\n        \"Write unit tests for the CRUD REST API built in Week 2 using a testing framework like Jest or PyTest, following a basic TDD approach.\"\n      ],\n      \"total_hours\": 12\n    },\n    {\n      \"week\": 4,\n      \"focus_skills\": [\n        \"Data Structures and Algorithms\",\n        \"NoSQL Databases (e.g., MongoDB, Redis)\",\n        \"Caching Strategies and Message Queues (e.g., RabbitMQ, Kafka)\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"MongoDB University Free Courses\",\n          \"url\": \"https://university.mongodb.com/\"\n        },\n        {\n          \"title\": \"Redis University\",\n          \"url\": \"https://university.redis.com/\"\n        },\n        {\n          \"title\": \"LeetCode Binary Trees & Graphs Intro\",\n          \"url\": \"https://leetcode.com/explore/learn/card/data-structure-tree/\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Solve 3 basic binary tree or graph traversal problems on LeetCode.\",\n        \"Set up a local MongoDB instance and connect your REST API to perform persistent document storage.\",\n        \"Implement a simple Redis caching layer for one of your API endpoints to reduce database read frequency.\"\n      ],\n      \"total_hours\": 12\n    },\n    {\n      \"week\": 5,\n      \"focus_skills\": [\n        \"Containerization (Docker)\",\n        \"Cloud Services (AWS, GCP, or Azure)\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"Docker Get Started Tutorial\",\n          \"url\": \"https://docs.docker.com/get-started/\"\n        },\n        {\n          \"title\": \"AWS Skill Builder Free Digital Training\",\n          \"url\": \"https://skillbuilder.aws/\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Write a Dockerfile for your REST API project, building an image and running it successfully in a local container.\",\n        \"Explore an AWS cloud platform console, create a free-tier account, and review core services (IAM, EC2, S3).\"\n      ],\n      \"total_hours\": 12\n    },\n    {\n      \"week\": 6,\n      \"focus_skills\": [\n        \"CI/CD Pipelines\",\n        \"Containerization (Docker)\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"GitHub Actions Documentation\",\n          \"url\": \"https://docs.github.com/en/actions\"\n        },\n        {\n          \"title\": \"Docker Compose Overview\",\n          \"url\": \"https://docs.docker.com/compose/\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Use Docker Compose to run your REST API container alongside a MongoDB container together locally.\",\n        \"Create a GitHub Actions CI workflow that automatically triggers unit tests on every pull request or push to your repository.\"\n      ],\n      \"total_hours\": 12\n    }\n  ]\n}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 4.45,
+      "parsed": {
+        "weeks": [
+          {
+            "week": 1,
+            "focus_skills": [
+              "Data Structures and Algorithms",
+              "Basic Networking Concepts (HTTP/HTTPS, TCP/IP, DNS)"
+            ],
+            "resources": [
+              {
+                "title": "GeeksforGeeks Data Structures",
+                "url": "https://www.geeksforgeeks.org/data-structures/"
+              },
+              {
+                "title": "MDN HTTP Overview",
+                "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview"
+              },
+              {
+                "title": "Computer Networking Introduction - Kurose & Ross Companion",
+                "url": "https://gaia.cs.umass.edu/kurose_ross/online-lectures.php"
+              }
+            ],
+            "practice_tasks": [
+              "Implement basic array and linked list operations from scratch in your preferred language.",
+              "Solve 3 easy-level array/string problems on LeetCode.",
+              "Use Wireshark or browser developer tools to inspect HTTP request and response headers for a live website."
+            ],
+            "total_hours": 12
+          },
+          {
+            "week": 2,
+            "focus_skills": [
+              "Data Structures and Algorithms",
+              "RESTful API Design and Development"
+            ],
+            "resources": [
+              {
+                "title": "LeetCode Getting Started Guide",
+                "url": "https://leetcode.com/explore/interview/card/top-interview-questions-easy/92/array/546/"
+              },
+              {
+                "title": "REST API Tutorial",
+                "url": "https://restfulapi.net/"
+              },
+              {
+                "title": "Node.js & Express API Tutorial",
+                "url": "https://expressjs.com/en/starter/installing.html"
+              }
+            ],
+            "practice_tasks": [
+              "Study stacks, queues, and basic recursion; solve 3 related problems on LeetCode.",
+              "Design the resource endpoints (URL paths, HTTP methods, status codes) for a simple Blog API.",
+              "Build a basic CRUD REST API using Express.js (or Flask/FastAPI) with in-memory data storage."
+            ],
+            "total_hours": 12
+          },
+          {
+            "week": 3,
+            "focus_skills": [
+              "Data Structures and Algorithms",
+              "Unit Testing and Test-Driven Development (TDD)"
+            ],
+            "resources": [
+              {
+                "title": "Visualgo (Data Structures and Algorithms Visualizations)",
+                "url": "https://visualgo.net/"
+              },
+              {
+                "title": "Jest Getting Started Documentation",
+                "url": "https://jestjs.io/docs/getting-started"
+              },
+              {
+                "title": "Introduction to TDD by Martin Fowler",
+                "url": "https://martinfowler.com/bliki/TestDrivenDevelopment.html"
+              }
+            ],
+            "practice_tasks": [
+              "Learn basic sorting algorithms (Bubble, Merge, Quick) and hash tables; solve 3 hash table problems.",
+              "Write unit tests for the CRUD REST API built in Week 2 using a testing framework like Jest or PyTest, following a basic TDD approach."
+            ],
+            "total_hours": 12
+          },
+          {
+            "week": 4,
+            "focus_skills": [
+              "Data Structures and Algorithms",
+              "NoSQL Databases (e.g., MongoDB, Redis)",
+              "Caching Strategies and Message Queues (e.g., RabbitMQ, Kafka)"
+            ],
+            "resources": [
+              {
+                "title": "MongoDB University Free Courses",
+                "url": "https://university.mongodb.com/"
+              },
+              {
+                "title": "Redis University",
+                "url": "https://university.redis.com/"
+              },
+              {
+                "title": "LeetCode Binary Trees & Graphs Intro",
+                "url": "https://leetcode.com/explore/learn/card/data-structure-tree/"
+              }
+            ],
+            "practice_tasks": [
+              "Solve 3 basic binary tree or graph traversal problems on LeetCode.",
+              "Set up a local MongoDB instance and connect your REST API to perform persistent document storage.",
+              "Implement a simple Redis caching layer for one of your API endpoints to reduce database read frequency."
+            ],
+            "total_hours": 12
+          },
+          {
+            "week": 5,
+            "focus_skills": [
+              "Containerization (Docker)",
+              "Cloud Services (AWS, GCP, or Azure)"
+            ],
+            "resources": [
+              {
+                "title": "Docker Get Started Tutorial",
+                "url": "https://docs.docker.com/get-started/"
+              },
+              {
+                "title": "AWS Skill Builder Free Digital Training",
+                "url": "https://skillbuilder.aws/"
+              }
+            ],
+            "practice_tasks": [
+              "Write a Dockerfile for your REST API project, building an image and running it successfully in a local container.",
+              "Explore an AWS cloud platform console, create a free-tier account, and review core services (IAM, EC2, S3)."
+            ],
+            "total_hours": 12
+          },
+          {
+            "week": 6,
+            "focus_skills": [
+              "CI/CD Pipelines",
+              "Containerization (Docker)"
+            ],
+            "resources": [
+              {
+                "title": "GitHub Actions Documentation",
+                "url": "https://docs.github.com/en/actions"
+              },
+              {
+                "title": "Docker Compose Overview",
+                "url": "https://docs.docker.com/compose/"
+              }
+            ],
+            "practice_tasks": [
+              "Use Docker Compose to run your REST API container alongside a MongoDB container together locally.",
+              "Create a GitHub Actions CI workflow that automatically triggers unit tests on every pull request or push to your repository."
+            ],
+            "total_hours": 12
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    }
+  ],
+  "status": "ok",
+  "final": {
+    "profile": {
+      "skills": [
+        {
+          "name": "Java",
+          "level": "intermediate"
+        },
+        {
+          "name": "Object-Oriented Programming (OOP)",
+          "level": "intermediate"
+        },
+        {
+          "name": "MySQL",
+          "level": "beginner"
+        },
+        {
+          "name": "Git",
+          "level": "beginner"
+        }
+      ]
+    },
+    "requirements": {
+      "must_have": [
+        {
+          "skill": "Programming Language (e.g., Python, JavaScript/Node.js, Java, or Go)",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "Data Structures and Algorithms",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "Relational Databases and SQL (e.g., PostgreSQL, MySQL)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "RESTful API Design and Development",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Version Control (Git and GitHub/GitLab)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Basic Networking Concepts (HTTP/HTTPS, TCP/IP, DNS)",
+          "required_level": "beginner"
+        }
+      ],
+      "good_to_have": [
+        {
+          "skill": "NoSQL Databases (e.g., MongoDB, Redis)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Containerization (Docker)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Cloud Services (AWS, GCP, or Azure)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Unit Testing and Test-Driven Development (TDD)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "CI/CD Pipelines",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Caching Strategies and Message Queues (e.g., RabbitMQ, Kafka)",
+          "required_level": "beginner"
+        }
+      ]
+    },
+    "gaps": {
+      "gaps": [
+        {
+          "skill": "Data Structures and Algorithms",
+          "current_level": "none",
+          "required_level": "intermediate",
+          "priority": "high"
+        },
+        {
+          "skill": "RESTful API Design and Development",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "high"
+        },
+        {
+          "skill": "Basic Networking Concepts (HTTP/HTTPS, TCP/IP, DNS)",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "medium"
+        },
+        {
+          "skill": "Unit Testing and Test-Driven Development (TDD)",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "medium"
+        },
+        {
+          "skill": "Containerization (Docker)",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "Cloud Services (AWS, GCP, or Azure)",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "CI/CD Pipelines",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "NoSQL Databases (e.g., MongoDB, Redis)",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "Caching Strategies and Message Queues (e.g., RabbitMQ, Kafka)",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        }
+      ]
+    },
+    "plan": {
+      "weeks": [
+        {
+          "week": 1,
+          "focus_skills": [
+            "Data Structures and Algorithms",
+            "Basic Networking Concepts (HTTP/HTTPS, TCP/IP, DNS)"
+          ],
+          "resources": [
+            {
+              "title": "GeeksforGeeks Data Structures",
+              "url": "https://www.geeksforgeeks.org/data-structures/"
+            },
+            {
+              "title": "MDN HTTP Overview",
+              "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview"
+            },
+            {
+              "title": "Computer Networking Introduction - Kurose & Ross Companion",
+              "url": "https://gaia.cs.umass.edu/kurose_ross/online-lectures.php"
+            }
+          ],
+          "practice_tasks": [
+            "Implement basic array and linked list operations from scratch in your preferred language.",
+            "Solve 3 easy-level array/string problems on LeetCode.",
+            "Use Wireshark or browser developer tools to inspect HTTP request and response headers for a live website."
+          ],
+          "total_hours": 12
+        },
+        {
+          "week": 2,
+          "focus_skills": [
+            "Data Structures and Algorithms",
+            "RESTful API Design and Development"
+          ],
+          "resources": [
+            {
+              "title": "LeetCode Getting Started Guide",
+              "url": "https://leetcode.com/explore/interview/card/top-interview-questions-easy/92/array/546/"
+            },
+            {
+              "title": "REST API Tutorial",
+              "url": "https://restfulapi.net/"
+            },
+            {
+              "title": "Node.js & Express API Tutorial",
+              "url": "https://expressjs.com/en/starter/installing.html"
+            }
+          ],
+          "practice_tasks": [
+            "Study stacks, queues, and basic recursion; solve 3 related problems on LeetCode.",
+            "Design the resource endpoints (URL paths, HTTP methods, status codes) for a simple Blog API.",
+            "Build a basic CRUD REST API using Express.js (or Flask/FastAPI) with in-memory data storage."
+          ],
+          "total_hours": 12
+        },
+        {
+          "week": 3,
+          "focus_skills": [
+            "Data Structures and Algorithms",
+            "Unit Testing and Test-Driven Development (TDD)"
+          ],
+          "resources": [
+            {
+              "title": "Visualgo (Data Structures and Algorithms Visualizations)",
+              "url": "https://visualgo.net/"
+            },
+            {
+              "title": "Jest Getting Started Documentation",
+              "url": "https://jestjs.io/docs/getting-started"
+            },
+            {
+              "title": "Introduction to TDD by Martin Fowler",
+              "url": "https://martinfowler.com/bliki/TestDrivenDevelopment.html"
+            }
+          ],
+          "practice_tasks": [
+            "Learn basic sorting algorithms (Bubble, Merge, Quick) and hash tables; solve 3 hash table problems.",
+            "Write unit tests for the CRUD REST API built in Week 2 using a testing framework like Jest or PyTest, following a basic TDD approach."
+          ],
+          "total_hours": 12
+        },
+        {
+          "week": 4,
+          "focus_skills": [
+            "Data Structures and Algorithms",
+            "NoSQL Databases (e.g., MongoDB, Redis)",
+            "Caching Strategies and Message Queues (e.g., RabbitMQ, Kafka)"
+          ],
+          "resources": [
+            {
+              "title": "MongoDB University Free Courses",
+              "url": "https://university.mongodb.com/"
+            },
+            {
+              "title": "Redis University",
+              "url": "https://university.redis.com/"
+            },
+            {
+              "title": "LeetCode Binary Trees & Graphs Intro",
+              "url": "https://leetcode.com/explore/learn/card/data-structure-tree/"
+            }
+          ],
+          "practice_tasks": [
+            "Solve 3 basic binary tree or graph traversal problems on LeetCode.",
+            "Set up a local MongoDB instance and connect your REST API to perform persistent document storage.",
+            "Implement a simple Redis caching layer for one of your API endpoints to reduce database read frequency."
+          ],
+          "total_hours": 12
+        },
+        {
+          "week": 5,
+          "focus_skills": [
+            "Containerization (Docker)",
+            "Cloud Services (AWS, GCP, or Azure)"
+          ],
+          "resources": [
+            {
+              "title": "Docker Get Started Tutorial",
+              "url": "https://docs.docker.com/get-started/"
+            },
+            {
+              "title": "AWS Skill Builder Free Digital Training",
+              "url": "https://skillbuilder.aws/"
+            }
+          ],
+          "practice_tasks": [
+            "Write a Dockerfile for your REST API project, building an image and running it successfully in a local container.",
+            "Explore an AWS cloud platform console, create a free-tier account, and review core services (IAM, EC2, S3)."
+          ],
+          "total_hours": 12
+        },
+        {
+          "week": 6,
+          "focus_skills": [
+            "CI/CD Pipelines",
+            "Containerization (Docker)"
+          ],
+          "resources": [
+            {
+              "title": "GitHub Actions Documentation",
+              "url": "https://docs.github.com/en/actions"
+            },
+            {
+              "title": "Docker Compose Overview",
+              "url": "https://docs.docker.com/compose/"
+            }
+          ],
+          "practice_tasks": [
+            "Use Docker Compose to run your REST API container alongside a MongoDB container together locally.",
+            "Create a GitHub Actions CI workflow that automatically triggers unit tests on every pull request or push to your repository."
+          ],
+          "total_hours": 12
+        }
+      ]
+    }
+  },
+  "model": "gemini-3.5-flash-lite",
+  "run_at": "2026-11-22T02:23:42",
+  "wall_time_s": 25.0
+}

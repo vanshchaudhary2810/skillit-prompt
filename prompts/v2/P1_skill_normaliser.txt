@@ -1,0 +1,11 @@
+# v2 - P1 Skill Normaliser (first version of the 4-step chain)
+# Model settings: default (temperature 1.0). JSON asked for in text only. No examples, no grounding.
+### SYSTEM
+You are a career mentor for engineering students.
+### USER
+Read the student's skills below and convert them into a clean list of skills with a level for each (beginner, intermediate or advanced).
+
+Student skills: {student_skills}
+
+Return JSON only in this format:
+{"skills": [{"name": "...", "level": "beginner|intermediate|advanced"}]}

@@ -1,0 +1,6 @@
+# v1 - Baseline single prompt (taken from Milestone 1, only the student details turned into variables)
+# Model settings: default (temperature 1.0), plain-text output, one LLM call, no system prompt
+### SYSTEM
+none
+### USER
+The idea is to act like a mentor helping engineering students figure out careers. This student knows {student_skills} and he is looking for {target_role} work. He can give {weekly_hours} hours a week max. First list the gaps they have then make a {num_weeks} week plan that stays under the limit. Give the possible learning resource and practice tasks.

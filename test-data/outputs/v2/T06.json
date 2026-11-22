@@ -1,0 +1,505 @@
+{
+  "version": "v2",
+  "inputs": {
+    "student_skills": "linux basics, python, computer networks (beginner)",
+    "target_role": "Cybersecurity Analyst",
+    "weekly_hours": 5,
+    "num_weeks": 4
+  },
+  "steps": [
+    {
+      "id": "P1",
+      "name": "Skill Normaliser",
+      "prompt_file": "prompts/v2/P1_skill_normaliser.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Read the student's skills below and convert them into a clean list of skills with a level for each (beginner, intermediate or advanced).\n\nStudent skills: linux basics, python, computer networks (beginner)\n\nReturn JSON only in this format:\n{\"skills\": [{\"name\": \"...\", \"level\": \"beginner|intermediate|advanced\"}]}",
+      "raw": "```json\n{\n  \"skills\": [\n    {\n      \"name\": \"Linux Basics\",\n      \"level\": \"beginner\"\n    },\n    {\n      \"name\": \"Python\",\n      \"level\": \"beginner\"\n    },\n    {\n      \"name\": \"Computer Networks\",\n      \"level\": \"beginner\"\n    }\n  ]\n}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 1.11,
+      "parsed": {
+        "skills": [
+          {
+            "name": "Linux Basics",
+            "level": "beginner"
+          },
+          {
+            "name": "Python",
+            "level": "beginner"
+          },
+          {
+            "name": "Computer Networks",
+            "level": "beginner"
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    },
+    {
+      "id": "P2",
+      "name": "Role Requirements",
+      "prompt_file": "prompts/v2/P2_role_requirements.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "List the skills a fresher needs for an entry-level Cybersecurity Analyst job. Split them into must-have and good-to-have skills and give the level needed for each.\n\nReturn JSON only in this format:\n{\"must_have\": [{\"skill\": \"...\", \"required_level\": \"beginner|intermediate|advanced\"}], \"good_to_have\": [{\"skill\": \"...\", \"required_level\": \"...\"}]}",
+      "raw": "```json\n{\n  \"must_have\": [\n    {\n      \"skill\": \"Networking Fundamentals (TCP/IP, DNS, HTTP/HTTPS, OSI Model)\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"Operating Systems (Windows and Linux administration and security)\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"Security Concepts (CIA Triad, vulnerability management, threat landscape)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Security Information and Event Management (SIEM) basics\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Incident Response lifecycle and triage basics\",\n      \"required_level\": \"beginner\"\n    }\n  ],\n  \"good_to_have\": [\n    {\n      \"skill\": \"Scripting/Programming (Python, Bash, or PowerShell)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Cloud Security fundamentals (AWS, Azure, or GCP)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Packet Analysis (Wireshark, tcpdump)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Identity and Access Management (IAM) concepts\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Basic Digital Forensics and Malware Analysis\",\n      \"required_level\": \"beginner\"\n    }\n  ]\n}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 1.56,
+      "parsed": {
+        "must_have": [
+          {
+            "skill": "Networking Fundamentals (TCP/IP, DNS, HTTP/HTTPS, OSI Model)",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "Operating Systems (Windows and Linux administration and security)",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "Security Concepts (CIA Triad, vulnerability management, threat landscape)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Security Information and Event Management (SIEM) basics",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Incident Response lifecycle and triage basics",
+            "required_level": "beginner"
+          }
+        ],
+        "good_to_have": [
+          {
+            "skill": "Scripting/Programming (Python, Bash, or PowerShell)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Cloud Security fundamentals (AWS, Azure, or GCP)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Packet Analysis (Wireshark, tcpdump)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Identity and Access Management (IAM) concepts",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Basic Digital Forensics and Malware Analysis",
+            "required_level": "beginner"
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    },
+    {
+      "id": "P3",
+      "name": "Gap Analyser",
+      "prompt_file": "prompts/v2/P3_gap_analyser.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Compare the student's skills with the role requirements and list the skill gaps, most important first.\n\nStudent skills (JSON): {\"skills\": [{\"name\": \"Linux Basics\", \"level\": \"beginner\"}, {\"name\": \"Python\", \"level\": \"beginner\"}, {\"name\": \"Computer Networks\", \"level\": \"beginner\"}]}\nRole requirements (JSON): {\"must_have\": [{\"skill\": \"Networking Fundamentals (TCP/IP, DNS, HTTP/HTTPS, OSI Model)\", \"required_level\": \"intermediate\"}, {\"skill\": \"Operating Systems (Windows and Linux administration and security)\", \"required_level\": \"intermediate\"}, {\"skill\": \"Security Concepts (CIA Triad, vulnerability management, threat landscape)\", \"required_level\": \"beginner\"}, {\"skill\": \"Security Information and Event Management (SIEM) basics\", \"required_level\": \"beginner\"}, {\"skill\": \"Incident Response lifecycle and triage basics\", \"required_level\": \"beginner\"}], \"good_to_have\": [{\"skill\": \"Scripting/Programming (Python, Bash, or PowerShell)\", \"required_level\": \"beginner\"}, {\"skill\": \"Cloud Security fundamentals (AWS, Azure, or GCP)\", \"required_level\": \"beginner\"}, {\"skill\": \"Packet Analysis (Wireshark, tcpdump)\", \"required_level\": \"beginner\"}, {\"skill\": \"Identity and Access Management (IAM) concepts\", \"required_level\": \"beginner\"}, {\"skill\": \"Basic Digital Forensics and Malware Analysis\", \"required_level\": \"beginner\"}]}\n\nReturn JSON only in this format:\n{\"gaps\": [{\"skill\": \"...\", \"current_level\": \"none|beginner|intermediate\", \"required_level\": \"...\", \"priority\": \"high|medium|low\"}]}",
+      "raw": "```json\n{\"gaps\": [{\"skill\": \"Networking Fundamentals (TCP/IP, DNS, HTTP/HTTPS, OSI Model)\", \"current_level\": \"beginner\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"Operating Systems (Windows and Linux administration and security)\", \"current_level\": \"beginner\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"Security Concepts (CIA Triad, vulnerability management, threat landscape)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"Security Information and Event Management (SIEM) basics\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"Incident Response lifecycle and triage basics\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"Cloud Security fundamentals (AWS, Azure, or GCP)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Packet Analysis (Wireshark, tcpdump)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Identity and Access Management (IAM) concepts\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Basic Digital Forensics and Malware Analysis\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Scripting/Programming (Python, Bash, or PowerShell)\", \"current_level\": \"beginner\", \"required_level\": \"beginner\", \"priority\": \"low\"}]}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 1.49,
+      "parsed": {
+        "gaps": [
+          {
+            "skill": "Networking Fundamentals (TCP/IP, DNS, HTTP/HTTPS, OSI Model)",
+            "current_level": "beginner",
+            "required_level": "intermediate",
+            "priority": "high"
+          },
+          {
+            "skill": "Operating Systems (Windows and Linux administration and security)",
+            "current_level": "beginner",
+            "required_level": "intermediate",
+            "priority": "high"
+          },
+          {
+            "skill": "Security Concepts (CIA Triad, vulnerability management, threat landscape)",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "medium"
+          },
+          {
+            "skill": "Security Information and Event Management (SIEM) basics",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "medium"
+          },
+          {
+            "skill": "Incident Response lifecycle and triage basics",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "medium"
+          },
+          {
+            "skill": "Cloud Security fundamentals (AWS, Azure, or GCP)",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "Packet Analysis (Wireshark, tcpdump)",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "Identity and Access Management (IAM) concepts",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "Basic Digital Forensics and Malware Analysis",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "Scripting/Programming (Python, Bash, or PowerShell)",
+            "current_level": "beginner",
+            "required_level": "beginner",
+            "priority": "low"
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    },
+    {
+      "id": "P4",
+      "name": "Plan Builder",
+      "prompt_file": "prompts/v2/P4_plan_builder.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Build a 4-week learning plan that closes these skill gaps. The student can study at most 5 hours per week. For every week give the focus skills, the learning resources with links, practice tasks and the hours.\n\nSkill gaps (JSON): [{\"skill\": \"Networking Fundamentals (TCP/IP, DNS, HTTP/HTTPS, OSI Model)\", \"current_level\": \"beginner\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"Operating Systems (Windows and Linux administration and security)\", \"current_level\": \"beginner\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"Security Concepts (CIA Triad, vulnerability management, threat landscape)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"Security Information and Event Management (SIEM) basics\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"Incident Response lifecycle and triage basics\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"Cloud Security fundamentals (AWS, Azure, or GCP)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Packet Analysis (Wireshark, tcpdump)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Identity and Access Management (IAM) concepts\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Basic Digital Forensics and Malware Analysis\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Scripting/Programming (Python, Bash, or PowerShell)\", \"current_level\": \"beginner\", \"required_level\": \"beginner\", \"priority\": \"low\"}]\n\nReturn JSON only in this format:\n{\"weeks\": [{\"week\": 1, \"focus_skills\": [\"...\"], \"resources\": [{\"title\": \"...\", \"url\": \"...\"}], \"practice_tasks\": [\"...\"], \"total_hours\": 0}]}",
+      "raw": "```json\n{\"weeks\": [{\"week\": 1, \"focus_skills\": [\"Networking Fundamentals (TCP/IP, DNS, HTTP/HTTPS, OSI Model)\", \"Packet Analysis (Wireshark, tcpdump)\"], \"resources\": [{\"title\": \"Professor Messer's CompTIA Network+ Course\", \"url\": \"https://www.professormesser.com/network-plus/n10-008/n10-008-course-training/\"}, {\"title\": \"Wireshark Official Doctorials & User Guide\", \"url\": \"https://www.wireshark.org/docs/\"}], \"practice_tasks\": [\"Capture network traffic using Wireshark while browsing a website and filter for HTTP/DNS packets.\", \"Trace the OSI model layers for a web request using command-line tools like traceroute and nslookup.\"], \"total_hours\": 5}, {\"week\": 2, \"focus_skills\": [\"Operating Systems (Windows and Linux administration and security)\", \"Identity and Access Management (IAM) concepts\"], \"resources\": [{\"title\": \"Linux Journey\", \"url\": \"https://linuxjourney.com/\"}, {\"title\": \"Microsoft Learn: Introduction to Windows Server administration\", \"url\": \"https://learn.microsoft.com/en-us/training/paths/windows-server-administration/\"}], \"practice_tasks\": [\"Configure user accounts, groups, and file permissions on a local Linux virtual machine.\", \"Review Windows Local Security Policy and practice setting up password complexity rules.\"], \"total_hours\": 5}, {\"week\": 3, \"focus_skills\": [\"Security Concepts (CIA Triad, vulnerability management, threat landscape)\", \"Security Information and Event Management (SIEM) basics\", \"Incident Response lifecycle and triage basics\"], \"resources\": [{\"title\": \"Cybersecurity Fundamentals by IBM on Coursera\", \"url\": \"https://www.coursera.org/learn/cybersecurity-fundamentals\"}, {\"title\": \"Splunk Boss of the SOC (BOTS) Dataset and Intro\", \"url\": \"https://www.splunk.com/en_us/blog/security/bot-v1-dataset-available.html\"}], \"practice_tasks\": [\"Map 5 real-world security breaches to the CIA triad and identify the failed control.\", \"Explore a beginner SIEM query tutorial to search for failed login attempts in sample log data.\"], \"total_hours\": 5}, {\"week\": 4, \"focus_skills\": [\"Cloud Security fundamentals (AWS, Azure, or GCP)\", \"Basic Digital Forensics and Malware Analysis\", \"Scripting/Programming (Python, Bash, or PowerShell)\"], \"resources\": [{\"title\": \"AWS Cloud Security Foundations\", \"url\": \"https://aws.amazon.com/training/security/\"}, {\"title\": \"Automate the Boring Stuff with Python\", \"url\": \"https://automatetheboringstuff.com/\"}], \"practice_tasks\": [\"Write a simple Python script to parse a log file and count the number of error entries.\", \"Review AWS IAM policy JSON syntax to understand basic cloud access permissions.\"], \"total_hours\": 5}]}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 2.24,
+      "parsed": {
+        "weeks": [
+          {
+            "week": 1,
+            "focus_skills": [
+              "Networking Fundamentals (TCP/IP, DNS, HTTP/HTTPS, OSI Model)",
+              "Packet Analysis (Wireshark, tcpdump)"
+            ],
+            "resources": [
+              {
+                "title": "Professor Messer's CompTIA Network+ Course",
+                "url": "https://www.professormesser.com/network-plus/n10-008/n10-008-course-training/"
+              },
+              {
+                "title": "Wireshark Official Doctorials & User Guide",
+                "url": "https://www.wireshark.org/docs/"
+              }
+            ],
+            "practice_tasks": [
+              "Capture network traffic using Wireshark while browsing a website and filter for HTTP/DNS packets.",
+              "Trace the OSI model layers for a web request using command-line tools like traceroute and nslookup."
+            ],
+            "total_hours": 5
+          },
+          {
+            "week": 2,
+            "focus_skills": [
+              "Operating Systems (Windows and Linux administration and security)",
+              "Identity and Access Management (IAM) concepts"
+            ],
+            "resources": [
+              {
+                "title": "Linux Journey",
+                "url": "https://linuxjourney.com/"
+              },
+              {
+                "title": "Microsoft Learn: Introduction to Windows Server administration",
+                "url": "https://learn.microsoft.com/en-us/training/paths/windows-server-administration/"
+              }
+            ],
+            "practice_tasks": [
+              "Configure user accounts, groups, and file permissions on a local Linux virtual machine.",
+              "Review Windows Local Security Policy and practice setting up password complexity rules."
+            ],
+            "total_hours": 5
+          },
+          {
+            "week": 3,
+            "focus_skills": [
+              "Security Concepts (CIA Triad, vulnerability management, threat landscape)",
+              "Security Information and Event Management (SIEM) basics",
+              "Incident Response lifecycle and triage basics"
+            ],
+            "resources": [
+              {
+                "title": "Cybersecurity Fundamentals by IBM on Coursera",
+                "url": "https://www.coursera.org/learn/cybersecurity-fundamentals"
+              },
+              {
+                "title": "Splunk Boss of the SOC (BOTS) Dataset and Intro",
+                "url": "https://www.splunk.com/en_us/blog/security/bot-v1-dataset-available.html"
+              }
+            ],
+            "practice_tasks": [
+              "Map 5 real-world security breaches to the CIA triad and identify the failed control.",
+              "Explore a beginner SIEM query tutorial to search for failed login attempts in sample log data."
+            ],
+            "total_hours": 5
+          },
+          {
+            "week": 4,
+            "focus_skills": [
+              "Cloud Security fundamentals (AWS, Azure, or GCP)",
+              "Basic Digital Forensics and Malware Analysis",
+              "Scripting/Programming (Python, Bash, or PowerShell)"
+            ],
+            "resources": [
+              {
+                "title": "AWS Cloud Security Foundations",
+                "url": "https://aws.amazon.com/training/security/"
+              },
+              {
+                "title": "Automate the Boring Stuff with Python",
+                "url": "https://automatetheboringstuff.com/"
+              }
+            ],
+            "practice_tasks": [
+              "Write a simple Python script to parse a log file and count the number of error entries.",
+              "Review AWS IAM policy JSON syntax to understand basic cloud access permissions."
+            ],
+            "total_hours": 5
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    }
+  ],
+  "status": "ok",
+  "final": {
+    "profile": {
+      "skills": [
+        {
+          "name": "Linux Basics",
+          "level": "beginner"
+        },
+        {
+          "name": "Python",
+          "level": "beginner"
+        },
+        {
+          "name": "Computer Networks",
+          "level": "beginner"
+        }
+      ]
+    },
+    "requirements": {
+      "must_have": [
+        {
+          "skill": "Networking Fundamentals (TCP/IP, DNS, HTTP/HTTPS, OSI Model)",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "Operating Systems (Windows and Linux administration and security)",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "Security Concepts (CIA Triad, vulnerability management, threat landscape)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Security Information and Event Management (SIEM) basics",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Incident Response lifecycle and triage basics",
+          "required_level": "beginner"
+        }
+      ],
+      "good_to_have": [
+        {
+          "skill": "Scripting/Programming (Python, Bash, or PowerShell)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Cloud Security fundamentals (AWS, Azure, or GCP)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Packet Analysis (Wireshark, tcpdump)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Identity and Access Management (IAM) concepts",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Basic Digital Forensics and Malware Analysis",
+          "required_level": "beginner"
+        }
+      ]
+    },
+    "gaps": {
+      "gaps": [
+        {
+          "skill": "Networking Fundamentals (TCP/IP, DNS, HTTP/HTTPS, OSI Model)",
+          "current_level": "beginner",
+          "required_level": "intermediate",
+          "priority": "high"
+        },
+        {
+          "skill": "Operating Systems (Windows and Linux administration and security)",
+          "current_level": "beginner",
+          "required_level": "intermediate",
+          "priority": "high"
+        },
+        {
+          "skill": "Security Concepts (CIA Triad, vulnerability management, threat landscape)",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "medium"
+        },
+        {
+          "skill": "Security Information and Event Management (SIEM) basics",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "medium"
+        },
+        {
+          "skill": "Incident Response lifecycle and triage basics",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "medium"
+        },
+        {
+          "skill": "Cloud Security fundamentals (AWS, Azure, or GCP)",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "Packet Analysis (Wireshark, tcpdump)",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "Identity and Access Management (IAM) concepts",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "Basic Digital Forensics and Malware Analysis",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "Scripting/Programming (Python, Bash, or PowerShell)",
+          "current_level": "beginner",
+          "required_level": "beginner",
+          "priority": "low"
+        }
+      ]
+    },
+    "plan": {
+      "weeks": [
+        {
+          "week": 1,
+          "focus_skills": [
+            "Networking Fundamentals (TCP/IP, DNS, HTTP/HTTPS, OSI Model)",
+            "Packet Analysis (Wireshark, tcpdump)"
+          ],
+          "resources": [
+            {
+              "title": "Professor Messer's CompTIA Network+ Course",
+              "url": "https://www.professormesser.com/network-plus/n10-008/n10-008-course-training/"
+            },
+            {
+              "title": "Wireshark Official Doctorials & User Guide",
+              "url": "https://www.wireshark.org/docs/"
+            }
+          ],
+          "practice_tasks": [
+            "Capture network traffic using Wireshark while browsing a website and filter for HTTP/DNS packets.",
+            "Trace the OSI model layers for a web request using command-line tools like traceroute and nslookup."
+          ],
+          "total_hours": 5
+        },
+        {
+          "week": 2,
+          "focus_skills": [
+            "Operating Systems (Windows and Linux administration and security)",
+            "Identity and Access Management (IAM) concepts"
+          ],
+          "resources": [
+            {
+              "title": "Linux Journey",
+              "url": "https://linuxjourney.com/"
+            },
+            {
+              "title": "Microsoft Learn: Introduction to Windows Server administration",
+              "url": "https://learn.microsoft.com/en-us/training/paths/windows-server-administration/"
+            }
+          ],
+          "practice_tasks": [
+            "Configure user accounts, groups, and file permissions on a local Linux virtual machine.",
+            "Review Windows Local Security Policy and practice setting up password complexity rules."
+          ],
+          "total_hours": 5
+        },
+        {
+          "week": 3,
+          "focus_skills": [
+            "Security Concepts (CIA Triad, vulnerability management, threat landscape)",
+            "Security Information and Event Management (SIEM) basics",
+            "Incident Response lifecycle and triage basics"
+          ],
+          "resources": [
+            {
+              "title": "Cybersecurity Fundamentals by IBM on Coursera",
+              "url": "https://www.coursera.org/learn/cybersecurity-fundamentals"
+            },
+            {
+              "title": "Splunk Boss of the SOC (BOTS) Dataset and Intro",
+              "url": "https://www.splunk.com/en_us/blog/security/bot-v1-dataset-available.html"
+            }
+          ],
+          "practice_tasks": [
+            "Map 5 real-world security breaches to the CIA triad and identify the failed control.",
+            "Explore a beginner SIEM query tutorial to search for failed login attempts in sample log data."
+          ],
+          "total_hours": 5
+        },
+        {
+          "week": 4,
+          "focus_skills": [
+            "Cloud Security fundamentals (AWS, Azure, or GCP)",
+            "Basic Digital Forensics and Malware Analysis",
+            "Scripting/Programming (Python, Bash, or PowerShell)"
+          ],
+          "resources": [
+            {
+              "title": "AWS Cloud Security Foundations",
+              "url": "https://aws.amazon.com/training/security/"
+            },
+            {
+              "title": "Automate the Boring Stuff with Python",
+              "url": "https://automatetheboringstuff.com/"
+            }
+          ],
+          "practice_tasks": [
+            "Write a simple Python script to parse a log file and count the number of error entries.",
+            "Review AWS IAM policy JSON syntax to understand basic cloud access permissions."
+          ],
+          "total_hours": 5
+        }
+      ]
+    }
+  },
+  "model": "gemini-3.5-flash-lite",
+  "run_at": "2026-11-22T02:24:04",
+  "wall_time_s": 21.8
+}

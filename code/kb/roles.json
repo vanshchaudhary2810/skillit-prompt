@@ -1,0 +1,219 @@
+{
+  "_about": "Entry-level / internship role profiles for B.Tech students. Compiled from the role roadmaps on roadmap.sh and the skills that entry-level job/internship postings commonly list. Levels are the level expected of a fresher. Version 0.1: in Milestone 3 each role will be cross-checked against at least 5 real public postings (Naukri / LinkedIn / Internshala).",
+  "roles": [
+    {
+      "id": "data_analyst", "name": "Data Analyst",
+      "aliases": ["business analyst", "data analytics", "bi analyst", "analyst"],
+      "must_have": [
+        {"skill": "SQL", "level": "intermediate", "weight": 5},
+        {"skill": "Excel", "level": "intermediate", "weight": 4},
+        {"skill": "Statistics", "level": "beginner", "weight": 4},
+        {"skill": "Power BI", "level": "beginner", "weight": 4, "alternatives": ["Tableau"]},
+        {"skill": "Python", "level": "beginner", "weight": 3}
+      ],
+      "good_to_have": [
+        {"skill": "Pandas", "level": "beginner", "weight": 3},
+        {"skill": "Data Cleaning", "level": "beginner", "weight": 3},
+        {"skill": "Communication", "level": "intermediate", "weight": 2}
+      ]
+    },
+    {
+      "id": "data_scientist", "name": "Data Scientist",
+      "aliases": ["data science", "ds"],
+      "must_have": [
+        {"skill": "Python", "level": "intermediate", "weight": 5},
+        {"skill": "Statistics", "level": "intermediate", "weight": 5},
+        {"skill": "Pandas", "level": "intermediate", "weight": 4},
+        {"skill": "Machine Learning", "level": "intermediate", "weight": 5},
+        {"skill": "SQL", "level": "intermediate", "weight": 4}
+      ],
+      "good_to_have": [
+        {"skill": "scikit-learn", "level": "intermediate", "weight": 3},
+        {"skill": "Data Visualization", "level": "intermediate", "weight": 3},
+        {"skill": "Deep Learning", "level": "beginner", "weight": 2},
+        {"skill": "Communication", "level": "intermediate", "weight": 2}
+      ]
+    },
+    {
+      "id": "ml_engineer", "name": "Machine Learning Engineer",
+      "aliases": ["ml engineer", "ai engineer", "ai/ml engineer", "ai ml", "machine learning"],
+      "must_have": [
+        {"skill": "Python", "level": "intermediate", "weight": 5},
+        {"skill": "Machine Learning", "level": "intermediate", "weight": 5},
+        {"skill": "Deep Learning", "level": "beginner", "weight": 4},
+        {"skill": "NumPy", "level": "intermediate", "weight": 3},
+        {"skill": "Git", "level": "beginner", "weight": 3}
+      ],
+      "good_to_have": [
+        {"skill": "MLOps", "level": "beginner", "weight": 3},
+        {"skill": "Docker", "level": "beginner", "weight": 3},
+        {"skill": "SQL", "level": "beginner", "weight": 2},
+        {"skill": "DSA", "level": "beginner", "weight": 2}
+      ]
+    },
+    {
+      "id": "genai_engineer", "name": "GenAI / LLM Application Developer",
+      "aliases": ["genai developer", "llm engineer", "prompt engineer", "ai developer", "generative ai engineer"],
+      "must_have": [
+        {"skill": "Python", "level": "intermediate", "weight": 5},
+        {"skill": "LLM Applications", "level": "intermediate", "weight": 5},
+        {"skill": "REST APIs", "level": "beginner", "weight": 4},
+        {"skill": "NLP", "level": "beginner", "weight": 3},
+        {"skill": "Git", "level": "beginner", "weight": 3}
+      ],
+      "good_to_have": [
+        {"skill": "Machine Learning", "level": "beginner", "weight": 3},
+        {"skill": "Docker", "level": "beginner", "weight": 2},
+        {"skill": "SQL", "level": "beginner", "weight": 2}
+      ]
+    },
+    {
+      "id": "data_engineer", "name": "Data Engineer",
+      "aliases": ["big data engineer", "etl developer"],
+      "must_have": [
+        {"skill": "SQL", "level": "advanced", "weight": 5},
+        {"skill": "Python", "level": "intermediate", "weight": 5},
+        {"skill": "Data Pipelines", "level": "beginner", "weight": 4},
+        {"skill": "Apache Spark", "level": "beginner", "weight": 4},
+        {"skill": "Linux", "level": "beginner", "weight": 3}
+      ],
+      "good_to_have": [
+        {"skill": "AWS", "level": "beginner", "weight": 3},
+        {"skill": "Docker", "level": "beginner", "weight": 2},
+        {"skill": "DBMS", "level": "intermediate", "weight": 3}
+      ]
+    },
+    {
+      "id": "sde", "name": "Software Development Engineer (SDE)",
+      "aliases": ["sde", "software engineer", "software developer", "swe", "product based company", "faang"],
+      "must_have": [
+        {"skill": "DSA", "level": "intermediate", "weight": 5},
+        {"skill": "OOP", "level": "intermediate", "weight": 4},
+        {"skill": "C++", "level": "intermediate", "weight": 4, "alternatives": ["Java", "Python"]},
+        {"skill": "DBMS", "level": "beginner", "weight": 3},
+        {"skill": "Operating Systems", "level": "beginner", "weight": 3}
+      ],
+      "good_to_have": [
+        {"skill": "Computer Networks", "level": "beginner", "weight": 2},
+        {"skill": "Git", "level": "beginner", "weight": 3},
+        {"skill": "System Design", "level": "beginner", "weight": 2},
+        {"skill": "SQL", "level": "beginner", "weight": 2}
+      ]
+    },
+    {
+      "id": "frontend", "name": "Frontend Developer",
+      "aliases": ["front end developer", "frontend", "web developer", "react developer", "ui developer"],
+      "must_have": [
+        {"skill": "HTML", "level": "intermediate", "weight": 4},
+        {"skill": "CSS", "level": "intermediate", "weight": 4},
+        {"skill": "JavaScript", "level": "intermediate", "weight": 5},
+        {"skill": "React", "level": "intermediate", "weight": 5},
+        {"skill": "Git", "level": "beginner", "weight": 3}
+      ],
+      "good_to_have": [
+        {"skill": "TypeScript", "level": "beginner", "weight": 3},
+        {"skill": "REST APIs", "level": "beginner", "weight": 3},
+        {"skill": "Testing", "level": "beginner", "weight": 2},
+        {"skill": "Figma", "level": "beginner", "weight": 1}
+      ]
+    },
+    {
+      "id": "backend", "name": "Backend Developer",
+      "aliases": ["back end developer", "backend", "server side developer", "java developer", "api developer"],
+      "must_have": [
+        {"skill": "Java", "level": "intermediate", "weight": 5, "alternatives": ["Python", "JavaScript"]},
+        {"skill": "Spring Boot", "level": "beginner", "weight": 4, "alternatives": ["Node.js"]},
+        {"skill": "REST APIs", "level": "intermediate", "weight": 5},
+        {"skill": "SQL", "level": "intermediate", "weight": 4},
+        {"skill": "Git", "level": "beginner", "weight": 3}
+      ],
+      "good_to_have": [
+        {"skill": "Docker", "level": "beginner", "weight": 3},
+        {"skill": "PostgreSQL", "level": "beginner", "weight": 2},
+        {"skill": "Testing", "level": "beginner", "weight": 2},
+        {"skill": "System Design", "level": "beginner", "weight": 2}
+      ]
+    },
+    {
+      "id": "fullstack", "name": "Full Stack Developer",
+      "aliases": ["full stack", "fullstack", "mern developer", "mern stack", "web app developer"],
+      "must_have": [
+        {"skill": "JavaScript", "level": "intermediate", "weight": 5},
+        {"skill": "React", "level": "intermediate", "weight": 4},
+        {"skill": "Node.js", "level": "beginner", "weight": 4},
+        {"skill": "Express", "level": "beginner", "weight": 3},
+        {"skill": "MongoDB", "level": "beginner", "weight": 3, "alternatives": ["SQL"]},
+        {"skill": "REST APIs", "level": "intermediate", "weight": 4}
+      ],
+      "good_to_have": [
+        {"skill": "Git", "level": "beginner", "weight": 3},
+        {"skill": "TypeScript", "level": "beginner", "weight": 2},
+        {"skill": "Docker", "level": "beginner", "weight": 2},
+        {"skill": "HTML", "level": "intermediate", "weight": 2},
+        {"skill": "CSS", "level": "intermediate", "weight": 2}
+      ]
+    },
+    {
+      "id": "devops_cloud", "name": "DevOps / Cloud Engineer",
+      "aliases": ["devops", "cloud engineer", "site reliability engineer", "sre", "cloud"],
+      "must_have": [
+        {"skill": "Linux", "level": "intermediate", "weight": 5},
+        {"skill": "Docker", "level": "intermediate", "weight": 5},
+        {"skill": "AWS", "level": "beginner", "weight": 4},
+        {"skill": "CI/CD", "level": "beginner", "weight": 4},
+        {"skill": "Git", "level": "intermediate", "weight": 3}
+      ],
+      "good_to_have": [
+        {"skill": "Kubernetes", "level": "beginner", "weight": 3},
+        {"skill": "Python", "level": "beginner", "weight": 2},
+        {"skill": "Computer Networks", "level": "beginner", "weight": 3}
+      ]
+    },
+    {
+      "id": "android", "name": "Android Developer",
+      "aliases": ["android developer", "mobile developer", "app developer", "android"],
+      "must_have": [
+        {"skill": "Kotlin", "level": "intermediate", "weight": 5, "alternatives": ["Java"]},
+        {"skill": "Android Development", "level": "intermediate", "weight": 5},
+        {"skill": "OOP", "level": "intermediate", "weight": 3},
+        {"skill": "REST APIs", "level": "beginner", "weight": 3},
+        {"skill": "Git", "level": "beginner", "weight": 3}
+      ],
+      "good_to_have": [
+        {"skill": "SQL", "level": "beginner", "weight": 2},
+        {"skill": "Testing", "level": "beginner", "weight": 2},
+        {"skill": "UI Design", "level": "beginner", "weight": 2}
+      ]
+    },
+    {
+      "id": "cybersecurity", "name": "Cybersecurity Analyst",
+      "aliases": ["security analyst", "cyber security", "soc analyst", "ethical hacker", "penetration tester"],
+      "must_have": [
+        {"skill": "Computer Networks", "level": "intermediate", "weight": 5},
+        {"skill": "Linux", "level": "intermediate", "weight": 5},
+        {"skill": "Security Fundamentals", "level": "intermediate", "weight": 5},
+        {"skill": "Web Security", "level": "beginner", "weight": 4},
+        {"skill": "Operating Systems", "level": "beginner", "weight": 3}
+      ],
+      "good_to_have": [
+        {"skill": "Python", "level": "beginner", "weight": 3},
+        {"skill": "AWS", "level": "beginner", "weight": 2},
+        {"skill": "Communication", "level": "intermediate", "weight": 2}
+      ]
+    },
+    {
+      "id": "uiux", "name": "UI/UX Designer",
+      "aliases": ["ui ux designer", "product designer", "ux designer", "ui designer"],
+      "must_have": [
+        {"skill": "Figma", "level": "intermediate", "weight": 5},
+        {"skill": "UI Design", "level": "intermediate", "weight": 5},
+        {"skill": "User Research", "level": "beginner", "weight": 4},
+        {"skill": "Communication", "level": "intermediate", "weight": 3}
+      ],
+      "good_to_have": [
+        {"skill": "HTML", "level": "beginner", "weight": 2},
+        {"skill": "CSS", "level": "beginner", "weight": 2}
+      ]
+    }
+  ]
+}

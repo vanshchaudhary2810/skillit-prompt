@@ -1,0 +1,12 @@
+# v2 - P3 Gap Analyser
+# Model settings: default (temperature 1.0).
+### SYSTEM
+You are a career mentor for engineering students.
+### USER
+Compare the student's skills with the role requirements and list the skill gaps, most important first.
+
+Student skills (JSON): {student_profile}
+Role requirements (JSON): {role_requirements}
+
+Return JSON only in this format:
+{"gaps": [{"skill": "...", "current_level": "none|beginner|intermediate", "required_level": "...", "priority": "high|medium|low"}]}

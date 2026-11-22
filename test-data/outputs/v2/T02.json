@@ -1,0 +1,581 @@
+{
+  "version": "v2",
+  "inputs": {
+    "student_skills": "C++ (good), solved 150 leetcode problems, OOP, git",
+    "target_role": "Software Development Engineer",
+    "weekly_hours": 8,
+    "num_weeks": 6
+  },
+  "steps": [
+    {
+      "id": "P1",
+      "name": "Skill Normaliser",
+      "prompt_file": "prompts/v2/P1_skill_normaliser.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Read the student's skills below and convert them into a clean list of skills with a level for each (beginner, intermediate or advanced).\n\nStudent skills: C++ (good), solved 150 leetcode problems, OOP, git\n\nReturn JSON only in this format:\n{\"skills\": [{\"name\": \"...\", \"level\": \"beginner|intermediate|advanced\"}]}",
+      "raw": "```json\n{\n  \"skills\": [\n    {\n      \"name\": \"C++\",\n      \"level\": \"intermediate\"\n    },\n    {\n      \"name\": \"Data Structures and Algorithms\",\n      \"level\": \"intermediate\"\n    },\n    {\n      \"name\": \"Object-Oriented Programming (OOP)\",\n      \"level\": \"intermediate\"\n    },\n    {\n      \"name\": \"Git\",\n      \"level\": \"beginner\"\n    }\n  ]\n}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 0.69,
+      "parsed": {
+        "skills": [
+          {
+            "name": "C++",
+            "level": "intermediate"
+          },
+          {
+            "name": "Data Structures and Algorithms",
+            "level": "intermediate"
+          },
+          {
+            "name": "Object-Oriented Programming (OOP)",
+            "level": "intermediate"
+          },
+          {
+            "name": "Git",
+            "level": "beginner"
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    },
+    {
+      "id": "P2",
+      "name": "Role Requirements",
+      "prompt_file": "prompts/v2/P2_role_requirements.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "List the skills a fresher needs for an entry-level Software Development Engineer job. Split them into must-have and good-to-have skills and give the level needed for each.\n\nReturn JSON only in this format:\n{\"must_have\": [{\"skill\": \"...\", \"required_level\": \"beginner|intermediate|advanced\"}], \"good_to_have\": [{\"skill\": \"...\", \"required_level\": \"...\"}]}",
+      "raw": "```json\n{\n  \"must_have\": [\n    {\n      \"skill\": \"Data Structures and Algorithms\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"Object-Oriented Programming\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"Core Programming Language (e.g., Java, Python, C++)\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"Version Control (Git)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Relational Databases and SQL\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Basic Debugging and Problem Solving\",\n      \"required_level\": \"intermediate\"\n    }\n  ],\n  \"good_to_have\": [\n    {\n      \"skill\": \"RESTful APIs and Web Services\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Cloud Platforms (AWS, GCP, or Azure)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Containerization (Docker)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Unit Testing and Test-Driven Development\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"CI/CD Pipelines\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Agile Methodologies\",\n      \"required_level\": \"beginner\"\n    }\n  ]\n}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 1.67,
+      "parsed": {
+        "must_have": [
+          {
+            "skill": "Data Structures and Algorithms",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "Object-Oriented Programming",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "Core Programming Language (e.g., Java, Python, C++)",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "Version Control (Git)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Relational Databases and SQL",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Basic Debugging and Problem Solving",
+            "required_level": "intermediate"
+          }
+        ],
+        "good_to_have": [
+          {
+            "skill": "RESTful APIs and Web Services",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Cloud Platforms (AWS, GCP, or Azure)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Containerization (Docker)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Unit Testing and Test-Driven Development",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "CI/CD Pipelines",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Agile Methodologies",
+            "required_level": "beginner"
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    },
+    {
+      "id": "P3",
+      "name": "Gap Analyser",
+      "prompt_file": "prompts/v2/P3_gap_analyser.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Compare the student's skills with the role requirements and list the skill gaps, most important first.\n\nStudent skills (JSON): {\"skills\": [{\"name\": \"C++\", \"level\": \"intermediate\"}, {\"name\": \"Data Structures and Algorithms\", \"level\": \"intermediate\"}, {\"name\": \"Object-Oriented Programming (OOP)\", \"level\": \"intermediate\"}, {\"name\": \"Git\", \"level\": \"beginner\"}]}\nRole requirements (JSON): {\"must_have\": [{\"skill\": \"Data Structures and Algorithms\", \"required_level\": \"intermediate\"}, {\"skill\": \"Object-Oriented Programming\", \"required_level\": \"intermediate\"}, {\"skill\": \"Core Programming Language (e.g., Java, Python, C++)\", \"required_level\": \"intermediate\"}, {\"skill\": \"Version Control (Git)\", \"required_level\": \"beginner\"}, {\"skill\": \"Relational Databases and SQL\", \"required_level\": \"beginner\"}, {\"skill\": \"Basic Debugging and Problem Solving\", \"required_level\": \"intermediate\"}], \"good_to_have\": [{\"skill\": \"RESTful APIs and Web Services\", \"required_level\": \"beginner\"}, {\"skill\": \"Cloud Platforms (AWS, GCP, or Azure)\", \"required_level\": \"beginner\"}, {\"skill\": \"Containerization (Docker)\", \"required_level\": \"beginner\"}, {\"skill\": \"Unit Testing and Test-Driven Development\", \"required_level\": \"beginner\"}, {\"skill\": \"CI/CD Pipelines\", \"required_level\": \"beginner\"}, {\"skill\": \"Agile Methodologies\", \"required_level\": \"beginner\"}]}\n\nReturn JSON only in this format:\n{\"gaps\": [{\"skill\": \"...\", \"current_level\": \"none|beginner|intermediate\", \"required_level\": \"...\", \"priority\": \"high|medium|low\"}]}",
+      "raw": "```json\n{\n  \"gaps\": [\n    {\n      \"skill\": \"Relational Databases and SQL\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"high\"\n    },\n    {\n      \"skill\": \"Basic Debugging and Problem Solving\",\n      \"current_level\": \"none\",\n      \"required_level\": \"intermediate\",\n      \"priority\": \"high\"\n    },\n    {\n      \"skill\": \"RESTful APIs and Web Services\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"medium\"\n    },\n    {\n      \"skill\": \"Unit Testing and Test-Driven Development\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"medium\"\n    },\n    {\n      \"skill\": \"Cloud Platforms (AWS, GCP, or Azure)\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"low\"\n    },\n    {\n      \"skill\": \"Containerization (Docker)\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"low\"\n    },\n    {\n      \"skill\": \"CI/CD Pipelines\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"low\"\n    },\n    {\n      \"skill\": \"Agile Methodologies\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"low\"\n    }\n  ]\n}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 1.21,
+      "parsed": {
+        "gaps": [
+          {
+            "skill": "Relational Databases and SQL",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "high"
+          },
+          {
+            "skill": "Basic Debugging and Problem Solving",
+            "current_level": "none",
+            "required_level": "intermediate",
+            "priority": "high"
+          },
+          {
+            "skill": "RESTful APIs and Web Services",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "medium"
+          },
+          {
+            "skill": "Unit Testing and Test-Driven Development",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "medium"
+          },
+          {
+            "skill": "Cloud Platforms (AWS, GCP, or Azure)",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "Containerization (Docker)",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "CI/CD Pipelines",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "Agile Methodologies",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    },
+    {
+      "id": "P4",
+      "name": "Plan Builder",
+      "prompt_file": "prompts/v2/P4_plan_builder.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Build a 6-week learning plan that closes these skill gaps. The student can study at most 8 hours per week. For every week give the focus skills, the learning resources with links, practice tasks and the hours.\n\nSkill gaps (JSON): [{\"skill\": \"Relational Databases and SQL\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"high\"}, {\"skill\": \"Basic Debugging and Problem Solving\", \"current_level\": \"none\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"RESTful APIs and Web Services\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"Unit Testing and Test-Driven Development\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"Cloud Platforms (AWS, GCP, or Azure)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Containerization (Docker)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"CI/CD Pipelines\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Agile Methodologies\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}]\n\nReturn JSON only in this format:\n{\"weeks\": [{\"week\": 1, \"focus_skills\": [\"...\"], \"resources\": [{\"title\": \"...\", \"url\": \"...\"}], \"practice_tasks\": [\"...\"], \"total_hours\": 0}]}",
+      "raw": "```json\n{\n  \"weeks\": [\n    {\n      \"week\": 1,\n      \"focus_skills\": [\n        \"Basic Debugging and Problem Solving\",\n        \"Agile Methodologies\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"Python Debugging With pdb\",\n          \"url\": \"https://realpython.com/python-debugging-pdb/\"\n        },\n        {\n          \"title\": \"Atlassian Agile 101\",\n          \"url\": \"https://www.atlassian.com/agile\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Set up an IDE debugger and step through a buggy script to fix three logical errors.\",\n        \"Write a personal backlog of tasks for this 6-week plan using a Trello or Jira Kanban board.\"\n      ],\n      \"total_hours\": 8\n    },\n    {\n      \"week\": 2,\n      \"focus_skills\": [\n        \"Relational Databases and SQL\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"Khan Academy Intro to SQL\",\n          \"url\": \"https://www.khanacademy.org/computing/computer-programming/sql\"\n        },\n        {\n          \"title\": \"PostgreSQL Tutorial\",\n          \"url\": \"https://www.postgresqltutorial.com/\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Design a simple database schema with two related tables (e.g., Users and Orders).\",\n        \"Write and execute basic SQL queries including SELECT, WHERE, JOIN, and GROUP BY.\"\n      ],\n      \"total_hours\": 8\n    },\n    {\n      \"week\": 3,\n      \"focus_skills\": [\n        \"RESTful APIs and Web Services\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"MDN Introduction to web APIs\",\n          \"url\": \"https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Introduction\"\n        },\n        {\n          \"title\": \"Postman Learning Center\",\n          \"url\": \"https://learning.postman.com/\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Explore a public API (like JSONPlaceholder) and test GET and POST requests using Postman.\",\n        \"Write a basic script to fetch data from an external API and print parsed results.\"\n      ],\n      \"total_hours\": 8\n    },\n    {\n      \"week\": 4,\n      \"focus_skills\": [\n        \"Unit Testing and Test-Driven Development\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"Python unittest Documentation\",\n          \"url\": \"https://docs.python.org/3/library/unittest.html\"\n        },\n        {\n          \"title\": \"Test-Driven Development by Example (Concept Overview)\",\n          \"url\": \"https://www.jamesshore.com/v2/books/oref-tdd\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Write unit tests for a small function using a testing framework (e.g., pytest or unittest).\",\n        \"Practice TDD: write a failing test for a simple calculator function, then write code to make it pass.\"\n      ],\n      \"total_hours\": 8\n    },\n    {\n      \"week\": 5,\n      \"focus_skills\": [\n        \"Containerization (Docker)\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"Docker Overview\",\n          \"url\": \"https://docs.docker.com/get-started/overview/\"\n        },\n        {\n          \"title\": \"Play with Docker Classroom\",\n          \"url\": \"https://training.play-with-docker.com/\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Write a Dockerfile to containerize a simple Python script or web app built in previous weeks.\",\n        \"Build the image locally and run it successfully inside a Docker container.\"\n      ],\n      \"total_hours\": 8\n    },\n    {\n      \"week\": 6,\n      \"focus_skills\": [\n        \"Cloud Platforms (AWS, GCP, or Azure)\",\n        \"CI/CD Pipelines\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"AWS Getting Started Resource Center\",\n          \"url\": \"https://aws.amazon.com/getting-started/\"\n        },\n        {\n          \"title\": \"GitHub Actions Quickstart\",\n          \"url\": \"https://docs.github.com/en/actions/quickstart\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Set up a free-tier cloud account and deploy a static webpage or simple function.\",\n        \"Create a basic GitHub Actions workflow file to automatically run your unit tests on every push.\"\n      ],\n      \"total_hours\": 8\n    }\n  ]\n}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 3.09,
+      "parsed": {
+        "weeks": [
+          {
+            "week": 1,
+            "focus_skills": [
+              "Basic Debugging and Problem Solving",
+              "Agile Methodologies"
+            ],
+            "resources": [
+              {
+                "title": "Python Debugging With pdb",
+                "url": "https://realpython.com/python-debugging-pdb/"
+              },
+              {
+                "title": "Atlassian Agile 101",
+                "url": "https://www.atlassian.com/agile"
+              }
+            ],
+            "practice_tasks": [
+              "Set up an IDE debugger and step through a buggy script to fix three logical errors.",
+              "Write a personal backlog of tasks for this 6-week plan using a Trello or Jira Kanban board."
+            ],
+            "total_hours": 8
+          },
+          {
+            "week": 2,
+            "focus_skills": [
+              "Relational Databases and SQL"
+            ],
+            "resources": [
+              {
+                "title": "Khan Academy Intro to SQL",
+                "url": "https://www.khanacademy.org/computing/computer-programming/sql"
+              },
+              {
+                "title": "PostgreSQL Tutorial",
+                "url": "https://www.postgresqltutorial.com/"
+              }
+            ],
+            "practice_tasks": [
+              "Design a simple database schema with two related tables (e.g., Users and Orders).",
+              "Write and execute basic SQL queries including SELECT, WHERE, JOIN, and GROUP BY."
+            ],
+            "total_hours": 8
+          },
+          {
+            "week": 3,
+            "focus_skills": [
+              "RESTful APIs and Web Services"
+            ],
+            "resources": [
+              {
+                "title": "MDN Introduction to web APIs",
+                "url": "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Introduction"
+              },
+              {
+                "title": "Postman Learning Center",
+                "url": "https://learning.postman.com/"
+              }
+            ],
+            "practice_tasks": [
+              "Explore a public API (like JSONPlaceholder) and test GET and POST requests using Postman.",
+              "Write a basic script to fetch data from an external API and print parsed results."
+            ],
+            "total_hours": 8
+          },
+          {
+            "week": 4,
+            "focus_skills": [
+              "Unit Testing and Test-Driven Development"
+            ],
+            "resources": [
+              {
+                "title": "Python unittest Documentation",
+                "url": "https://docs.python.org/3/library/unittest.html"
+              },
+              {
+                "title": "Test-Driven Development by Example (Concept Overview)",
+                "url": "https://www.jamesshore.com/v2/books/oref-tdd"
+              }
+            ],
+            "practice_tasks": [
+              "Write unit tests for a small function using a testing framework (e.g., pytest or unittest).",
+              "Practice TDD: write a failing test for a simple calculator function, then write code to make it pass."
+            ],
+            "total_hours": 8
+          },
+          {
+            "week": 5,
+            "focus_skills": [
+              "Containerization (Docker)"
+            ],
+            "resources": [
+              {
+                "title": "Docker Overview",
+                "url": "https://docs.docker.com/get-started/overview/"
+              },
+              {
+                "title": "Play with Docker Classroom",
+                "url": "https://training.play-with-docker.com/"
+              }
+            ],
+            "practice_tasks": [
+              "Write a Dockerfile to containerize a simple Python script or web app built in previous weeks.",
+              "Build the image locally and run it successfully inside a Docker container."
+            ],
+            "total_hours": 8
+          },
+          {
+            "week": 6,
+            "focus_skills": [
+              "Cloud Platforms (AWS, GCP, or Azure)",
+              "CI/CD Pipelines"
+            ],
+            "resources": [
+              {
+                "title": "AWS Getting Started Resource Center",
+                "url": "https://aws.amazon.com/getting-started/"
+              },
+              {
+                "title": "GitHub Actions Quickstart",
+                "url": "https://docs.github.com/en/actions/quickstart"
+              }
+            ],
+            "practice_tasks": [
+              "Set up a free-tier cloud account and deploy a static webpage or simple function.",
+              "Create a basic GitHub Actions workflow file to automatically run your unit tests on every push."
+            ],
+            "total_hours": 8
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    }
+  ],
+  "status": "ok",
+  "final": {
+    "profile": {
+      "skills": [
+        {
+          "name": "C++",
+          "level": "intermediate"
+        },
+        {
+          "name": "Data Structures and Algorithms",
+          "level": "intermediate"
+        },
+        {
+          "name": "Object-Oriented Programming (OOP)",
+          "level": "intermediate"
+        },
+        {
+          "name": "Git",
+          "level": "beginner"
+        }
+      ]
+    },
+    "requirements": {
+      "must_have": [
+        {
+          "skill": "Data Structures and Algorithms",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "Object-Oriented Programming",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "Core Programming Language (e.g., Java, Python, C++)",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "Version Control (Git)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Relational Databases and SQL",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Basic Debugging and Problem Solving",
+          "required_level": "intermediate"
+        }
+      ],
+      "good_to_have": [
+        {
+          "skill": "RESTful APIs and Web Services",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Cloud Platforms (AWS, GCP, or Azure)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Containerization (Docker)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Unit Testing and Test-Driven Development",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "CI/CD Pipelines",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Agile Methodologies",
+          "required_level": "beginner"
+        }
+      ]
+    },
+    "gaps": {
+      "gaps": [
+        {
+          "skill": "Relational Databases and SQL",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "high"
+        },
+        {
+          "skill": "Basic Debugging and Problem Solving",
+          "current_level": "none",
+          "required_level": "intermediate",
+          "priority": "high"
+        },
+        {
+          "skill": "RESTful APIs and Web Services",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "medium"
+        },
+        {
+          "skill": "Unit Testing and Test-Driven Development",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "medium"
+        },
+        {
+          "skill": "Cloud Platforms (AWS, GCP, or Azure)",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "Containerization (Docker)",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "CI/CD Pipelines",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "Agile Methodologies",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        }
+      ]
+    },
+    "plan": {
+      "weeks": [
+        {
+          "week": 1,
+          "focus_skills": [
+            "Basic Debugging and Problem Solving",
+            "Agile Methodologies"
+          ],
+          "resources": [
+            {
+              "title": "Python Debugging With pdb",
+              "url": "https://realpython.com/python-debugging-pdb/"
+            },
+            {
+              "title": "Atlassian Agile 101",
+              "url": "https://www.atlassian.com/agile"
+            }
+          ],
+          "practice_tasks": [
+            "Set up an IDE debugger and step through a buggy script to fix three logical errors.",
+            "Write a personal backlog of tasks for this 6-week plan using a Trello or Jira Kanban board."
+          ],
+          "total_hours": 8
+        },
+        {
+          "week": 2,
+          "focus_skills": [
+            "Relational Databases and SQL"
+          ],
+          "resources": [
+            {
+              "title": "Khan Academy Intro to SQL",
+              "url": "https://www.khanacademy.org/computing/computer-programming/sql"
+            },
+            {
+              "title": "PostgreSQL Tutorial",
+              "url": "https://www.postgresqltutorial.com/"
+            }
+          ],
+          "practice_tasks": [
+            "Design a simple database schema with two related tables (e.g., Users and Orders).",
+            "Write and execute basic SQL queries including SELECT, WHERE, JOIN, and GROUP BY."
+          ],
+          "total_hours": 8
+        },
+        {
+          "week": 3,
+          "focus_skills": [
+            "RESTful APIs and Web Services"
+          ],
+          "resources": [
+            {
+              "title": "MDN Introduction to web APIs",
+              "url": "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Introduction"
+            },
+            {
+              "title": "Postman Learning Center",
+              "url": "https://learning.postman.com/"
+            }
+          ],
+          "practice_tasks": [
+            "Explore a public API (like JSONPlaceholder) and test GET and POST requests using Postman.",
+            "Write a basic script to fetch data from an external API and print parsed results."
+          ],
+          "total_hours": 8
+        },
+        {
+          "week": 4,
+          "focus_skills": [
+            "Unit Testing and Test-Driven Development"
+          ],
+          "resources": [
+            {
+              "title": "Python unittest Documentation",
+              "url": "https://docs.python.org/3/library/unittest.html"
+            },
+            {
+              "title": "Test-Driven Development by Example (Concept Overview)",
+              "url": "https://www.jamesshore.com/v2/books/oref-tdd"
+            }
+          ],
+          "practice_tasks": [
+            "Write unit tests for a small function using a testing framework (e.g., pytest or unittest).",
+            "Practice TDD: write a failing test for a simple calculator function, then write code to make it pass."
+          ],
+          "total_hours": 8
+        },
+        {
+          "week": 5,
+          "focus_skills": [
+            "Containerization (Docker)"
+          ],
+          "resources": [
+            {
+              "title": "Docker Overview",
+              "url": "https://docs.docker.com/get-started/overview/"
+            },
+            {
+              "title": "Play with Docker Classroom",
+              "url": "https://training.play-with-docker.com/"
+            }
+          ],
+          "practice_tasks": [
+            "Write a Dockerfile to containerize a simple Python script or web app built in previous weeks.",
+            "Build the image locally and run it successfully inside a Docker container."
+          ],
+          "total_hours": 8
+        },
+        {
+          "week": 6,
+          "focus_skills": [
+            "Cloud Platforms (AWS, GCP, or Azure)",
+            "CI/CD Pipelines"
+          ],
+          "resources": [
+            {
+              "title": "AWS Getting Started Resource Center",
+              "url": "https://aws.amazon.com/getting-started/"
+            },
+            {
+              "title": "GitHub Actions Quickstart",
+              "url": "https://docs.github.com/en/actions/quickstart"
+            }
+          ],
+          "practice_tasks": [
+            "Set up a free-tier cloud account and deploy a static webpage or simple function.",
+            "Create a basic GitHub Actions workflow file to automatically run your unit tests on every push."
+          ],
+          "total_hours": 8
+        }
+      ]
+    }
+  },
+  "model": "gemini-3.5-flash-lite",
+  "run_at": "2026-11-22T02:22:28",
+  "wall_time_s": 24.5
+}

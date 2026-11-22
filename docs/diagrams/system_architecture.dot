@@ -1,0 +1,8 @@
+digraph G { rankdir=LR; compound=true; node [fontname="Helvetica", fontsize=10, style="rounded,filled", shape=box, fillcolor="#EEF2FF", color="#4F46E5"]; edge [fontname="Helvetica", fontsize=9, color="#555555"];
+u [label="Student / evaluator\n(web browser)", shape=box, fillcolor="#FEF3C7", color="#B45309"];
+subgraph cluster_app { label="Streamlit Community Cloud (code/app.py)"; fontname="Helvetica"; style="rounded"; color="#9CA3AF";
+ ui [label="Streamlit UI\nform, examples, results, trace"]; ch [label="chain.py\nruns v1 / v2 / v3"]; pr [label="prompts/\nprompt files (source of truth)", shape=folder, fillcolor="#FFFFFF"]; kbx [label="kb.py + kb/*.json\nskills, roles, resources", shape=cylinder, fillcolor="#DCFCE7", color="#15803D"]; va [label="validate.py\nrule-based checks", fillcolor="#FEE2E2", color="#B91C1C"]; }
+g [label="Google Gemini API\n(gemini-3.5-flash-lite, free tier)", fillcolor="#E0F2FE", color="#0369A1"];
+sec [label="Streamlit Secrets\nGEMINI_API_KEY", shape=note, fillcolor="#FFFFFF"];
+ex [label="run_experiments.py\n(team laptop)", fillcolor="#F3F4F6", color="#6B7280"]; td [label="test-data/\ninputs, outputs, results", shape=folder, fillcolor="#FFFFFF"];
+u -> ui; ui -> ch; ch -> pr; ch -> kbx; ch -> g [label="HTTPS, JSON mode"]; sec -> g [style=dashed]; ch -> va -> ui; ex -> ch; ex -> td; }

@@ -1,0 +1,637 @@
+{
+  "version": "v2",
+  "inputs": {
+    "student_skills": "Python (intermediate), NumPy, Pandas, scikit-learn, statistics",
+    "target_role": "Machine Learning Engineer",
+    "weekly_hours": 8,
+    "num_weeks": 6
+  },
+  "steps": [
+    {
+      "id": "P1",
+      "name": "Skill Normaliser",
+      "prompt_file": "prompts/v2/P1_skill_normaliser.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Read the student's skills below and convert them into a clean list of skills with a level for each (beginner, intermediate or advanced).\n\nStudent skills: Python (intermediate), NumPy, Pandas, scikit-learn, statistics\n\nReturn JSON only in this format:\n{\"skills\": [{\"name\": \"...\", \"level\": \"beginner|intermediate|advanced\"}]}",
+      "raw": "```json\n{\n  \"skills\": [\n    {\n      \"name\": \"Python\",\n      \"level\": \"intermediate\"\n    },\n    {\n      \"name\": \"NumPy\",\n      \"level\": \"intermediate\"\n    },\n    {\n      \"name\": \"Pandas\",\n      \"level\": \"intermediate\"\n    },\n    {\n      \"name\": \"scikit-learn\",\n      \"level\": \"beginner\"\n    },\n    {\n      \"name\": \"statistics\",\n      \"level\": \"intermediate\"\n    }\n  ]\n}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 0.91,
+      "parsed": {
+        "skills": [
+          {
+            "name": "Python",
+            "level": "intermediate"
+          },
+          {
+            "name": "NumPy",
+            "level": "intermediate"
+          },
+          {
+            "name": "Pandas",
+            "level": "intermediate"
+          },
+          {
+            "name": "scikit-learn",
+            "level": "beginner"
+          },
+          {
+            "name": "statistics",
+            "level": "intermediate"
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    },
+    {
+      "id": "P2",
+      "name": "Role Requirements",
+      "prompt_file": "prompts/v2/P2_role_requirements.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "List the skills a fresher needs for an entry-level Machine Learning Engineer job. Split them into must-have and good-to-have skills and give the level needed for each.\n\nReturn JSON only in this format:\n{\"must_have\": [{\"skill\": \"...\", \"required_level\": \"beginner|intermediate|advanced\"}], \"good_to_have\": [{\"skill\": \"...\", \"required_level\": \"...\"}]}",
+      "raw": "```json\n{\n  \"must_have\": [\n    {\n      \"skill\": \"Python Programming\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"Data Structures and Algorithms\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"SQL and Database Fundamentals\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Linear Algebra, Calculus, and Statistics\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"Scikit-Learn and Pandas\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"Supervised and Unsupervised Learning Algorithms\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"Git and Version Control\",\n      \"required_level\": \"beginner\"\n    }\n  ],\n  \"good_to_have\": [\n    {\n      \"skill\": \"Deep Learning Frameworks (PyTorch or TensorFlow)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Cloud Platforms (AWS, GCP, or Azure)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Docker and Containerization\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"MLOps and Model Deployment (FastAPI or Flask)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Natural Language Processing (NLP) or Computer Vision\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Apache Spark or Big Data Tools\",\n      \"required_level\": \"beginner\"\n    }\n  ]\n}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 1.67,
+      "parsed": {
+        "must_have": [
+          {
+            "skill": "Python Programming",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "Data Structures and Algorithms",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "SQL and Database Fundamentals",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Linear Algebra, Calculus, and Statistics",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "Scikit-Learn and Pandas",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "Supervised and Unsupervised Learning Algorithms",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "Git and Version Control",
+            "required_level": "beginner"
+          }
+        ],
+        "good_to_have": [
+          {
+            "skill": "Deep Learning Frameworks (PyTorch or TensorFlow)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Cloud Platforms (AWS, GCP, or Azure)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Docker and Containerization",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "MLOps and Model Deployment (FastAPI or Flask)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Natural Language Processing (NLP) or Computer Vision",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Apache Spark or Big Data Tools",
+            "required_level": "beginner"
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    },
+    {
+      "id": "P3",
+      "name": "Gap Analyser",
+      "prompt_file": "prompts/v2/P3_gap_analyser.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Compare the student's skills with the role requirements and list the skill gaps, most important first.\n\nStudent skills (JSON): {\"skills\": [{\"name\": \"Python\", \"level\": \"intermediate\"}, {\"name\": \"NumPy\", \"level\": \"intermediate\"}, {\"name\": \"Pandas\", \"level\": \"intermediate\"}, {\"name\": \"scikit-learn\", \"level\": \"beginner\"}, {\"name\": \"statistics\", \"level\": \"intermediate\"}]}\nRole requirements (JSON): {\"must_have\": [{\"skill\": \"Python Programming\", \"required_level\": \"intermediate\"}, {\"skill\": \"Data Structures and Algorithms\", \"required_level\": \"intermediate\"}, {\"skill\": \"SQL and Database Fundamentals\", \"required_level\": \"beginner\"}, {\"skill\": \"Linear Algebra, Calculus, and Statistics\", \"required_level\": \"intermediate\"}, {\"skill\": \"Scikit-Learn and Pandas\", \"required_level\": \"intermediate\"}, {\"skill\": \"Supervised and Unsupervised Learning Algorithms\", \"required_level\": \"intermediate\"}, {\"skill\": \"Git and Version Control\", \"required_level\": \"beginner\"}], \"good_to_have\": [{\"skill\": \"Deep Learning Frameworks (PyTorch or TensorFlow)\", \"required_level\": \"beginner\"}, {\"skill\": \"Cloud Platforms (AWS, GCP, or Azure)\", \"required_level\": \"beginner\"}, {\"skill\": \"Docker and Containerization\", \"required_level\": \"beginner\"}, {\"skill\": \"MLOps and Model Deployment (FastAPI or Flask)\", \"required_level\": \"beginner\"}, {\"skill\": \"Natural Language Processing (NLP) or Computer Vision\", \"required_level\": \"beginner\"}, {\"skill\": \"Apache Spark or Big Data Tools\", \"required_level\": \"beginner\"}]}\n\nReturn JSON only in this format:\n{\"gaps\": [{\"skill\": \"...\", \"current_level\": \"none|beginner|intermediate\", \"required_level\": \"...\", \"priority\": \"high|medium|low\"}]}",
+      "raw": "```json\n{\n  \"gaps\": [\n    {\n      \"skill\": \"Data Structures and Algorithms\",\n      \"current_level\": \"none\",\n      \"required_level\": \"intermediate\",\n      \"priority\": \"high\"\n    },\n    {\n      \"skill\": \"Supervised and Unsupervised Learning Algorithms\",\n      \"current_level\": \"none\",\n      \"required_level\": \"intermediate\",\n      \"priority\": \"high\"\n    },\n    {\n      \"skill\": \"SQL and Database Fundamentals\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"high\"\n    },\n    {\n      \"skill\": \"Git and Version Control\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"high\"\n    },\n    {\n      \"skill\": \"Scikit-Learn and Pandas\",\n      \"current_level\": \"beginner\",\n      \"required_level\": \"intermediate\",\n      \"priority\": \"medium\"\n    },\n    {\n      \"skill\": \"Deep Learning Frameworks (PyTorch or TensorFlow)\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"low\"\n    },\n    {\n      \"skill\": \"Cloud Platforms (AWS, GCP, or Azure)\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"low\"\n    },\n    {\n      \"skill\": \"Docker and Containerization\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"low\"\n    },\n    {\n      \"skill\": \"MLOps and Model Deployment (FastAPI or Flask)\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"low\"\n    },\n    {\n      \"skill\": \"Natural Language Processing (NLP) or Computer Vision\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"low\"\n    },\n    {\n      \"skill\": \"Apache Spark or Big Data Tools\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"low\"\n    }\n  ]\n}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 1.6,
+      "parsed": {
+        "gaps": [
+          {
+            "skill": "Data Structures and Algorithms",
+            "current_level": "none",
+            "required_level": "intermediate",
+            "priority": "high"
+          },
+          {
+            "skill": "Supervised and Unsupervised Learning Algorithms",
+            "current_level": "none",
+            "required_level": "intermediate",
+            "priority": "high"
+          },
+          {
+            "skill": "SQL and Database Fundamentals",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "high"
+          },
+          {
+            "skill": "Git and Version Control",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "high"
+          },
+          {
+            "skill": "Scikit-Learn and Pandas",
+            "current_level": "beginner",
+            "required_level": "intermediate",
+            "priority": "medium"
+          },
+          {
+            "skill": "Deep Learning Frameworks (PyTorch or TensorFlow)",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "Cloud Platforms (AWS, GCP, or Azure)",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "Docker and Containerization",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "MLOps and Model Deployment (FastAPI or Flask)",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "Natural Language Processing (NLP) or Computer Vision",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "Apache Spark or Big Data Tools",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    },
+    {
+      "id": "P4",
+      "name": "Plan Builder",
+      "prompt_file": "prompts/v2/P4_plan_builder.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Build a 6-week learning plan that closes these skill gaps. The student can study at most 8 hours per week. For every week give the focus skills, the learning resources with links, practice tasks and the hours.\n\nSkill gaps (JSON): [{\"skill\": \"Data Structures and Algorithms\", \"current_level\": \"none\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"Supervised and Unsupervised Learning Algorithms\", \"current_level\": \"none\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"SQL and Database Fundamentals\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"high\"}, {\"skill\": \"Git and Version Control\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"high\"}, {\"skill\": \"Scikit-Learn and Pandas\", \"current_level\": \"beginner\", \"required_level\": \"intermediate\", \"priority\": \"medium\"}, {\"skill\": \"Deep Learning Frameworks (PyTorch or TensorFlow)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Cloud Platforms (AWS, GCP, or Azure)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Docker and Containerization\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"MLOps and Model Deployment (FastAPI or Flask)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Natural Language Processing (NLP) or Computer Vision\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Apache Spark or Big Data Tools\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}]\n\nReturn JSON only in this format:\n{\"weeks\": [{\"week\": 1, \"focus_skills\": [\"...\"], \"resources\": [{\"title\": \"...\", \"url\": \"...\"}], \"practice_tasks\": [\"...\"], \"total_hours\": 0}]}",
+      "raw": "```json\n{\n  \"weeks\": [\n    {\n      \"week\": 1,\n      \"focus_skills\": [\n        \"Git and Version Control\",\n        \"SQL and Database Fundamentals\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"Git and GitHub for Beginners - Crash Course\",\n          \"url\": \"https://www.youtube.com/watch?v=RGOj5yH7evk\"\n        },\n        {\n          \"title\": \"SQLBolt - Learn SQL Interactively\",\n          \"url\": \"https://sqlbolt.com/\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Initialize a local Git repository, create a branch, make commits, push to GitHub, and open a pull request.\",\n        \"Complete lessons 1 through 10 on SQLBolt and write 5 custom queries joining two tables.\"\n      ],\n      \"total_hours\": 8\n    },\n    {\n      \"week\": 2,\n      \"focus_skills\": [\n        \"Data Structures and Algorithms\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"freeCodeCamp Data Structures and Algorithms in Python\",\n          \"url\": \"https://www.youtube.com/watch?v=pkYVOmU3MgA\"\n        },\n        {\n          \"title\": \"LeetCode - Easy Warmup Problems\",\n          \"url\": \"https://leetcode.com/\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Study Big-O notation, arrays, and strings.\",\n        \"Solve 5 easy problems on LeetCode focusing on arrays and hash maps (e.g., Two Sum, Valid Anagram).\"\n      ],\n      \"total_hours\": 8\n    },\n    {\n      \"week\": 3,\n      \"focus_skills\": [\n        \"Data Structures and Algorithms\",\n        \"Scikit-Learn and Pandas\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"Kaggle Pandas Course\",\n          \"url\": \"https://www.kaggle.com/learn/pandas\"\n        },\n        {\n          \"title\": \"NeetCode 150 - Linked Lists and Sorting\",\n          \"url\": \"https://neetcode.io/\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Complete the Kaggle Pandas course and manipulate a public dataset (handling missing values, grouping, filtering).\",\n        \"Solve 4 algorithm problems involving two pointers and basic sorting.\"\n      ],\n      \"total_hours\": 8\n    },\n    {\n      \"week\": 4,\n      \"focus_skills\": [\n        \"Supervised and Unsupervised Learning Algorithms\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"StatQuest with Josh Starmer (Machine Learning Playlist)\",\n          \"url\": \"https://www.youtube.com/c/StatQuestWithJoshStarmer\"\n        },\n        {\n          \"title\": \"Google Machine Learning Crash Course\",\n          \"url\": \"https://developers.google.com/machine-learning/crash-course\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Watch core StatQuest videos on Linear Regression, Logistic Regression, and Decision Trees.\",\n        \"Complete the introductory modules of the Google ML Crash Course regarding loss and gradient descent.\"\n      ],\n      \"total_hours\": 8\n    },\n    {\n      \"week\": 5,\n      \"focus_skills\": [\n        \"Supervised and Unsupervised Learning Algorithms\",\n        \"Scikit-Learn and Pandas\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"Scikit-Learn Official User Guide Tutorials\",\n          \"url\": \"https://scikit-learn.org/stable/tutorial/basic/tutorial.html\"\n        },\n        {\n          \"title\": \"Kaggle Intro to Machine Learning Course\",\n          \"url\": \"https://www.kaggle.com/learn/intro-to-machine-learning\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Build a complete Scikit-Learn pipeline using a tabular dataset to train a classification model.\",\n        \"Evaluate the model using accuracy, precision, recall, and a confusion matrix.\"\n      ],\n      \"total_hours\": 8\n    },\n    {\n      \"week\": 6,\n      \"focus_skills\": [\n        \"Data Structures and Algorithms\",\n        \"Deep Learning Frameworks (PyTorch or TensorFlow)\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"PyTorch 60-Minute Blitz\",\n          \"url\": \"https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html\"\n        },\n        {\n          \"title\": \"LeetCode - Trees and Graphs Basics\",\n          \"url\": \"https://leetcode.com/\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Complete the PyTorch Tensors and autograd tutorials, building a basic neural network for dummy data.\",\n        \"Solve 3 easy/medium tree or graph traversal problems (e.g., Maximum Depth of Binary Tree).\"\n      ],\n      \"total_hours\": 8\n    }\n  ]\n}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 3.49,
+      "parsed": {
+        "weeks": [
+          {
+            "week": 1,
+            "focus_skills": [
+              "Git and Version Control",
+              "SQL and Database Fundamentals"
+            ],
+            "resources": [
+              {
+                "title": "Git and GitHub for Beginners - Crash Course",
+                "url": "https://www.youtube.com/watch?v=RGOj5yH7evk"
+              },
+              {
+                "title": "SQLBolt - Learn SQL Interactively",
+                "url": "https://sqlbolt.com/"
+              }
+            ],
+            "practice_tasks": [
+              "Initialize a local Git repository, create a branch, make commits, push to GitHub, and open a pull request.",
+              "Complete lessons 1 through 10 on SQLBolt and write 5 custom queries joining two tables."
+            ],
+            "total_hours": 8
+          },
+          {
+            "week": 2,
+            "focus_skills": [
+              "Data Structures and Algorithms"
+            ],
+            "resources": [
+              {
+                "title": "freeCodeCamp Data Structures and Algorithms in Python",
+                "url": "https://www.youtube.com/watch?v=pkYVOmU3MgA"
+              },
+              {
+                "title": "LeetCode - Easy Warmup Problems",
+                "url": "https://leetcode.com/"
+              }
+            ],
+            "practice_tasks": [
+              "Study Big-O notation, arrays, and strings.",
+              "Solve 5 easy problems on LeetCode focusing on arrays and hash maps (e.g., Two Sum, Valid Anagram)."
+            ],
+            "total_hours": 8
+          },
+          {
+            "week": 3,
+            "focus_skills": [
+              "Data Structures and Algorithms",
+              "Scikit-Learn and Pandas"
+            ],
+            "resources": [
+              {
+                "title": "Kaggle Pandas Course",
+                "url": "https://www.kaggle.com/learn/pandas"
+              },
+              {
+                "title": "NeetCode 150 - Linked Lists and Sorting",
+                "url": "https://neetcode.io/"
+              }
+            ],
+            "practice_tasks": [
+              "Complete the Kaggle Pandas course and manipulate a public dataset (handling missing values, grouping, filtering).",
+              "Solve 4 algorithm problems involving two pointers and basic sorting."
+            ],
+            "total_hours": 8
+          },
+          {
+            "week": 4,
+            "focus_skills": [
+              "Supervised and Unsupervised Learning Algorithms"
+            ],
+            "resources": [
+              {
+                "title": "StatQuest with Josh Starmer (Machine Learning Playlist)",
+                "url": "https://www.youtube.com/c/StatQuestWithJoshStarmer"
+              },
+              {
+                "title": "Google Machine Learning Crash Course",
+                "url": "https://developers.google.com/machine-learning/crash-course"
+              }
+            ],
+            "practice_tasks": [
+              "Watch core StatQuest videos on Linear Regression, Logistic Regression, and Decision Trees.",
+              "Complete the introductory modules of the Google ML Crash Course regarding loss and gradient descent."
+            ],
+            "total_hours": 8
+          },
+          {
+            "week": 5,
+            "focus_skills": [
+              "Supervised and Unsupervised Learning Algorithms",
+              "Scikit-Learn and Pandas"
+            ],
+            "resources": [
+              {
+                "title": "Scikit-Learn Official User Guide Tutorials",
+                "url": "https://scikit-learn.org/stable/tutorial/basic/tutorial.html"
+              },
+              {
+                "title": "Kaggle Intro to Machine Learning Course",
+                "url": "https://www.kaggle.com/learn/intro-to-machine-learning"
+              }
+            ],
+            "practice_tasks": [
+              "Build a complete Scikit-Learn pipeline using a tabular dataset to train a classification model.",
+              "Evaluate the model using accuracy, precision, recall, and a confusion matrix."
+            ],
+            "total_hours": 8
+          },
+          {
+            "week": 6,
+            "focus_skills": [
+              "Data Structures and Algorithms",
+              "Deep Learning Frameworks (PyTorch or TensorFlow)"
+            ],
+            "resources": [
+              {
+                "title": "PyTorch 60-Minute Blitz",
+                "url": "https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html"
+              },
+              {
+                "title": "LeetCode - Trees and Graphs Basics",
+                "url": "https://leetcode.com/"
+              }
+            ],
+            "practice_tasks": [
+              "Complete the PyTorch Tensors and autograd tutorials, building a basic neural network for dummy data.",
+              "Solve 3 easy/medium tree or graph traversal problems (e.g., Maximum Depth of Binary Tree)."
+            ],
+            "total_hours": 8
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    }
+  ],
+  "status": "ok",
+  "final": {
+    "profile": {
+      "skills": [
+        {
+          "name": "Python",
+          "level": "intermediate"
+        },
+        {
+          "name": "NumPy",
+          "level": "intermediate"
+        },
+        {
+          "name": "Pandas",
+          "level": "intermediate"
+        },
+        {
+          "name": "scikit-learn",
+          "level": "beginner"
+        },
+        {
+          "name": "statistics",
+          "level": "intermediate"
+        }
+      ]
+    },
+    "requirements": {
+      "must_have": [
+        {
+          "skill": "Python Programming",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "Data Structures and Algorithms",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "SQL and Database Fundamentals",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Linear Algebra, Calculus, and Statistics",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "Scikit-Learn and Pandas",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "Supervised and Unsupervised Learning Algorithms",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "Git and Version Control",
+          "required_level": "beginner"
+        }
+      ],
+      "good_to_have": [
+        {
+          "skill": "Deep Learning Frameworks (PyTorch or TensorFlow)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Cloud Platforms (AWS, GCP, or Azure)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Docker and Containerization",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "MLOps and Model Deployment (FastAPI or Flask)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Natural Language Processing (NLP) or Computer Vision",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Apache Spark or Big Data Tools",
+          "required_level": "beginner"
+        }
+      ]
+    },
+    "gaps": {
+      "gaps": [
+        {
+          "skill": "Data Structures and Algorithms",
+          "current_level": "none",
+          "required_level": "intermediate",
+          "priority": "high"
+        },
+        {
+          "skill": "Supervised and Unsupervised Learning Algorithms",
+          "current_level": "none",
+          "required_level": "intermediate",
+          "priority": "high"
+        },
+        {
+          "skill": "SQL and Database Fundamentals",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "high"
+        },
+        {
+          "skill": "Git and Version Control",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "high"
+        },
+        {
+          "skill": "Scikit-Learn and Pandas",
+          "current_level": "beginner",
+          "required_level": "intermediate",
+          "priority": "medium"
+        },
+        {
+          "skill": "Deep Learning Frameworks (PyTorch or TensorFlow)",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "Cloud Platforms (AWS, GCP, or Azure)",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "Docker and Containerization",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "MLOps and Model Deployment (FastAPI or Flask)",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "Natural Language Processing (NLP) or Computer Vision",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "Apache Spark or Big Data Tools",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        }
+      ]
+    },
+    "plan": {
+      "weeks": [
+        {
+          "week": 1,
+          "focus_skills": [
+            "Git and Version Control",
+            "SQL and Database Fundamentals"
+          ],
+          "resources": [
+            {
+              "title": "Git and GitHub for Beginners - Crash Course",
+              "url": "https://www.youtube.com/watch?v=RGOj5yH7evk"
+            },
+            {
+              "title": "SQLBolt - Learn SQL Interactively",
+              "url": "https://sqlbolt.com/"
+            }
+          ],
+          "practice_tasks": [
+            "Initialize a local Git repository, create a branch, make commits, push to GitHub, and open a pull request.",
+            "Complete lessons 1 through 10 on SQLBolt and write 5 custom queries joining two tables."
+          ],
+          "total_hours": 8
+        },
+        {
+          "week": 2,
+          "focus_skills": [
+            "Data Structures and Algorithms"
+          ],
+          "resources": [
+            {
+              "title": "freeCodeCamp Data Structures and Algorithms in Python",
+              "url": "https://www.youtube.com/watch?v=pkYVOmU3MgA"
+            },
+            {
+              "title": "LeetCode - Easy Warmup Problems",
+              "url": "https://leetcode.com/"
+            }
+          ],
+          "practice_tasks": [
+            "Study Big-O notation, arrays, and strings.",
+            "Solve 5 easy problems on LeetCode focusing on arrays and hash maps (e.g., Two Sum, Valid Anagram)."
+          ],
+          "total_hours": 8
+        },
+        {
+          "week": 3,
+          "focus_skills": [
+            "Data Structures and Algorithms",
+            "Scikit-Learn and Pandas"
+          ],
+          "resources": [
+            {
+              "title": "Kaggle Pandas Course",
+              "url": "https://www.kaggle.com/learn/pandas"
+            },
+            {
+              "title": "NeetCode 150 - Linked Lists and Sorting",
+              "url": "https://neetcode.io/"
+            }
+          ],
+          "practice_tasks": [
+            "Complete the Kaggle Pandas course and manipulate a public dataset (handling missing values, grouping, filtering).",
+            "Solve 4 algorithm problems involving two pointers and basic sorting."
+          ],
+          "total_hours": 8
+        },
+        {
+          "week": 4,
+          "focus_skills": [
+            "Supervised and Unsupervised Learning Algorithms"
+          ],
+          "resources": [
+            {
+              "title": "StatQuest with Josh Starmer (Machine Learning Playlist)",
+              "url": "https://www.youtube.com/c/StatQuestWithJoshStarmer"
+            },
+            {
+              "title": "Google Machine Learning Crash Course",
+              "url": "https://developers.google.com/machine-learning/crash-course"
+            }
+          ],
+          "practice_tasks": [
+            "Watch core StatQuest videos on Linear Regression, Logistic Regression, and Decision Trees.",
+            "Complete the introductory modules of the Google ML Crash Course regarding loss and gradient descent."
+          ],
+          "total_hours": 8
+        },
+        {
+          "week": 5,
+          "focus_skills": [
+            "Supervised and Unsupervised Learning Algorithms",
+            "Scikit-Learn and Pandas"
+          ],
+          "resources": [
+            {
+              "title": "Scikit-Learn Official User Guide Tutorials",
+              "url": "https://scikit-learn.org/stable/tutorial/basic/tutorial.html"
+            },
+            {
+              "title": "Kaggle Intro to Machine Learning Course",
+              "url": "https://www.kaggle.com/learn/intro-to-machine-learning"
+            }
+          ],
+          "practice_tasks": [
+            "Build a complete Scikit-Learn pipeline using a tabular dataset to train a classification model.",
+            "Evaluate the model using accuracy, precision, recall, and a confusion matrix."
+          ],
+          "total_hours": 8
+        },
+        {
+          "week": 6,
+          "focus_skills": [
+            "Data Structures and Algorithms",
+            "Deep Learning Frameworks (PyTorch or TensorFlow)"
+          ],
+          "resources": [
+            {
+              "title": "PyTorch 60-Minute Blitz",
+              "url": "https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html"
+            },
+            {
+              "title": "LeetCode - Trees and Graphs Basics",
+              "url": "https://leetcode.com/"
+            }
+          ],
+          "practice_tasks": [
+            "Complete the PyTorch Tensors and autograd tutorials, building a basic neural network for dummy data.",
+            "Solve 3 easy/medium tree or graph traversal problems (e.g., Maximum Depth of Binary Tree)."
+          ],
+          "total_hours": 8
+        }
+      ]
+    }
+  },
+  "model": "gemini-3.5-flash-lite",
+  "run_at": "2026-11-22T02:23:17",
+  "wall_time_s": 24.7
+}

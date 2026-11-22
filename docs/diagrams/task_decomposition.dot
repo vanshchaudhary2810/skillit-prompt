@@ -1,0 +1,12 @@
+digraph G { rankdir=TB; node [fontname="Helvetica", fontsize=11, style="rounded,filled", shape=box, fillcolor="#EEF2FF", color="#4F46E5"]; edge [color="#555555"];
+g [label="Goal: a personalised, realistic learning plan\nfor the student's target job", fillcolor="#FEF3C7", color="#B45309"];
+a [label="1. Understand the student\nP1: free text -> standard skills + levels"];
+b [label="2. Understand the role\nP2: typed role -> must-have / good-to-have"];
+c [label="3. Find what is missing\nP3: compare -> ranked gaps, readiness"];
+d [label="4. Fit it into the time\nP4: gaps + hours -> week-wise plan"];
+e [label="5. Check and show\ncode: validate + display", fillcolor="#FEE2E2", color="#B91C1C"];
+a1 [label="map aliases / typos", shape=note, fillcolor="#FFFFFF"]; a2 [label="infer level", shape=note, fillcolor="#FFFFFF"]; a3 [label="reject junk / injection", shape=note, fillcolor="#FFFFFF"];
+b1 [label="pick closest profile", shape=note, fillcolor="#FFFFFF"]; b2 [label="flag vague roles", shape=note, fillcolor="#FFFFFF"];
+c1 [label="met vs gap per skill", shape=note, fillcolor="#FFFFFF"]; c2 [label="rank + estimate hours", shape=note, fillcolor="#FFFFFF"];
+d1 [label="respect hour limit", shape=note, fillcolor="#FFFFFF"]; d2 [label="pick curated resources", shape=note, fillcolor="#FFFFFF"]; d3 [label="practice tasks, defer extra", shape=note, fillcolor="#FFFFFF"];
+g -> {a b c d e}; a -> {a1 a2 a3}; b -> {b1 b2}; c -> {c1 c2}; d -> {d1 d2 d3}; }

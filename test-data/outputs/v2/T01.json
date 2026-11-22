@@ -1,0 +1,507 @@
+{
+  "version": "v2",
+  "inputs": {
+    "student_skills": "python, basic sql, html",
+    "target_role": "Data Analyst",
+    "weekly_hours": 6,
+    "num_weeks": 4
+  },
+  "steps": [
+    {
+      "id": "P1",
+      "name": "Skill Normaliser",
+      "prompt_file": "prompts/v2/P1_skill_normaliser.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Read the student's skills below and convert them into a clean list of skills with a level for each (beginner, intermediate or advanced).\n\nStudent skills: python, basic sql, html\n\nReturn JSON only in this format:\n{\"skills\": [{\"name\": \"...\", \"level\": \"beginner|intermediate|advanced\"}]}",
+      "raw": "```json\n{\n  \"skills\": [\n    {\n      \"name\": \"Python\",\n      \"level\": \"intermediate\"\n    },\n    {\n      \"name\": \"SQL\",\n      \"level\": \"beginner\"\n    },\n    {\n      \"name\": \"HTML\",\n      \"level\": \"beginner\"\n    }\n  ]\n}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 0.72,
+      "parsed": {
+        "skills": [
+          {
+            "name": "Python",
+            "level": "intermediate"
+          },
+          {
+            "name": "SQL",
+            "level": "beginner"
+          },
+          {
+            "name": "HTML",
+            "level": "beginner"
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    },
+    {
+      "id": "P2",
+      "name": "Role Requirements",
+      "prompt_file": "prompts/v2/P2_role_requirements.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "List the skills a fresher needs for an entry-level Data Analyst job. Split them into must-have and good-to-have skills and give the level needed for each.\n\nReturn JSON only in this format:\n{\"must_have\": [{\"skill\": \"...\", \"required_level\": \"beginner|intermediate|advanced\"}], \"good_to_have\": [{\"skill\": \"...\", \"required_level\": \"...\"}]}",
+      "raw": "```json\n{\n  \"must_have\": [\n    {\n      \"skill\": \"SQL\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"Excel\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"Data Visualization (Tableau or Power BI)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Python or R\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Basic Statistics\",\n      \"required_level\": \"beginner\"\n    }\n  ],\n  \"good_to_have\": [\n    {\n      \"skill\": \"NoSQL Databases\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Cloud Platforms (AWS, GCP, or Azure)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Version Control (Git)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"ETL Fundamentals\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Machine Learning Basics\",\n      \"required_level\": \"beginner\"\n    }\n  ]\n}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 1.22,
+      "parsed": {
+        "must_have": [
+          {
+            "skill": "SQL",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "Excel",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "Data Visualization (Tableau or Power BI)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Python or R",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Basic Statistics",
+            "required_level": "beginner"
+          }
+        ],
+        "good_to_have": [
+          {
+            "skill": "NoSQL Databases",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Cloud Platforms (AWS, GCP, or Azure)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Version Control (Git)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "ETL Fundamentals",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Machine Learning Basics",
+            "required_level": "beginner"
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    },
+    {
+      "id": "P3",
+      "name": "Gap Analyser",
+      "prompt_file": "prompts/v2/P3_gap_analyser.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Compare the student's skills with the role requirements and list the skill gaps, most important first.\n\nStudent skills (JSON): {\"skills\": [{\"name\": \"Python\", \"level\": \"intermediate\"}, {\"name\": \"SQL\", \"level\": \"beginner\"}, {\"name\": \"HTML\", \"level\": \"beginner\"}]}\nRole requirements (JSON): {\"must_have\": [{\"skill\": \"SQL\", \"required_level\": \"intermediate\"}, {\"skill\": \"Excel\", \"required_level\": \"intermediate\"}, {\"skill\": \"Data Visualization (Tableau or Power BI)\", \"required_level\": \"beginner\"}, {\"skill\": \"Python or R\", \"required_level\": \"beginner\"}, {\"skill\": \"Basic Statistics\", \"required_level\": \"beginner\"}], \"good_to_have\": [{\"skill\": \"NoSQL Databases\", \"required_level\": \"beginner\"}, {\"skill\": \"Cloud Platforms (AWS, GCP, or Azure)\", \"required_level\": \"beginner\"}, {\"skill\": \"Version Control (Git)\", \"required_level\": \"beginner\"}, {\"skill\": \"ETL Fundamentals\", \"required_level\": \"beginner\"}, {\"skill\": \"Machine Learning Basics\", \"required_level\": \"beginner\"}]}\n\nReturn JSON only in this format:\n{\"gaps\": [{\"skill\": \"...\", \"current_level\": \"none|beginner|intermediate\", \"required_level\": \"...\", \"priority\": \"high|medium|low\"}]}",
+      "raw": "```json\n{\"gaps\": [{\"skill\": \"Excel\", \"current_level\": \"none\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"SQL\", \"current_level\": \"beginner\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"Data Visualization (Tableau or Power BI)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"Basic Statistics\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"NoSQL Databases\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Cloud Platforms (AWS, GCP, or Azure)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Version Control (Git)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"ETL Fundamentals\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Machine Learning Basics\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}]}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 1.33,
+      "parsed": {
+        "gaps": [
+          {
+            "skill": "Excel",
+            "current_level": "none",
+            "required_level": "intermediate",
+            "priority": "high"
+          },
+          {
+            "skill": "SQL",
+            "current_level": "beginner",
+            "required_level": "intermediate",
+            "priority": "high"
+          },
+          {
+            "skill": "Data Visualization (Tableau or Power BI)",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "medium"
+          },
+          {
+            "skill": "Basic Statistics",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "medium"
+          },
+          {
+            "skill": "NoSQL Databases",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "Cloud Platforms (AWS, GCP, or Azure)",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "Version Control (Git)",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "ETL Fundamentals",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "Machine Learning Basics",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    },
+    {
+      "id": "P4",
+      "name": "Plan Builder",
+      "prompt_file": "prompts/v2/P4_plan_builder.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Build a 4-week learning plan that closes these skill gaps. The student can study at most 6 hours per week. For every week give the focus skills, the learning resources with links, practice tasks and the hours.\n\nSkill gaps (JSON): [{\"skill\": \"Excel\", \"current_level\": \"none\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"SQL\", \"current_level\": \"beginner\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"Data Visualization (Tableau or Power BI)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"Basic Statistics\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"NoSQL Databases\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Cloud Platforms (AWS, GCP, or Azure)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Version Control (Git)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"ETL Fundamentals\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Machine Learning Basics\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}]\n\nReturn JSON only in this format:\n{\"weeks\": [{\"week\": 1, \"focus_skills\": [\"...\"], \"resources\": [{\"title\": \"...\", \"url\": \"...\"}], \"practice_tasks\": [\"...\"], \"total_hours\": 0}]}",
+      "raw": "{\n  \"weeks\": [\n    {\n      \"week\": 1,\n      \"focus_skills\": [\n        \"Excel\",\n        \"SQL\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"Excel Skills for Business: Essentials by Macquarie University\",\n          \"url\": \"https://www.coursera.org/learn/excel-essentials\"\n        },\n        {\n          \"title\": \"SQLBolt - Learn SQL with simple interactive exercises\",\n          \"url\": \"https://sqlbolt.com/\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Create an Excel spreadsheet using VLOOKUP, XLOOKUP, and basic IF statements to analyze a dummy sales dataset.\",\n        \"Complete lessons 1 through 6 on SQLBolt covering SELECT queries, filtering, and joins.\"\n      ],\n      \"total_hours\": 6\n    },\n    {\n      \"week\": 2,\n      \"focus_skills\": [\n        \"Excel\",\n        \"SQL\",\n        \"Data Visualization (Tableau or Power BI)\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"Mode SQL Tutorial\",\n          \"url\": \"https://mode.com/sql-tutorial/\"\n        },\n        {\n          \"title\": \"Tableau Free Training Videos\",\n          \"url\": \"https://www.tableau.com/learn/training/20214\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Build Pivot Tables and Pivot Charts in Excel to summarize quarterly business performance.\",\n        \"Write intermediate SQL queries involving GROUP BY, HAVING, and JOINs using Mode's interactive editor.\",\n        \"Connect a sample CSV dataset to Tableau Public and build your first bar chart and line graph dashboard.\"\n      ],\n      \"total_hours\": 6\n    },\n    {\n      \"week\": 3,\n      \"focus_skills\": [\n        \"Basic Statistics\",\n        \"Version Control (Git)\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"Khan Academy Statistics and Probability\",\n          \"url\": \"https://www.khanacademy.org/math/statistics-probability\"\n        },\n        {\n          \"title\": \"Git - The Simple Guide\",\n          \"url\": \"https://rogerdudler.github.io/git-guide/\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Study mean, median, standard deviation, and basic probability concepts; calculate them for a dataset in Excel.\",\n        \"Initialize a local Git repository, make commits, and push a project folder to GitHub.\"\n      ],\n      \"total_hours\": 6\n    },\n    {\n      \"week\": 4,\n      \"focus_skills\": [\n        \"NoSQL Databases\",\n        \"Cloud Platforms (AWS, GCP, or Azure)\",\n        \"ETL Fundamentals\",\n        \"Machine Learning Basics\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"MongoDB University - Introduction to MongoDB\",\n          \"url\": \"https://university.mongodb.com/\"\n        },\n        {\n          \"title\": \"AWS Cloud Practitioner Essentials\",\n          \"url\": \"https://aws.amazon.com/training/digital/aws-cloud-practitioner-essentials/\"\n        },\n        {\n          \"title\": \"Google Cloud Machine Learning Crash Course\",\n          \"url\": \"https://developers.google.com/machine-learning/crash-course\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Set up a free MongoDB Atlas cluster and insert/query JSON-based documents.\",\n        \"Complete module overviews on AWS core infrastructure (EC2, S3) and review a basic ETL pipeline architecture concept.\",\n        \"Complete the first 2 modules of Google's ML Crash Course to understand basic features and loss functions.\"\n      ],\n      \"total_hours\": 6\n    }\n  ]\n}",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 2.64,
+      "parsed": {
+        "weeks": [
+          {
+            "week": 1,
+            "focus_skills": [
+              "Excel",
+              "SQL"
+            ],
+            "resources": [
+              {
+                "title": "Excel Skills for Business: Essentials by Macquarie University",
+                "url": "https://www.coursera.org/learn/excel-essentials"
+              },
+              {
+                "title": "SQLBolt - Learn SQL with simple interactive exercises",
+                "url": "https://sqlbolt.com/"
+              }
+            ],
+            "practice_tasks": [
+              "Create an Excel spreadsheet using VLOOKUP, XLOOKUP, and basic IF statements to analyze a dummy sales dataset.",
+              "Complete lessons 1 through 6 on SQLBolt covering SELECT queries, filtering, and joins."
+            ],
+            "total_hours": 6
+          },
+          {
+            "week": 2,
+            "focus_skills": [
+              "Excel",
+              "SQL",
+              "Data Visualization (Tableau or Power BI)"
+            ],
+            "resources": [
+              {
+                "title": "Mode SQL Tutorial",
+                "url": "https://mode.com/sql-tutorial/"
+              },
+              {
+                "title": "Tableau Free Training Videos",
+                "url": "https://www.tableau.com/learn/training/20214"
+              }
+            ],
+            "practice_tasks": [
+              "Build Pivot Tables and Pivot Charts in Excel to summarize quarterly business performance.",
+              "Write intermediate SQL queries involving GROUP BY, HAVING, and JOINs using Mode's interactive editor.",
+              "Connect a sample CSV dataset to Tableau Public and build your first bar chart and line graph dashboard."
+            ],
+            "total_hours": 6
+          },
+          {
+            "week": 3,
+            "focus_skills": [
+              "Basic Statistics",
+              "Version Control (Git)"
+            ],
+            "resources": [
+              {
+                "title": "Khan Academy Statistics and Probability",
+                "url": "https://www.khanacademy.org/math/statistics-probability"
+              },
+              {
+                "title": "Git - The Simple Guide",
+                "url": "https://rogerdudler.github.io/git-guide/"
+              }
+            ],
+            "practice_tasks": [
+              "Study mean, median, standard deviation, and basic probability concepts; calculate them for a dataset in Excel.",
+              "Initialize a local Git repository, make commits, and push a project folder to GitHub."
+            ],
+            "total_hours": 6
+          },
+          {
+            "week": 4,
+            "focus_skills": [
+              "NoSQL Databases",
+              "Cloud Platforms (AWS, GCP, or Azure)",
+              "ETL Fundamentals",
+              "Machine Learning Basics"
+            ],
+            "resources": [
+              {
+                "title": "MongoDB University - Introduction to MongoDB",
+                "url": "https://university.mongodb.com/"
+              },
+              {
+                "title": "AWS Cloud Practitioner Essentials",
+                "url": "https://aws.amazon.com/training/digital/aws-cloud-practitioner-essentials/"
+              },
+              {
+                "title": "Google Cloud Machine Learning Crash Course",
+                "url": "https://developers.google.com/machine-learning/crash-course"
+              }
+            ],
+            "practice_tasks": [
+              "Set up a free MongoDB Atlas cluster and insert/query JSON-based documents.",
+              "Complete module overviews on AWS core infrastructure (EC2, S3) and review a basic ETL pipeline architecture concept.",
+              "Complete the first 2 modules of Google's ML Crash Course to understand basic features and loss functions."
+            ],
+            "total_hours": 6
+          }
+        ]
+      },
+      "json_strict": true,
+      "json_ok": true
+    }
+  ],
+  "status": "ok",
+  "final": {
+    "profile": {
+      "skills": [
+        {
+          "name": "Python",
+          "level": "intermediate"
+        },
+        {
+          "name": "SQL",
+          "level": "beginner"
+        },
+        {
+          "name": "HTML",
+          "level": "beginner"
+        }
+      ]
+    },
+    "requirements": {
+      "must_have": [
+        {
+          "skill": "SQL",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "Excel",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "Data Visualization (Tableau or Power BI)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Python or R",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Basic Statistics",
+          "required_level": "beginner"
+        }
+      ],
+      "good_to_have": [
+        {
+          "skill": "NoSQL Databases",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Cloud Platforms (AWS, GCP, or Azure)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Version Control (Git)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "ETL Fundamentals",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Machine Learning Basics",
+          "required_level": "beginner"
+        }
+      ]
+    },
+    "gaps": {
+      "gaps": [
+        {
+          "skill": "Excel",
+          "current_level": "none",
+          "required_level": "intermediate",
+          "priority": "high"
+        },
+        {
+          "skill": "SQL",
+          "current_level": "beginner",
+          "required_level": "intermediate",
+          "priority": "high"
+        },
+        {
+          "skill": "Data Visualization (Tableau or Power BI)",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "medium"
+        },
+        {
+          "skill": "Basic Statistics",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "medium"
+        },
+        {
+          "skill": "NoSQL Databases",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "Cloud Platforms (AWS, GCP, or Azure)",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "Version Control (Git)",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "ETL Fundamentals",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "Machine Learning Basics",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        }
+      ]
+    },
+    "plan": {
+      "weeks": [
+        {
+          "week": 1,
+          "focus_skills": [
+            "Excel",
+            "SQL"
+          ],
+          "resources": [
+            {
+              "title": "Excel Skills for Business: Essentials by Macquarie University",
+              "url": "https://www.coursera.org/learn/excel-essentials"
+            },
+            {
+              "title": "SQLBolt - Learn SQL with simple interactive exercises",
+              "url": "https://sqlbolt.com/"
+            }
+          ],
+          "practice_tasks": [
+            "Create an Excel spreadsheet using VLOOKUP, XLOOKUP, and basic IF statements to analyze a dummy sales dataset.",
+            "Complete lessons 1 through 6 on SQLBolt covering SELECT queries, filtering, and joins."
+          ],
+          "total_hours": 6
+        },
+        {
+          "week": 2,
+          "focus_skills": [
+            "Excel",
+            "SQL",
+            "Data Visualization (Tableau or Power BI)"
+          ],
+          "resources": [
+            {
+              "title": "Mode SQL Tutorial",
+              "url": "https://mode.com/sql-tutorial/"
+            },
+            {
+              "title": "Tableau Free Training Videos",
+              "url": "https://www.tableau.com/learn/training/20214"
+            }
+          ],
+          "practice_tasks": [
+            "Build Pivot Tables and Pivot Charts in Excel to summarize quarterly business performance.",
+            "Write intermediate SQL queries involving GROUP BY, HAVING, and JOINs using Mode's interactive editor.",
+            "Connect a sample CSV dataset to Tableau Public and build your first bar chart and line graph dashboard."
+          ],
+          "total_hours": 6
+        },
+        {
+          "week": 3,
+          "focus_skills": [
+            "Basic Statistics",
+            "Version Control (Git)"
+          ],
+          "resources": [
+            {
+              "title": "Khan Academy Statistics and Probability",
+              "url": "https://www.khanacademy.org/math/statistics-probability"
+            },
+            {
+              "title": "Git - The Simple Guide",
+              "url": "https://rogerdudler.github.io/git-guide/"
+            }
+          ],
+          "practice_tasks": [
+            "Study mean, median, standard deviation, and basic probability concepts; calculate them for a dataset in Excel.",
+            "Initialize a local Git repository, make commits, and push a project folder to GitHub."
+          ],
+          "total_hours": 6
+        },
+        {
+          "week": 4,
+          "focus_skills": [
+            "NoSQL Databases",
+            "Cloud Platforms (AWS, GCP, or Azure)",
+            "ETL Fundamentals",
+            "Machine Learning Basics"
+          ],
+          "resources": [
+            {
+              "title": "MongoDB University - Introduction to MongoDB",
+              "url": "https://university.mongodb.com/"
+            },
+            {
+              "title": "AWS Cloud Practitioner Essentials",
+              "url": "https://aws.amazon.com/training/digital/aws-cloud-practitioner-essentials/"
+            },
+            {
+              "title": "Google Cloud Machine Learning Crash Course",
+              "url": "https://developers.google.com/machine-learning/crash-course"
+            }
+          ],
+          "practice_tasks": [
+            "Set up a free MongoDB Atlas cluster and insert/query JSON-based documents.",
+            "Complete module overviews on AWS core infrastructure (EC2, S3) and review a basic ETL pipeline architecture concept.",
+            "Complete the first 2 modules of Google's ML Crash Course to understand basic features and loss functions."
+          ],
+          "total_hours": 6
+        }
+      ]
+    }
+  },
+  "model": "gemini-3.5-flash-lite",
+  "run_at": "2026-11-22T02:22:04",
+  "wall_time_s": 22.0
+}

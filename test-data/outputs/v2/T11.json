@@ -1,0 +1,575 @@
+{
+  "version": "v2",
+  "inputs": {
+    "student_skills": "Python intermediate, machine learning basics",
+    "target_role": "AI engineer",
+    "weekly_hours": 8,
+    "num_weeks": 4
+  },
+  "steps": [
+    {
+      "id": "P1",
+      "name": "Skill Normaliser",
+      "prompt_file": "prompts/v2/P1_skill_normaliser.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Read the student's skills below and convert them into a clean list of skills with a level for each (beginner, intermediate or advanced).\n\nStudent skills: Python intermediate, machine learning basics\n\nReturn JSON only in this format:\n{\"skills\": [{\"name\": \"...\", \"level\": \"beginner|intermediate|advanced\"}]}",
+      "raw": "{\n  \"skills\": [\n    {\n      \"name\": \"Python\",\n      \"level\": \"intermediate\"\n    },\n    {\n      \"name\": \"Machine Learning\",\n      \"level\": \"beginner\"\n    }\n  ]\n}",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 0.82,
+      "parsed": {
+        "skills": [
+          {
+            "name": "Python",
+            "level": "intermediate"
+          },
+          {
+            "name": "Machine Learning",
+            "level": "beginner"
+          }
+        ]
+      },
+      "json_strict": true,
+      "json_ok": true
+    },
+    {
+      "id": "P2",
+      "name": "Role Requirements",
+      "prompt_file": "prompts/v2/P2_role_requirements.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "List the skills a fresher needs for an entry-level AI engineer job. Split them into must-have and good-to-have skills and give the level needed for each.\n\nReturn JSON only in this format:\n{\"must_have\": [{\"skill\": \"...\", \"required_level\": \"beginner|intermediate|advanced\"}], \"good_to_have\": [{\"skill\": \"...\", \"required_level\": \"...\"}]}",
+      "raw": "```json\n{\n  \"must_have\": [\n    {\n      \"skill\": \"Python Programming\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"Data Structures and Algorithms\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"Linear Algebra, Calculus, and Statistics\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"Machine Learning Fundamentals (Scikit-Learn, Pandas)\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"Deep Learning Frameworks (PyTorch or TensorFlow)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"SQL and Database Basics\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Version Control (Git/GitHub)\",\n      \"required_level\": \"beginner\"\n    }\n  ],\n  \"good_to_have\": [\n    {\n      \"skill\": \"Natural Language Processing (NLP) & LLMs\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Computer Vision Basics (OpenCV)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Vector Databases (Pinecone, Chroma)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Cloud Platforms (AWS, GCP, or Azure)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Docker & Containerization\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"MLOps & CI/CD Pipelines\",\n      \"required_level\": \"beginner\"\n    }\n  ]\n}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 1.78,
+      "parsed": {
+        "must_have": [
+          {
+            "skill": "Python Programming",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "Data Structures and Algorithms",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "Linear Algebra, Calculus, and Statistics",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "Machine Learning Fundamentals (Scikit-Learn, Pandas)",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "Deep Learning Frameworks (PyTorch or TensorFlow)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "SQL and Database Basics",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Version Control (Git/GitHub)",
+            "required_level": "beginner"
+          }
+        ],
+        "good_to_have": [
+          {
+            "skill": "Natural Language Processing (NLP) & LLMs",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Computer Vision Basics (OpenCV)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Vector Databases (Pinecone, Chroma)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Cloud Platforms (AWS, GCP, or Azure)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Docker & Containerization",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "MLOps & CI/CD Pipelines",
+            "required_level": "beginner"
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    },
+    {
+      "id": "P3",
+      "name": "Gap Analyser",
+      "prompt_file": "prompts/v2/P3_gap_analyser.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Compare the student's skills with the role requirements and list the skill gaps, most important first.\n\nStudent skills (JSON): {\"skills\": [{\"name\": \"Python\", \"level\": \"intermediate\"}, {\"name\": \"Machine Learning\", \"level\": \"beginner\"}]}\nRole requirements (JSON): {\"must_have\": [{\"skill\": \"Python Programming\", \"required_level\": \"intermediate\"}, {\"skill\": \"Data Structures and Algorithms\", \"required_level\": \"intermediate\"}, {\"skill\": \"Linear Algebra, Calculus, and Statistics\", \"required_level\": \"intermediate\"}, {\"skill\": \"Machine Learning Fundamentals (Scikit-Learn, Pandas)\", \"required_level\": \"intermediate\"}, {\"skill\": \"Deep Learning Frameworks (PyTorch or TensorFlow)\", \"required_level\": \"beginner\"}, {\"skill\": \"SQL and Database Basics\", \"required_level\": \"beginner\"}, {\"skill\": \"Version Control (Git/GitHub)\", \"required_level\": \"beginner\"}], \"good_to_have\": [{\"skill\": \"Natural Language Processing (NLP) & LLMs\", \"required_level\": \"beginner\"}, {\"skill\": \"Computer Vision Basics (OpenCV)\", \"required_level\": \"beginner\"}, {\"skill\": \"Vector Databases (Pinecone, Chroma)\", \"required_level\": \"beginner\"}, {\"skill\": \"Cloud Platforms (AWS, GCP, or Azure)\", \"required_level\": \"beginner\"}, {\"skill\": \"Docker & Containerization\", \"required_level\": \"beginner\"}, {\"skill\": \"MLOps & CI/CD Pipelines\", \"required_level\": \"beginner\"}]}\n\nReturn JSON only in this format:\n{\"gaps\": [{\"skill\": \"...\", \"current_level\": \"none|beginner|intermediate\", \"required_level\": \"...\", \"priority\": \"high|medium|low\"}]}",
+      "raw": "```json\n{\"gaps\": [{\"skill\": \"Data Structures and Algorithms\", \"current_level\": \"none\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"Linear Algebra, Calculus, and Statistics\", \"current_level\": \"none\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"Machine Learning Fundamentals (Scikit-Learn, Pandas)\", \"current_level\": \"beginner\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"Deep Learning Frameworks (PyTorch or TensorFlow)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"SQL and Database Basics\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"Version Control (Git/GitHub)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"Natural Language Processing (NLP) & LLMs\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Computer Vision Basics (OpenCV)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Vector Databases (Pinecone, Chroma)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Cloud Platforms (AWS, GCP, or Azure)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Docker & Containerization\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"MLOps & CI/CD Pipelines\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}]}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 1.3,
+      "parsed": {
+        "gaps": [
+          {
+            "skill": "Data Structures and Algorithms",
+            "current_level": "none",
+            "required_level": "intermediate",
+            "priority": "high"
+          },
+          {
+            "skill": "Linear Algebra, Calculus, and Statistics",
+            "current_level": "none",
+            "required_level": "intermediate",
+            "priority": "high"
+          },
+          {
+            "skill": "Machine Learning Fundamentals (Scikit-Learn, Pandas)",
+            "current_level": "beginner",
+            "required_level": "intermediate",
+            "priority": "high"
+          },
+          {
+            "skill": "Deep Learning Frameworks (PyTorch or TensorFlow)",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "medium"
+          },
+          {
+            "skill": "SQL and Database Basics",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "medium"
+          },
+          {
+            "skill": "Version Control (Git/GitHub)",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "medium"
+          },
+          {
+            "skill": "Natural Language Processing (NLP) & LLMs",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "Computer Vision Basics (OpenCV)",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "Vector Databases (Pinecone, Chroma)",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "Cloud Platforms (AWS, GCP, or Azure)",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "Docker & Containerization",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "MLOps & CI/CD Pipelines",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    },
+    {
+      "id": "P4",
+      "name": "Plan Builder",
+      "prompt_file": "prompts/v2/P4_plan_builder.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Build a 4-week learning plan that closes these skill gaps. The student can study at most 8 hours per week. For every week give the focus skills, the learning resources with links, practice tasks and the hours.\n\nSkill gaps (JSON): [{\"skill\": \"Data Structures and Algorithms\", \"current_level\": \"none\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"Linear Algebra, Calculus, and Statistics\", \"current_level\": \"none\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"Machine Learning Fundamentals (Scikit-Learn, Pandas)\", \"current_level\": \"beginner\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"Deep Learning Frameworks (PyTorch or TensorFlow)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"SQL and Database Basics\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"Version Control (Git/GitHub)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"Natural Language Processing (NLP) & LLMs\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Computer Vision Basics (OpenCV)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Vector Databases (Pinecone, Chroma)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Cloud Platforms (AWS, GCP, or Azure)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Docker & Containerization\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"MLOps & CI/CD Pipelines\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}]\n\nReturn JSON only in this format:\n{\"weeks\": [{\"week\": 1, \"focus_skills\": [\"...\"], \"resources\": [{\"title\": \"...\", \"url\": \"...\"}], \"practice_tasks\": [\"...\"], \"total_hours\": 0}]}",
+      "raw": "```json\n{\"weeks\": [{\"week\": 1, \"focus_skills\": [\"Data Structures and Algorithms\", \"Version Control (Git/GitHub)\", \"Linear Algebra, Calculus, and Statistics\"], \"resources\": [{\"title\": \"Python Data Structures and Algorithms (freeCodeCamp)\", \"url\": \"https://www.freecodecamp.org/\"}, {\"title\": \"Git and GitHub for Beginners (GitHub Skills)\", \"url\": \"https://skills.github.com/\"}, {\"title\": \"Khan Academy Linear Algebra & Statistics\", \"url\": \"https://www.khanacademy.org/\"}], \"practice_tasks\": [\"Initialize a GitHub repository, commit a Python script implementing basic sorting algorithms, and push it.\", \"Solve 5 easy array/string problems on LeetCode.\", \"Review core concepts of matrices, derivatives, and basic probability.\"], \"total_hours\": 8}, {\"week\": 2, \"focus_skills\": [\"Machine Learning Fundamentals (Scikit-Learn, Pandas)\", \"SQL and Database Basics\", \"Linear Algebra, Calculus, and Statistics\"], \"resources\": [{\"title\": \"Kaggle Pandas & Intro to Machine Learning Courses\", \"url\": \"https://www.kaggle.com/learn\"}, {\"title\": \"SQLBolt - Learn SQL\", \"url\": \"https://sqlbolt.com/\"}], \"practice_tasks\": [\"Complete the Pandas and Intro to ML courses on Kaggle.\", \"Write and execute 10 SQL queries involving JOINs and aggregations on a sample database.\", \"Train a simple Linear Regression model using Scikit-Learn on a CSV dataset.\"], \"total_hours\": 8}, {\"week\": 3, \"focus_skills\": [\"Deep Learning Frameworks (PyTorch or TensorFlow)\", \"Natural Language Processing (NLP) & LLMs\", \"Computer Vision Basics (OpenCV)\"], \"resources\": [{\"title\": \"PyTorch 60 Minute Blitz\", \"url\": \"https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html\"}, {\"title\": \"Hugging Face NLP Course\", \"url\": \"https://huggingface.co/learn/nlp-course/chapter1/1\"}, {\"title\": \"OpenCV Python Tutorials\", \"url\": \"https://docs.opencv.org/master/d6/d00/tutorial_py_root.html\"}], \"practice_tasks\": [\"Build a basic neural network using PyTorch for binary classification.\", \"Run a pre-trained transformer model from Hugging Face for sentiment analysis.\", \"Write an OpenCV script to load, grayscale, and resize an image.\"], \"total_hours\": 8}, {\"week\": 4, \"focus_skills\": [\"Vector Databases (Pinecone, Chroma)\", \"Docker & Containerization\", \"Cloud Platforms (AWS, GCP, or Azure)\", \"MLOps & CI/CD Pipelines\"], \"resources\": [{\"title\": \"Chroma DB Quickstart\", \"url\": \"https://docs.trychroma.com/\", \"title\": \"Docker Getting Started Guide\", \"url\": \"https://docs.docker.com/get-started/\"}, {\"title\": \"AWS Free Tier & ML Tutorials\", \"url\": \"https://aws.amazon.com/machine-learning/learn-ml/\"}], \"practice_tasks\": [\"Store a few text embeddings locally using Chroma DB.\", \"Containerize a simple Python script using Docker.\", \"Explore AWS console and review basic cloud deployment concepts for ML models.\"], \"total_hours\": 8}]}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 2.43,
+      "parsed": {
+        "weeks": [
+          {
+            "week": 1,
+            "focus_skills": [
+              "Data Structures and Algorithms",
+              "Version Control (Git/GitHub)",
+              "Linear Algebra, Calculus, and Statistics"
+            ],
+            "resources": [
+              {
+                "title": "Python Data Structures and Algorithms (freeCodeCamp)",
+                "url": "https://www.freecodecamp.org/"
+              },
+              {
+                "title": "Git and GitHub for Beginners (GitHub Skills)",
+                "url": "https://skills.github.com/"
+              },
+              {
+                "title": "Khan Academy Linear Algebra & Statistics",
+                "url": "https://www.khanacademy.org/"
+              }
+            ],
+            "practice_tasks": [
+              "Initialize a GitHub repository, commit a Python script implementing basic sorting algorithms, and push it.",
+              "Solve 5 easy array/string problems on LeetCode.",
+              "Review core concepts of matrices, derivatives, and basic probability."
+            ],
+            "total_hours": 8
+          },
+          {
+            "week": 2,
+            "focus_skills": [
+              "Machine Learning Fundamentals (Scikit-Learn, Pandas)",
+              "SQL and Database Basics",
+              "Linear Algebra, Calculus, and Statistics"
+            ],
+            "resources": [
+              {
+                "title": "Kaggle Pandas & Intro to Machine Learning Courses",
+                "url": "https://www.kaggle.com/learn"
+              },
+              {
+                "title": "SQLBolt - Learn SQL",
+                "url": "https://sqlbolt.com/"
+              }
+            ],
+            "practice_tasks": [
+              "Complete the Pandas and Intro to ML courses on Kaggle.",
+              "Write and execute 10 SQL queries involving JOINs and aggregations on a sample database.",
+              "Train a simple Linear Regression model using Scikit-Learn on a CSV dataset."
+            ],
+            "total_hours": 8
+          },
+          {
+            "week": 3,
+            "focus_skills": [
+              "Deep Learning Frameworks (PyTorch or TensorFlow)",
+              "Natural Language Processing (NLP) & LLMs",
+              "Computer Vision Basics (OpenCV)"
+            ],
+            "resources": [
+              {
+                "title": "PyTorch 60 Minute Blitz",
+                "url": "https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html"
+              },
+              {
+                "title": "Hugging Face NLP Course",
+                "url": "https://huggingface.co/learn/nlp-course/chapter1/1"
+              },
+              {
+                "title": "OpenCV Python Tutorials",
+                "url": "https://docs.opencv.org/master/d6/d00/tutorial_py_root.html"
+              }
+            ],
+            "practice_tasks": [
+              "Build a basic neural network using PyTorch for binary classification.",
+              "Run a pre-trained transformer model from Hugging Face for sentiment analysis.",
+              "Write an OpenCV script to load, grayscale, and resize an image."
+            ],
+            "total_hours": 8
+          },
+          {
+            "week": 4,
+            "focus_skills": [
+              "Vector Databases (Pinecone, Chroma)",
+              "Docker & Containerization",
+              "Cloud Platforms (AWS, GCP, or Azure)",
+              "MLOps & CI/CD Pipelines"
+            ],
+            "resources": [
+              {
+                "title": "Docker Getting Started Guide",
+                "url": "https://docs.docker.com/get-started/"
+              },
+              {
+                "title": "AWS Free Tier & ML Tutorials",
+                "url": "https://aws.amazon.com/machine-learning/learn-ml/"
+              }
+            ],
+            "practice_tasks": [
+              "Store a few text embeddings locally using Chroma DB.",
+              "Containerize a simple Python script using Docker.",
+              "Explore AWS console and review basic cloud deployment concepts for ML models."
+            ],
+            "total_hours": 8
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    }
+  ],
+  "status": "ok",
+  "final": {
+    "profile": {
+      "skills": [
+        {
+          "name": "Python",
+          "level": "intermediate"
+        },
+        {
+          "name": "Machine Learning",
+          "level": "beginner"
+        }
+      ]
+    },
+    "requirements": {
+      "must_have": [
+        {
+          "skill": "Python Programming",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "Data Structures and Algorithms",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "Linear Algebra, Calculus, and Statistics",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "Machine Learning Fundamentals (Scikit-Learn, Pandas)",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "Deep Learning Frameworks (PyTorch or TensorFlow)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "SQL and Database Basics",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Version Control (Git/GitHub)",
+          "required_level": "beginner"
+        }
+      ],
+      "good_to_have": [
+        {
+          "skill": "Natural Language Processing (NLP) & LLMs",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Computer Vision Basics (OpenCV)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Vector Databases (Pinecone, Chroma)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Cloud Platforms (AWS, GCP, or Azure)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Docker & Containerization",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "MLOps & CI/CD Pipelines",
+          "required_level": "beginner"
+        }
+      ]
+    },
+    "gaps": {
+      "gaps": [
+        {
+          "skill": "Data Structures and Algorithms",
+          "current_level": "none",
+          "required_level": "intermediate",
+          "priority": "high"
+        },
+        {
+          "skill": "Linear Algebra, Calculus, and Statistics",
+          "current_level": "none",
+          "required_level": "intermediate",
+          "priority": "high"
+        },
+        {
+          "skill": "Machine Learning Fundamentals (Scikit-Learn, Pandas)",
+          "current_level": "beginner",
+          "required_level": "intermediate",
+          "priority": "high"
+        },
+        {
+          "skill": "Deep Learning Frameworks (PyTorch or TensorFlow)",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "medium"
+        },
+        {
+          "skill": "SQL and Database Basics",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "medium"
+        },
+        {
+          "skill": "Version Control (Git/GitHub)",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "medium"
+        },
+        {
+          "skill": "Natural Language Processing (NLP) & LLMs",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "Computer Vision Basics (OpenCV)",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "Vector Databases (Pinecone, Chroma)",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "Cloud Platforms (AWS, GCP, or Azure)",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "Docker & Containerization",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "MLOps & CI/CD Pipelines",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        }
+      ]
+    },
+    "plan": {
+      "weeks": [
+        {
+          "week": 1,
+          "focus_skills": [
+            "Data Structures and Algorithms",
+            "Version Control (Git/GitHub)",
+            "Linear Algebra, Calculus, and Statistics"
+          ],
+          "resources": [
+            {
+              "title": "Python Data Structures and Algorithms (freeCodeCamp)",
+              "url": "https://www.freecodecamp.org/"
+            },
+            {
+              "title": "Git and GitHub for Beginners (GitHub Skills)",
+              "url": "https://skills.github.com/"
+            },
+            {
+              "title": "Khan Academy Linear Algebra & Statistics",
+              "url": "https://www.khanacademy.org/"
+            }
+          ],
+          "practice_tasks": [
+            "Initialize a GitHub repository, commit a Python script implementing basic sorting algorithms, and push it.",
+            "Solve 5 easy array/string problems on LeetCode.",
+            "Review core concepts of matrices, derivatives, and basic probability."
+          ],
+          "total_hours": 8
+        },
+        {
+          "week": 2,
+          "focus_skills": [
+            "Machine Learning Fundamentals (Scikit-Learn, Pandas)",
+            "SQL and Database Basics",
+            "Linear Algebra, Calculus, and Statistics"
+          ],
+          "resources": [
+            {
+              "title": "Kaggle Pandas & Intro to Machine Learning Courses",
+              "url": "https://www.kaggle.com/learn"
+            },
+            {
+              "title": "SQLBolt - Learn SQL",
+              "url": "https://sqlbolt.com/"
+            }
+          ],
+          "practice_tasks": [
+            "Complete the Pandas and Intro to ML courses on Kaggle.",
+            "Write and execute 10 SQL queries involving JOINs and aggregations on a sample database.",
+            "Train a simple Linear Regression model using Scikit-Learn on a CSV dataset."
+          ],
+          "total_hours": 8
+        },
+        {
+          "week": 3,
+          "focus_skills": [
+            "Deep Learning Frameworks (PyTorch or TensorFlow)",
+            "Natural Language Processing (NLP) & LLMs",
+            "Computer Vision Basics (OpenCV)"
+          ],
+          "resources": [
+            {
+              "title": "PyTorch 60 Minute Blitz",
+              "url": "https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html"
+            },
+            {
+              "title": "Hugging Face NLP Course",
+              "url": "https://huggingface.co/learn/nlp-course/chapter1/1"
+            },
+            {
+              "title": "OpenCV Python Tutorials",
+              "url": "https://docs.opencv.org/master/d6/d00/tutorial_py_root.html"
+            }
+          ],
+          "practice_tasks": [
+            "Build a basic neural network using PyTorch for binary classification.",
+            "Run a pre-trained transformer model from Hugging Face for sentiment analysis.",
+            "Write an OpenCV script to load, grayscale, and resize an image."
+          ],
+          "total_hours": 8
+        },
+        {
+          "week": 4,
+          "focus_skills": [
+            "Vector Databases (Pinecone, Chroma)",
+            "Docker & Containerization",
+            "Cloud Platforms (AWS, GCP, or Azure)",
+            "MLOps & CI/CD Pipelines"
+          ],
+          "resources": [
+            {
+              "title": "Docker Getting Started Guide",
+              "url": "https://docs.docker.com/get-started/"
+            },
+            {
+              "title": "AWS Free Tier & ML Tutorials",
+              "url": "https://aws.amazon.com/machine-learning/learn-ml/"
+            }
+          ],
+          "practice_tasks": [
+            "Store a few text embeddings locally using Chroma DB.",
+            "Containerize a simple Python script using Docker.",
+            "Explore AWS console and review basic cloud deployment concepts for ML models."
+          ],
+          "total_hours": 8
+        }
+      ]
+    }
+  },
+  "model": "gemini-3.5-flash-lite",
+  "run_at": "2026-11-22T02:26:04",
+  "wall_time_s": 24.0
+}

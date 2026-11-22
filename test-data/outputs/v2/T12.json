@@ -1,0 +1,565 @@
+{
+  "version": "v2",
+  "inputs": {
+    "student_skills": "idk asdfgh",
+    "target_role": "Data Analyst",
+    "weekly_hours": 6,
+    "num_weeks": 4
+  },
+  "steps": [
+    {
+      "id": "P1",
+      "name": "Skill Normaliser",
+      "prompt_file": "prompts/v2/P1_skill_normaliser.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Read the student's skills below and convert them into a clean list of skills with a level for each (beginner, intermediate or advanced).\n\nStudent skills: idk asdfgh\n\nReturn JSON only in this format:\n{\"skills\": [{\"name\": \"...\", \"level\": \"beginner|intermediate|advanced\"}]}",
+      "raw": "{\"skills\": []}",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 0.91,
+      "parsed": {
+        "skills": []
+      },
+      "json_strict": true,
+      "json_ok": true
+    },
+    {
+      "id": "P2",
+      "name": "Role Requirements",
+      "prompt_file": "prompts/v2/P2_role_requirements.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "List the skills a fresher needs for an entry-level Data Analyst job. Split them into must-have and good-to-have skills and give the level needed for each.\n\nReturn JSON only in this format:\n{\"must_have\": [{\"skill\": \"...\", \"required_level\": \"beginner|intermediate|advanced\"}], \"good_to_have\": [{\"skill\": \"...\", \"required_level\": \"...\"}]}",
+      "raw": "{\n  \"must_have\": [\n    {\n      \"skill\": \"SQL\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"Excel\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"Python or R\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Data Visualization (Tableau or Power BI)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Basic Statistics\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Data Cleaning & Preparation\",\n      \"required_level\": \"intermediate\"\n    }\n  ],\n  \"good_to_have\": [\n    {\n      \"skill\": \"Git/Version Control\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Cloud Data Warehouses (Snowflake, BigQuery)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"NoSQL Databases\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Machine Learning Basics\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"ETL/ELT Concepts\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Business Domain Knowledge\",\n      \"required_level\": \"beginner\"\n    }\n  ]\n}",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 1.58,
+      "parsed": {
+        "must_have": [
+          {
+            "skill": "SQL",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "Excel",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "Python or R",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Data Visualization (Tableau or Power BI)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Basic Statistics",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Data Cleaning & Preparation",
+            "required_level": "intermediate"
+          }
+        ],
+        "good_to_have": [
+          {
+            "skill": "Git/Version Control",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Cloud Data Warehouses (Snowflake, BigQuery)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "NoSQL Databases",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Machine Learning Basics",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "ETL/ELT Concepts",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Business Domain Knowledge",
+            "required_level": "beginner"
+          }
+        ]
+      },
+      "json_strict": true,
+      "json_ok": true
+    },
+    {
+      "id": "P3",
+      "name": "Gap Analyser",
+      "prompt_file": "prompts/v2/P3_gap_analyser.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Compare the student's skills with the role requirements and list the skill gaps, most important first.\n\nStudent skills (JSON): {\"skills\": []}\nRole requirements (JSON): {\"must_have\": [{\"skill\": \"SQL\", \"required_level\": \"intermediate\"}, {\"skill\": \"Excel\", \"required_level\": \"intermediate\"}, {\"skill\": \"Python or R\", \"required_level\": \"beginner\"}, {\"skill\": \"Data Visualization (Tableau or Power BI)\", \"required_level\": \"beginner\"}, {\"skill\": \"Basic Statistics\", \"required_level\": \"beginner\"}, {\"skill\": \"Data Cleaning & Preparation\", \"required_level\": \"intermediate\"}], \"good_to_have\": [{\"skill\": \"Git/Version Control\", \"required_level\": \"beginner\"}, {\"skill\": \"Cloud Data Warehouses (Snowflake, BigQuery)\", \"required_level\": \"beginner\"}, {\"skill\": \"NoSQL Databases\", \"required_level\": \"beginner\"}, {\"skill\": \"Machine Learning Basics\", \"required_level\": \"beginner\"}, {\"skill\": \"ETL/ELT Concepts\", \"required_level\": \"beginner\"}, {\"skill\": \"Business Domain Knowledge\", \"required_level\": \"beginner\"}]}\n\nReturn JSON only in this format:\n{\"gaps\": [{\"skill\": \"...\", \"current_level\": \"none|beginner|intermediate\", \"required_level\": \"...\", \"priority\": \"high|medium|low\"}]}",
+      "raw": "```json\n{\n  \"gaps\": [\n    {\n      \"skill\": \"SQL\",\n      \"current_level\": \"none\",\n      \"required_level\": \"intermediate\",\n      \"priority\": \"high\"\n    },\n    {\n      \"skill\": \"Excel\",\n      \"current_level\": \"none\",\n      \"required_level\": \"intermediate\",\n      \"priority\": \"high\"\n    },\n    {\n      \"skill\": \"Data Cleaning & Preparation\",\n      \"current_level\": \"none\",\n      \"required_level\": \"intermediate\",\n      \"priority\": \"high\"\n    },\n    {\n      \"skill\": \"Python or R\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"medium\"\n    },\n    {\n      \"skill\": \"Data Visualization (Tableau or Power BI)\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"medium\"\n    },\n    {\n      \"skill\": \"Basic Statistics\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"medium\"\n    },\n    {\n      \"skill\": \"Git/Version Control\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"low\"\n    },\n    {\n      \"skill\": \"Cloud Data Warehouses (Snowflake, BigQuery)\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"low\"\n    },\n    {\n      \"skill\": \"NoSQL Databases\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"low\"\n    },\n    {\n      \"skill\": \"Machine Learning Basics\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"low\"\n    },\n    {\n      \"skill\": \"ETL/ELT Concepts\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"low\"\n    },\n    {\n      \"skill\": \"Business Domain Knowledge\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"low\"\n    }\n  ]\n}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 2.48,
+      "parsed": {
+        "gaps": [
+          {
+            "skill": "SQL",
+            "current_level": "none",
+            "required_level": "intermediate",
+            "priority": "high"
+          },
+          {
+            "skill": "Excel",
+            "current_level": "none",
+            "required_level": "intermediate",
+            "priority": "high"
+          },
+          {
+            "skill": "Data Cleaning & Preparation",
+            "current_level": "none",
+            "required_level": "intermediate",
+            "priority": "high"
+          },
+          {
+            "skill": "Python or R",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "medium"
+          },
+          {
+            "skill": "Data Visualization (Tableau or Power BI)",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "medium"
+          },
+          {
+            "skill": "Basic Statistics",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "medium"
+          },
+          {
+            "skill": "Git/Version Control",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "Cloud Data Warehouses (Snowflake, BigQuery)",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "NoSQL Databases",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "Machine Learning Basics",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "ETL/ELT Concepts",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "Business Domain Knowledge",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    },
+    {
+      "id": "P4",
+      "name": "Plan Builder",
+      "prompt_file": "prompts/v2/P4_plan_builder.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Build a 4-week learning plan that closes these skill gaps. The student can study at most 6 hours per week. For every week give the focus skills, the learning resources with links, practice tasks and the hours.\n\nSkill gaps (JSON): [{\"skill\": \"SQL\", \"current_level\": \"none\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"Excel\", \"current_level\": \"none\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"Data Cleaning & Preparation\", \"current_level\": \"none\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"Python or R\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"Data Visualization (Tableau or Power BI)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"Basic Statistics\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"Git/Version Control\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Cloud Data Warehouses (Snowflake, BigQuery)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"NoSQL Databases\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Machine Learning Basics\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"ETL/ELT Concepts\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Business Domain Knowledge\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}]\n\nReturn JSON only in this format:\n{\"weeks\": [{\"week\": 1, \"focus_skills\": [\"...\"], \"resources\": [{\"title\": \"...\", \"url\": \"...\"}], \"practice_tasks\": [\"...\"], \"total_hours\": 0}]}",
+      "raw": "{\n  \"weeks\": [\n    {\n      \"week\": 1,\n      \"focus_skills\": [\n        \"SQL\",\n        \"Excel\",\n        \"Data Cleaning & Preparation\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"Khan Academy Intro to SQL\",\n          \"url\": \"https://www.khanacademy.org/computing/computer-programming/sql\"\n        },\n        {\n          \"title\": \"Excel Easy Tutorial\",\n          \"url\": \"https://www.excel-easy.com/\"\n        },\n        {\n          \"title\": \"Data Cleaning Guide by Kaggle\",\n          \"url\": \"https://www.kaggle.com/learn/data-cleaning\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Write basic SQL queries involving SELECT, WHERE, and GROUP BY on a sample database.\",\n        \"Use Excel to organize a messy dataset, applying basic formulas (SUM, AVERAGE, VLOOKUP/XLOOKUP).\",\n        \"Identify and handle missing values and duplicates in a small CSV file.\"\n      ],\n      \"total_hours\": 6\n    },\n    {\n      \"week\": 2,\n      \"focus_skills\": [\n        \"SQL\",\n        \"Python or R\",\n        \"Basic Statistics\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"Mode SQL Tutorial\",\n          \"url\": \"https://mode.com/sql-tutorial/\"\n        },\n        {\n          \"title\": \"Kaggle Python Course\",\n          \"url\": \"https://www.kaggle.com/learn/python\"\n        },\n        {\n          \"title\": \"Stat Trek Statistics Tutorials\",\n          \"url\": \"https://stattrek.com/\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Practice intermediate SQL joins and subqueries.\",\n        \"Write basic Python scripts using variables, loops, lists, and dictionaries.\",\n        \"Calculate mean, median, mode, variance, and standard deviation for a sample dataset.\"\n      ],\n      \"total_hours\": 6\n    },\n    {\n      \"week\": 3,\n      \"focus_skills\": [\n        \"Data Visualization (Tableau or Power BI)\",\n        \"Git/Version Control\",\n        \"ETL/ELT Concepts\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"Tableau Public Free Training\",\n          \"url\": \"https://www.tableau.com/learn/training/free-training\"\n        },\n        {\n          \"title\": \"Git and GitHub for Beginners - freeCodeCamp\",\n          \"url\": \"https://www.freecodecamp.org/news/git-and-github-for-beginners/\"\n        },\n        {\n          \"title\": \"IBM Data Engineering - ETL Overview\",\n          \"url\": \"https://www.coursera.org/learn/data-engineering-basics\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Create a simple dashboard in Tableau Public using a public dataset.\",\n        \"Initialize a local Git repository, commit code changes, and push to GitHub.\",\n        \"Map out a simple ETL pipeline diagram explaining Extract, Transform, and Load steps.\"\n      ],\n      \"total_hours\": 6\n    },\n    {\n      \"week\": 4,\n      \"focus_skills\": [\n        \"Cloud Data Warehouses (Snowflake, BigQuery)\",\n        \"NoSQL Databases\",\n        \"Machine Learning Basics\",\n        \"Business Domain Knowledge\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"Google Cloud BigQuery Sandbox\",\n          \"url\": \"https://cloud.google.com/bigquery/docs/sandbox\"\n        },\n        {\n          \"title\": \"MongoDB University Basics\",\n          \"url\": \"https://university.mongodb.com/\"\n        },\n        {\n          \"title\": \"Google Machine Learning Crash Course\",\n          \"url\": \"https://developers.google.com/machine-learning/crash-course\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Run a public dataset query inside Google BigQuery.\",\n        \"Perform a simple document insertion and query in a NoSQL environment.\",\n        \"Complete a beginner overview module on how machine learning models make predictions.\"\n      ],\n      \"total_hours\": 6\n    }\n  ]\n}",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 2.67,
+      "parsed": {
+        "weeks": [
+          {
+            "week": 1,
+            "focus_skills": [
+              "SQL",
+              "Excel",
+              "Data Cleaning & Preparation"
+            ],
+            "resources": [
+              {
+                "title": "Khan Academy Intro to SQL",
+                "url": "https://www.khanacademy.org/computing/computer-programming/sql"
+              },
+              {
+                "title": "Excel Easy Tutorial",
+                "url": "https://www.excel-easy.com/"
+              },
+              {
+                "title": "Data Cleaning Guide by Kaggle",
+                "url": "https://www.kaggle.com/learn/data-cleaning"
+              }
+            ],
+            "practice_tasks": [
+              "Write basic SQL queries involving SELECT, WHERE, and GROUP BY on a sample database.",
+              "Use Excel to organize a messy dataset, applying basic formulas (SUM, AVERAGE, VLOOKUP/XLOOKUP).",
+              "Identify and handle missing values and duplicates in a small CSV file."
+            ],
+            "total_hours": 6
+          },
+          {
+            "week": 2,
+            "focus_skills": [
+              "SQL",
+              "Python or R",
+              "Basic Statistics"
+            ],
+            "resources": [
+              {
+                "title": "Mode SQL Tutorial",
+                "url": "https://mode.com/sql-tutorial/"
+              },
+              {
+                "title": "Kaggle Python Course",
+                "url": "https://www.kaggle.com/learn/python"
+              },
+              {
+                "title": "Stat Trek Statistics Tutorials",
+                "url": "https://stattrek.com/"
+              }
+            ],
+            "practice_tasks": [
+              "Practice intermediate SQL joins and subqueries.",
+              "Write basic Python scripts using variables, loops, lists, and dictionaries.",
+              "Calculate mean, median, mode, variance, and standard deviation for a sample dataset."
+            ],
+            "total_hours": 6
+          },
+          {
+            "week": 3,
+            "focus_skills": [
+              "Data Visualization (Tableau or Power BI)",
+              "Git/Version Control",
+              "ETL/ELT Concepts"
+            ],
+            "resources": [
+              {
+                "title": "Tableau Public Free Training",
+                "url": "https://www.tableau.com/learn/training/free-training"
+              },
+              {
+                "title": "Git and GitHub for Beginners - freeCodeCamp",
+                "url": "https://www.freecodecamp.org/news/git-and-github-for-beginners/"
+              },
+              {
+                "title": "IBM Data Engineering - ETL Overview",
+                "url": "https://www.coursera.org/learn/data-engineering-basics"
+              }
+            ],
+            "practice_tasks": [
+              "Create a simple dashboard in Tableau Public using a public dataset.",
+              "Initialize a local Git repository, commit code changes, and push to GitHub.",
+              "Map out a simple ETL pipeline diagram explaining Extract, Transform, and Load steps."
+            ],
+            "total_hours": 6
+          },
+          {
+            "week": 4,
+            "focus_skills": [
+              "Cloud Data Warehouses (Snowflake, BigQuery)",
+              "NoSQL Databases",
+              "Machine Learning Basics",
+              "Business Domain Knowledge"
+            ],
+            "resources": [
+              {
+                "title": "Google Cloud BigQuery Sandbox",
+                "url": "https://cloud.google.com/bigquery/docs/sandbox"
+              },
+              {
+                "title": "MongoDB University Basics",
+                "url": "https://university.mongodb.com/"
+              },
+              {
+                "title": "Google Machine Learning Crash Course",
+                "url": "https://developers.google.com/machine-learning/crash-course"
+              }
+            ],
+            "practice_tasks": [
+              "Run a public dataset query inside Google BigQuery.",
+              "Perform a simple document insertion and query in a NoSQL environment.",
+              "Complete a beginner overview module on how machine learning models make predictions."
+            ],
+            "total_hours": 6
+          }
+        ]
+      },
+      "json_strict": true,
+      "json_ok": true
+    }
+  ],
+  "status": "ok",
+  "final": {
+    "profile": {
+      "skills": []
+    },
+    "requirements": {
+      "must_have": [
+        {
+          "skill": "SQL",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "Excel",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "Python or R",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Data Visualization (Tableau or Power BI)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Basic Statistics",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Data Cleaning & Preparation",
+          "required_level": "intermediate"
+        }
+      ],
+      "good_to_have": [
+        {
+          "skill": "Git/Version Control",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Cloud Data Warehouses (Snowflake, BigQuery)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "NoSQL Databases",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Machine Learning Basics",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "ETL/ELT Concepts",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Business Domain Knowledge",
+          "required_level": "beginner"
+        }
+      ]
+    },
+    "gaps": {
+      "gaps": [
+        {
+          "skill": "SQL",
+          "current_level": "none",
+          "required_level": "intermediate",
+          "priority": "high"
+        },
+        {
+          "skill": "Excel",
+          "current_level": "none",
+          "required_level": "intermediate",
+          "priority": "high"
+        },
+        {
+          "skill": "Data Cleaning & Preparation",
+          "current_level": "none",
+          "required_level": "intermediate",
+          "priority": "high"
+        },
+        {
+          "skill": "Python or R",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "medium"
+        },
+        {
+          "skill": "Data Visualization (Tableau or Power BI)",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "medium"
+        },
+        {
+          "skill": "Basic Statistics",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "medium"
+        },
+        {
+          "skill": "Git/Version Control",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "Cloud Data Warehouses (Snowflake, BigQuery)",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "NoSQL Databases",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "Machine Learning Basics",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "ETL/ELT Concepts",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "Business Domain Knowledge",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        }
+      ]
+    },
+    "plan": {
+      "weeks": [
+        {
+          "week": 1,
+          "focus_skills": [
+            "SQL",
+            "Excel",
+            "Data Cleaning & Preparation"
+          ],
+          "resources": [
+            {
+              "title": "Khan Academy Intro to SQL",
+              "url": "https://www.khanacademy.org/computing/computer-programming/sql"
+            },
+            {
+              "title": "Excel Easy Tutorial",
+              "url": "https://www.excel-easy.com/"
+            },
+            {
+              "title": "Data Cleaning Guide by Kaggle",
+              "url": "https://www.kaggle.com/learn/data-cleaning"
+            }
+          ],
+          "practice_tasks": [
+            "Write basic SQL queries involving SELECT, WHERE, and GROUP BY on a sample database.",
+            "Use Excel to organize a messy dataset, applying basic formulas (SUM, AVERAGE, VLOOKUP/XLOOKUP).",
+            "Identify and handle missing values and duplicates in a small CSV file."
+          ],
+          "total_hours": 6
+        },
+        {
+          "week": 2,
+          "focus_skills": [
+            "SQL",
+            "Python or R",
+            "Basic Statistics"
+          ],
+          "resources": [
+            {
+              "title": "Mode SQL Tutorial",
+              "url": "https://mode.com/sql-tutorial/"
+            },
+            {
+              "title": "Kaggle Python Course",
+              "url": "https://www.kaggle.com/learn/python"
+            },
+            {
+              "title": "Stat Trek Statistics Tutorials",
+              "url": "https://stattrek.com/"
+            }
+          ],
+          "practice_tasks": [
+            "Practice intermediate SQL joins and subqueries.",
+            "Write basic Python scripts using variables, loops, lists, and dictionaries.",
+            "Calculate mean, median, mode, variance, and standard deviation for a sample dataset."
+          ],
+          "total_hours": 6
+        },
+        {
+          "week": 3,
+          "focus_skills": [
+            "Data Visualization (Tableau or Power BI)",
+            "Git/Version Control",
+            "ETL/ELT Concepts"
+          ],
+          "resources": [
+            {
+              "title": "Tableau Public Free Training",
+              "url": "https://www.tableau.com/learn/training/free-training"
+            },
+            {
+              "title": "Git and GitHub for Beginners - freeCodeCamp",
+              "url": "https://www.freecodecamp.org/news/git-and-github-for-beginners/"
+            },
+            {
+              "title": "IBM Data Engineering - ETL Overview",
+              "url": "https://www.coursera.org/learn/data-engineering-basics"
+            }
+          ],
+          "practice_tasks": [
+            "Create a simple dashboard in Tableau Public using a public dataset.",
+            "Initialize a local Git repository, commit code changes, and push to GitHub.",
+            "Map out a simple ETL pipeline diagram explaining Extract, Transform, and Load steps."
+          ],
+          "total_hours": 6
+        },
+        {
+          "week": 4,
+          "focus_skills": [
+            "Cloud Data Warehouses (Snowflake, BigQuery)",
+            "NoSQL Databases",
+            "Machine Learning Basics",
+            "Business Domain Knowledge"
+          ],
+          "resources": [
+            {
+              "title": "Google Cloud BigQuery Sandbox",
+              "url": "https://cloud.google.com/bigquery/docs/sandbox"
+            },
+            {
+              "title": "MongoDB University Basics",
+              "url": "https://university.mongodb.com/"
+            },
+            {
+              "title": "Google Machine Learning Crash Course",
+              "url": "https://developers.google.com/machine-learning/crash-course"
+            }
+          ],
+          "practice_tasks": [
+            "Run a public dataset query inside Google BigQuery.",
+            "Perform a simple document insertion and query in a NoSQL environment.",
+            "Complete a beginner overview module on how machine learning models make predictions."
+          ],
+          "total_hours": 6
+        }
+      ]
+    }
+  },
+  "model": "gemini-3.5-flash-lite",
+  "run_at": "2026-11-22T02:26:28",
+  "wall_time_s": 24.3
+}

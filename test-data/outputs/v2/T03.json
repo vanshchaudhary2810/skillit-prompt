@@ -1,0 +1,551 @@
+{
+  "version": "v2",
+  "inputs": {
+    "student_skills": "HTML, CSS, JavaScript, basic React",
+    "target_role": "Frontend Developer",
+    "weekly_hours": 10,
+    "num_weeks": 4
+  },
+  "steps": [
+    {
+      "id": "P1",
+      "name": "Skill Normaliser",
+      "prompt_file": "prompts/v2/P1_skill_normaliser.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Read the student's skills below and convert them into a clean list of skills with a level for each (beginner, intermediate or advanced).\n\nStudent skills: HTML, CSS, JavaScript, basic React\n\nReturn JSON only in this format:\n{\"skills\": [{\"name\": \"...\", \"level\": \"beginner|intermediate|advanced\"}]}",
+      "raw": "```json\n{\n  \"skills\": [\n    {\n      \"name\": \"HTML\",\n      \"level\": \"intermediate\"\n    },\n    {\n      \"name\": \"CSS\",\n      \"level\": \"intermediate\"\n    },\n    {\n      \"name\": \"JavaScript\",\n      \"level\": \"intermediate\"\n    },\n    {\n      \"name\": \"React\",\n      \"level\": \"beginner\"\n    }\n  ]\n}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 0.77,
+      "parsed": {
+        "skills": [
+          {
+            "name": "HTML",
+            "level": "intermediate"
+          },
+          {
+            "name": "CSS",
+            "level": "intermediate"
+          },
+          {
+            "name": "JavaScript",
+            "level": "intermediate"
+          },
+          {
+            "name": "React",
+            "level": "beginner"
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    },
+    {
+      "id": "P2",
+      "name": "Role Requirements",
+      "prompt_file": "prompts/v2/P2_role_requirements.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "List the skills a fresher needs for an entry-level Frontend Developer job. Split them into must-have and good-to-have skills and give the level needed for each.\n\nReturn JSON only in this format:\n{\"must_have\": [{\"skill\": \"...\", \"required_level\": \"beginner|intermediate|advanced\"}], \"good_to_have\": [{\"skill\": \"...\", \"required_level\": \"...\"}]}",
+      "raw": "{\n  \"must_have\": [\n    {\n      \"skill\": \"HTML5 & CSS3\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"JavaScript (ES6+)\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"React.js or Vue.js\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Responsive Web Design & Flexbox/Grid\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"Git & GitHub\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Browser Developer Tools & Debugging\",\n      \"required_level\": \"beginner\"\n    }\n  ],\n  \"good_to_have\": [\n    {\n      \"skill\": \"TypeScript\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"CSS Preprocessors (Sass/SCSS) or Tailwind CSS\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"State Management (Redux Toolkit, Context API)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"RESTful APIs & Fetch/Axios\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Basic Unit Testing (Jest, React Testing Library)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Web Accessibility (a11y) & SEO Basics\",\n      \"required_level\": \"beginner\"\n    }\n  ]\n}",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 1.31,
+      "parsed": {
+        "must_have": [
+          {
+            "skill": "HTML5 & CSS3",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "JavaScript (ES6+)",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "React.js or Vue.js",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Responsive Web Design & Flexbox/Grid",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "Git & GitHub",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Browser Developer Tools & Debugging",
+            "required_level": "beginner"
+          }
+        ],
+        "good_to_have": [
+          {
+            "skill": "TypeScript",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "CSS Preprocessors (Sass/SCSS) or Tailwind CSS",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "State Management (Redux Toolkit, Context API)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "RESTful APIs & Fetch/Axios",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Basic Unit Testing (Jest, React Testing Library)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Web Accessibility (a11y) & SEO Basics",
+            "required_level": "beginner"
+          }
+        ]
+      },
+      "json_strict": true,
+      "json_ok": true
+    },
+    {
+      "id": "P3",
+      "name": "Gap Analyser",
+      "prompt_file": "prompts/v2/P3_gap_analyser.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Compare the student's skills with the role requirements and list the skill gaps, most important first.\n\nStudent skills (JSON): {\"skills\": [{\"name\": \"HTML\", \"level\": \"intermediate\"}, {\"name\": \"CSS\", \"level\": \"intermediate\"}, {\"name\": \"JavaScript\", \"level\": \"intermediate\"}, {\"name\": \"React\", \"level\": \"beginner\"}]}\nRole requirements (JSON): {\"must_have\": [{\"skill\": \"HTML5 & CSS3\", \"required_level\": \"intermediate\"}, {\"skill\": \"JavaScript (ES6+)\", \"required_level\": \"intermediate\"}, {\"skill\": \"React.js or Vue.js\", \"required_level\": \"beginner\"}, {\"skill\": \"Responsive Web Design & Flexbox/Grid\", \"required_level\": \"intermediate\"}, {\"skill\": \"Git & GitHub\", \"required_level\": \"beginner\"}, {\"skill\": \"Browser Developer Tools & Debugging\", \"required_level\": \"beginner\"}], \"good_to_have\": [{\"skill\": \"TypeScript\", \"required_level\": \"beginner\"}, {\"skill\": \"CSS Preprocessors (Sass/SCSS) or Tailwind CSS\", \"required_level\": \"beginner\"}, {\"skill\": \"State Management (Redux Toolkit, Context API)\", \"required_level\": \"beginner\"}, {\"skill\": \"RESTful APIs & Fetch/Axios\", \"required_level\": \"beginner\"}, {\"skill\": \"Basic Unit Testing (Jest, React Testing Library)\", \"required_level\": \"beginner\"}, {\"skill\": \"Web Accessibility (a11y) & SEO Basics\", \"required_level\": \"beginner\"}]}\n\nReturn JSON only in this format:\n{\"gaps\": [{\"skill\": \"...\", \"current_level\": \"none|beginner|intermediate\", \"required_level\": \"...\", \"priority\": \"high|medium|low\"}]}",
+      "raw": "```json\n{\n  \"gaps\": [\n    {\n      \"skill\": \"Responsive Web Design & Flexbox/Grid\",\n      \"current_level\": \"none\",\n      \"required_level\": \"intermediate\",\n      \"priority\": \"high\"\n    },\n    {\n      \"skill\": \"Git & GitHub\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"high\"\n    },\n    {\n      \"skill\": \"Browser Developer Tools & Debugging\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"high\"\n    },\n    {\n      \"skill\": \"RESTful APIs & Fetch/Axios\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"medium\"\n    },\n    {\n      \"skill\": \"State Management (Redux Toolkit, Context API)\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"medium\"\n    },\n    {\n      \"skill\": \"TypeScript\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"medium\"\n    },\n    {\n      \"skill\": \"CSS Preprocessors (Sass/SCSS) or Tailwind CSS\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"low\"\n    },\n    {\n      \"skill\": \"Basic Unit Testing (Jest, React Testing Library)\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"low\"\n    },\n    {\n      \"skill\": \"Web Accessibility (a11y) & SEO Basics\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"low\"\n    }\n  ]\n}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 1.21,
+      "parsed": {
+        "gaps": [
+          {
+            "skill": "Responsive Web Design & Flexbox/Grid",
+            "current_level": "none",
+            "required_level": "intermediate",
+            "priority": "high"
+          },
+          {
+            "skill": "Git & GitHub",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "high"
+          },
+          {
+            "skill": "Browser Developer Tools & Debugging",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "high"
+          },
+          {
+            "skill": "RESTful APIs & Fetch/Axios",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "medium"
+          },
+          {
+            "skill": "State Management (Redux Toolkit, Context API)",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "medium"
+          },
+          {
+            "skill": "TypeScript",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "medium"
+          },
+          {
+            "skill": "CSS Preprocessors (Sass/SCSS) or Tailwind CSS",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "Basic Unit Testing (Jest, React Testing Library)",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "Web Accessibility (a11y) & SEO Basics",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    },
+    {
+      "id": "P4",
+      "name": "Plan Builder",
+      "prompt_file": "prompts/v2/P4_plan_builder.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Build a 4-week learning plan that closes these skill gaps. The student can study at most 10 hours per week. For every week give the focus skills, the learning resources with links, practice tasks and the hours.\n\nSkill gaps (JSON): [{\"skill\": \"Responsive Web Design & Flexbox/Grid\", \"current_level\": \"none\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"Git & GitHub\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"high\"}, {\"skill\": \"Browser Developer Tools & Debugging\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"high\"}, {\"skill\": \"RESTful APIs & Fetch/Axios\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"State Management (Redux Toolkit, Context API)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"TypeScript\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"CSS Preprocessors (Sass/SCSS) or Tailwind CSS\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Basic Unit Testing (Jest, React Testing Library)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Web Accessibility (a11y) & SEO Basics\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}]\n\nReturn JSON only in this format:\n{\"weeks\": [{\"week\": 1, \"focus_skills\": [\"...\"], \"resources\": [{\"title\": \"...\", \"url\": \"...\"}], \"practice_tasks\": [\"...\"], \"total_hours\": 0}]}",
+      "raw": "```json\n{\n  \"weeks\": [\n    {\n      \"week\": 1,\n      \"focus_skills\": [\n        \"Responsive Web Design & Flexbox/Grid\",\n        \"Git & GitHub\",\n        \"Browser Developer Tools & Debugging\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"MDN CSS Grid Guide\",\n          \"url\": \"https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout\"\n        },\n        {\n          \"title\": \"MDN Flexbox Guide\",\n          \"url\": \"https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout\"\n        },\n        {\n          \"title\": \"Git & GitHub Crash Course\",\n          \"url\": \"https://www.theodinproject.com/paths/full-stack-javascript/courses/foundations/lessons/git-basics\"\n        },\n        {\n          \"title\": \"Chrome DevTools Overview\",\n          \"url\": \"https://developer.chrome.com/docs/devtools\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Initialize a local Git repository, make regular commits, and push a project to GitHub.\",\n        \"Build a responsive landing page layout using CSS Flexbox for navigation and CSS Grid for the main content sections.\",\n        \"Use Browser Developer Tools to inspect DOM elements, debug CSS layout issues, and monitor console logs.\"\n      ],\n      \"total_hours\": 10\n    },\n    {\n      \"week\": 2,\n      \"focus_skills\": [\n        \"CSS Preprocessors (Sass/SCSS) or Tailwind CSS\",\n        \"RESTful APIs & Fetch/Axios\",\n        \"Web Accessibility (a11y) & SEO Basics\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"Tailwind CSS Documentation\",\n          \"url\": \"https://tailwindcss.com/docs/installation\"\n        },\n        {\n          \"title\": \"MDN Using Fetch\",\n          \"url\": \"https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch\"\n        },\n        {\n          \"title\": \"W3C Web Accessibility Introduction\",\n          \"url\": \"https://www.w3.org/WAI/fundamentals/accessibility-intro/\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Style the Week 1 landing page using Tailwind CSS utility classes.\",\n        \"Write a JavaScript script using the Fetch API to pull data from a public REST API (e.g., JSONPlaceholder) and render it to the DOM.\",\n        \"Audit the landing page using Lighthouse in Chrome DevTools to fix basic accessibility (aria labels, contrast) and SEO meta tags.\"\n      ],\n      \"total_hours\": 10\n    },\n    {\n      \"week\": 3,\n      \"focus_skills\": [\n        \"TypeScript\",\n        \"State Management (Redux Toolkit, Context API)\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"TypeScript Handbook\",\n          \"url\": \"https://www.typescriptlang.org/docs/handbook/intro.html\"\n        },\n        {\n          \"title\": \"React Context API Guide\",\n          \"url\": \"https://react.dev/reference/react/useContext\"\n        },\n        {\n          \"title\": \"Redux Toolkit Quick Start\",\n          \"url\": \"https://redux-toolkit.js.org/tutorials/quick-start\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Convert basic JavaScript functions and component props into TypeScript interfaces and types.\",\n        \"Implement a React Context or Redux Toolkit store to manage global application state (e.g., theme toggler or shopping cart items).\"\n      ],\n      \"total_hours\": 10\n    },\n    {\n      \"week\": 4,\n      \"focus_skills\": [\n        \"Basic Unit Testing (Jest, React Testing Library)\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"Jest Getting Started\",\n          \"url\": \"https://jestjs.io/docs/getting-started\"\n        },\n        {\n          \"title\": \"React Testing Library Tutorial\",\n          \"url\": \"https://testing-library.com/docs/react-testing-library/intro/\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Write unit tests using Jest for utility functions created in previous weeks.\",\n        \"Write component integration tests using React Testing Library to verify user interactions and proper rendering.\"\n      ],\n      \"total_hours\": 10\n    }\n  ]\n}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 2.84,
+      "parsed": {
+        "weeks": [
+          {
+            "week": 1,
+            "focus_skills": [
+              "Responsive Web Design & Flexbox/Grid",
+              "Git & GitHub",
+              "Browser Developer Tools & Debugging"
+            ],
+            "resources": [
+              {
+                "title": "MDN CSS Grid Guide",
+                "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout"
+              },
+              {
+                "title": "MDN Flexbox Guide",
+                "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout"
+              },
+              {
+                "title": "Git & GitHub Crash Course",
+                "url": "https://www.theodinproject.com/paths/full-stack-javascript/courses/foundations/lessons/git-basics"
+              },
+              {
+                "title": "Chrome DevTools Overview",
+                "url": "https://developer.chrome.com/docs/devtools"
+              }
+            ],
+            "practice_tasks": [
+              "Initialize a local Git repository, make regular commits, and push a project to GitHub.",
+              "Build a responsive landing page layout using CSS Flexbox for navigation and CSS Grid for the main content sections.",
+              "Use Browser Developer Tools to inspect DOM elements, debug CSS layout issues, and monitor console logs."
+            ],
+            "total_hours": 10
+          },
+          {
+            "week": 2,
+            "focus_skills": [
+              "CSS Preprocessors (Sass/SCSS) or Tailwind CSS",
+              "RESTful APIs & Fetch/Axios",
+              "Web Accessibility (a11y) & SEO Basics"
+            ],
+            "resources": [
+              {
+                "title": "Tailwind CSS Documentation",
+                "url": "https://tailwindcss.com/docs/installation"
+              },
+              {
+                "title": "MDN Using Fetch",
+                "url": "https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch"
+              },
+              {
+                "title": "W3C Web Accessibility Introduction",
+                "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"
+              }
+            ],
+            "practice_tasks": [
+              "Style the Week 1 landing page using Tailwind CSS utility classes.",
+              "Write a JavaScript script using the Fetch API to pull data from a public REST API (e.g., JSONPlaceholder) and render it to the DOM.",
+              "Audit the landing page using Lighthouse in Chrome DevTools to fix basic accessibility (aria labels, contrast) and SEO meta tags."
+            ],
+            "total_hours": 10
+          },
+          {
+            "week": 3,
+            "focus_skills": [
+              "TypeScript",
+              "State Management (Redux Toolkit, Context API)"
+            ],
+            "resources": [
+              {
+                "title": "TypeScript Handbook",
+                "url": "https://www.typescriptlang.org/docs/handbook/intro.html"
+              },
+              {
+                "title": "React Context API Guide",
+                "url": "https://react.dev/reference/react/useContext"
+              },
+              {
+                "title": "Redux Toolkit Quick Start",
+                "url": "https://redux-toolkit.js.org/tutorials/quick-start"
+              }
+            ],
+            "practice_tasks": [
+              "Convert basic JavaScript functions and component props into TypeScript interfaces and types.",
+              "Implement a React Context or Redux Toolkit store to manage global application state (e.g., theme toggler or shopping cart items)."
+            ],
+            "total_hours": 10
+          },
+          {
+            "week": 4,
+            "focus_skills": [
+              "Basic Unit Testing (Jest, React Testing Library)"
+            ],
+            "resources": [
+              {
+                "title": "Jest Getting Started",
+                "url": "https://jestjs.io/docs/getting-started"
+              },
+              {
+                "title": "React Testing Library Tutorial",
+                "url": "https://testing-library.com/docs/react-testing-library/intro/"
+              }
+            ],
+            "practice_tasks": [
+              "Write unit tests using Jest for utility functions created in previous weeks.",
+              "Write component integration tests using React Testing Library to verify user interactions and proper rendering."
+            ],
+            "total_hours": 10
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    }
+  ],
+  "status": "ok",
+  "final": {
+    "profile": {
+      "skills": [
+        {
+          "name": "HTML",
+          "level": "intermediate"
+        },
+        {
+          "name": "CSS",
+          "level": "intermediate"
+        },
+        {
+          "name": "JavaScript",
+          "level": "intermediate"
+        },
+        {
+          "name": "React",
+          "level": "beginner"
+        }
+      ]
+    },
+    "requirements": {
+      "must_have": [
+        {
+          "skill": "HTML5 & CSS3",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "JavaScript (ES6+)",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "React.js or Vue.js",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Responsive Web Design & Flexbox/Grid",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "Git & GitHub",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Browser Developer Tools & Debugging",
+          "required_level": "beginner"
+        }
+      ],
+      "good_to_have": [
+        {
+          "skill": "TypeScript",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "CSS Preprocessors (Sass/SCSS) or Tailwind CSS",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "State Management (Redux Toolkit, Context API)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "RESTful APIs & Fetch/Axios",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Basic Unit Testing (Jest, React Testing Library)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Web Accessibility (a11y) & SEO Basics",
+          "required_level": "beginner"
+        }
+      ]
+    },
+    "gaps": {
+      "gaps": [
+        {
+          "skill": "Responsive Web Design & Flexbox/Grid",
+          "current_level": "none",
+          "required_level": "intermediate",
+          "priority": "high"
+        },
+        {
+          "skill": "Git & GitHub",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "high"
+        },
+        {
+          "skill": "Browser Developer Tools & Debugging",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "high"
+        },
+        {
+          "skill": "RESTful APIs & Fetch/Axios",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "medium"
+        },
+        {
+          "skill": "State Management (Redux Toolkit, Context API)",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "medium"
+        },
+        {
+          "skill": "TypeScript",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "medium"
+        },
+        {
+          "skill": "CSS Preprocessors (Sass/SCSS) or Tailwind CSS",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "Basic Unit Testing (Jest, React Testing Library)",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "Web Accessibility (a11y) & SEO Basics",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        }
+      ]
+    },
+    "plan": {
+      "weeks": [
+        {
+          "week": 1,
+          "focus_skills": [
+            "Responsive Web Design & Flexbox/Grid",
+            "Git & GitHub",
+            "Browser Developer Tools & Debugging"
+          ],
+          "resources": [
+            {
+              "title": "MDN CSS Grid Guide",
+              "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout"
+            },
+            {
+              "title": "MDN Flexbox Guide",
+              "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout"
+            },
+            {
+              "title": "Git & GitHub Crash Course",
+              "url": "https://www.theodinproject.com/paths/full-stack-javascript/courses/foundations/lessons/git-basics"
+            },
+            {
+              "title": "Chrome DevTools Overview",
+              "url": "https://developer.chrome.com/docs/devtools"
+            }
+          ],
+          "practice_tasks": [
+            "Initialize a local Git repository, make regular commits, and push a project to GitHub.",
+            "Build a responsive landing page layout using CSS Flexbox for navigation and CSS Grid for the main content sections.",
+            "Use Browser Developer Tools to inspect DOM elements, debug CSS layout issues, and monitor console logs."
+          ],
+          "total_hours": 10
+        },
+        {
+          "week": 2,
+          "focus_skills": [
+            "CSS Preprocessors (Sass/SCSS) or Tailwind CSS",
+            "RESTful APIs & Fetch/Axios",
+            "Web Accessibility (a11y) & SEO Basics"
+          ],
+          "resources": [
+            {
+              "title": "Tailwind CSS Documentation",
+              "url": "https://tailwindcss.com/docs/installation"
+            },
+            {
+              "title": "MDN Using Fetch",
+              "url": "https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch"
+            },
+            {
+              "title": "W3C Web Accessibility Introduction",
+              "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/"
+            }
+          ],
+          "practice_tasks": [
+            "Style the Week 1 landing page using Tailwind CSS utility classes.",
+            "Write a JavaScript script using the Fetch API to pull data from a public REST API (e.g., JSONPlaceholder) and render it to the DOM.",
+            "Audit the landing page using Lighthouse in Chrome DevTools to fix basic accessibility (aria labels, contrast) and SEO meta tags."
+          ],
+          "total_hours": 10
+        },
+        {
+          "week": 3,
+          "focus_skills": [
+            "TypeScript",
+            "State Management (Redux Toolkit, Context API)"
+          ],
+          "resources": [
+            {
+              "title": "TypeScript Handbook",
+              "url": "https://www.typescriptlang.org/docs/handbook/intro.html"
+            },
+            {
+              "title": "React Context API Guide",
+              "url": "https://react.dev/reference/react/useContext"
+            },
+            {
+              "title": "Redux Toolkit Quick Start",
+              "url": "https://redux-toolkit.js.org/tutorials/quick-start"
+            }
+          ],
+          "practice_tasks": [
+            "Convert basic JavaScript functions and component props into TypeScript interfaces and types.",
+            "Implement a React Context or Redux Toolkit store to manage global application state (e.g., theme toggler or shopping cart items)."
+          ],
+          "total_hours": 10
+        },
+        {
+          "week": 4,
+          "focus_skills": [
+            "Basic Unit Testing (Jest, React Testing Library)"
+          ],
+          "resources": [
+            {
+              "title": "Jest Getting Started",
+              "url": "https://jestjs.io/docs/getting-started"
+            },
+            {
+              "title": "React Testing Library Tutorial",
+              "url": "https://testing-library.com/docs/react-testing-library/intro/"
+            }
+          ],
+          "practice_tasks": [
+            "Write unit tests using Jest for utility functions created in previous weeks.",
+            "Write component integration tests using React Testing Library to verify user interactions and proper rendering."
+          ],
+          "total_hours": 10
+        }
+      ]
+    }
+  },
+  "model": "gemini-3.5-flash-lite",
+  "run_at": "2026-11-22T02:22:52",
+  "wall_time_s": 23.8
+}

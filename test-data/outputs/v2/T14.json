@@ -1,0 +1,449 @@
+{
+  "version": "v2",
+  "inputs": {
+    "student_skills": "HTML, CSS",
+    "target_role": "Frontend Developer",
+    "weekly_hours": 0,
+    "num_weeks": 4
+  },
+  "steps": [
+    {
+      "id": "P1",
+      "name": "Skill Normaliser",
+      "prompt_file": "prompts/v2/P1_skill_normaliser.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Read the student's skills below and convert them into a clean list of skills with a level for each (beginner, intermediate or advanced).\n\nStudent skills: HTML, CSS\n\nReturn JSON only in this format:\n{\"skills\": [{\"name\": \"...\", \"level\": \"beginner|intermediate|advanced\"}]}",
+      "raw": "```json\n{\n  \"skills\": [\n    {\n      \"name\": \"HTML\",\n      \"level\": \"intermediate\"\n    },\n    {\n      \"name\": \"CSS\",\n      \"level\": \"intermediate\"\n    }\n  ]\n}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 0.86,
+      "parsed": {
+        "skills": [
+          {
+            "name": "HTML",
+            "level": "intermediate"
+          },
+          {
+            "name": "CSS",
+            "level": "intermediate"
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    },
+    {
+      "id": "P2",
+      "name": "Role Requirements",
+      "prompt_file": "prompts/v2/P2_role_requirements.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "List the skills a fresher needs for an entry-level Frontend Developer job. Split them into must-have and good-to-have skills and give the level needed for each.\n\nReturn JSON only in this format:\n{\"must_have\": [{\"skill\": \"...\", \"required_level\": \"beginner|intermediate|advanced\"}], \"good_to_have\": [{\"skill\": \"...\", \"required_level\": \"...\"}]}",
+      "raw": "{\n  \"must_have\": [\n    {\n      \"skill\": \"HTML5 & CSS3\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"JavaScript (ES6+)\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"React.js or Vue.js\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Responsive Web Design & Flexbox/Grid\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"Git & GitHub\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Browser Developer Tools & Debugging\",\n      \"required_level\": \"beginner\"\n    }\n  ],\n  \"good_to_have\": [\n    {\n      \"skill\": \"TypeScript\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"CSS Preprocessors (Sass/SCSS) or Tailwind CSS\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"State Management (Redux Toolkit, Context API)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"RESTful APIs & Fetch/Axios\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Basic Testing (Jest, React Testing Library)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Web Accessibility (a11y) & SEO Basics\",\n      \"required_level\": \"beginner\"\n    }\n  ]\n}",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 1.82,
+      "parsed": {
+        "must_have": [
+          {
+            "skill": "HTML5 & CSS3",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "JavaScript (ES6+)",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "React.js or Vue.js",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Responsive Web Design & Flexbox/Grid",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "Git & GitHub",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Browser Developer Tools & Debugging",
+            "required_level": "beginner"
+          }
+        ],
+        "good_to_have": [
+          {
+            "skill": "TypeScript",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "CSS Preprocessors (Sass/SCSS) or Tailwind CSS",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "State Management (Redux Toolkit, Context API)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "RESTful APIs & Fetch/Axios",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Basic Testing (Jest, React Testing Library)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Web Accessibility (a11y) & SEO Basics",
+            "required_level": "beginner"
+          }
+        ]
+      },
+      "json_strict": true,
+      "json_ok": true
+    },
+    {
+      "id": "P3",
+      "name": "Gap Analyser",
+      "prompt_file": "prompts/v2/P3_gap_analyser.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Compare the student's skills with the role requirements and list the skill gaps, most important first.\n\nStudent skills (JSON): {\"skills\": [{\"name\": \"HTML\", \"level\": \"intermediate\"}, {\"name\": \"CSS\", \"level\": \"intermediate\"}]}\nRole requirements (JSON): {\"must_have\": [{\"skill\": \"HTML5 & CSS3\", \"required_level\": \"intermediate\"}, {\"skill\": \"JavaScript (ES6+)\", \"required_level\": \"intermediate\"}, {\"skill\": \"React.js or Vue.js\", \"required_level\": \"beginner\"}, {\"skill\": \"Responsive Web Design & Flexbox/Grid\", \"required_level\": \"intermediate\"}, {\"skill\": \"Git & GitHub\", \"required_level\": \"beginner\"}, {\"skill\": \"Browser Developer Tools & Debugging\", \"required_level\": \"beginner\"}], \"good_to_have\": [{\"skill\": \"TypeScript\", \"required_level\": \"beginner\"}, {\"skill\": \"CSS Preprocessors (Sass/SCSS) or Tailwind CSS\", \"required_level\": \"beginner\"}, {\"skill\": \"State Management (Redux Toolkit, Context API)\", \"required_level\": \"beginner\"}, {\"skill\": \"RESTful APIs & Fetch/Axios\", \"required_level\": \"beginner\"}, {\"skill\": \"Basic Testing (Jest, React Testing Library)\", \"required_level\": \"beginner\"}, {\"skill\": \"Web Accessibility (a11y) & SEO Basics\", \"required_level\": \"beginner\"}]}\n\nReturn JSON only in this format:\n{\"gaps\": [{\"skill\": \"...\", \"current_level\": \"none|beginner|intermediate\", \"required_level\": \"...\", \"priority\": \"high|medium|low\"}]}",
+      "raw": "```json\n{\"gaps\": [{\"skill\": \"JavaScript (ES6+)\", \"current_level\": \"none\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"React.js or Vue.js\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"high\"}, {\"skill\": \"Responsive Web Design & Flexbox/Grid\", \"current_level\": \"none\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"Git & GitHub\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"Browser Developer Tools & Debugging\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}]}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 1.34,
+      "parsed": {
+        "gaps": [
+          {
+            "skill": "JavaScript (ES6+)",
+            "current_level": "none",
+            "required_level": "intermediate",
+            "priority": "high"
+          },
+          {
+            "skill": "React.js or Vue.js",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "high"
+          },
+          {
+            "skill": "Responsive Web Design & Flexbox/Grid",
+            "current_level": "none",
+            "required_level": "intermediate",
+            "priority": "high"
+          },
+          {
+            "skill": "Git & GitHub",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "medium"
+          },
+          {
+            "skill": "Browser Developer Tools & Debugging",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "medium"
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    },
+    {
+      "id": "P4",
+      "name": "Plan Builder",
+      "prompt_file": "prompts/v2/P4_plan_builder.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Build a 4-week learning plan that closes these skill gaps. The student can study at most 0 hours per week. For every week give the focus skills, the learning resources with links, practice tasks and the hours.\n\nSkill gaps (JSON): [{\"skill\": \"JavaScript (ES6+)\", \"current_level\": \"none\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"React.js or Vue.js\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"high\"}, {\"skill\": \"Responsive Web Design & Flexbox/Grid\", \"current_level\": \"none\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"Git & GitHub\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"Browser Developer Tools & Debugging\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}]\n\nReturn JSON only in this format:\n{\"weeks\": [{\"week\": 1, \"focus_skills\": [\"...\"], \"resources\": [{\"title\": \"...\", \"url\": \"...\"}], \"practice_tasks\": [\"...\"], \"total_hours\": 0}]}",
+      "raw": "```json\n{\"weeks\": [{\"week\": 1, \"focus_skills\": [\"Responsive Web Design & Flexbox/Grid\", \"Git & GitHub\"], \"resources\": [{\"title\": \"MDN CSS Flexbox Guide\", \"url\": \"https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout\"}, {\"title\": \"GitHub Hello World Guide\", \"url\": \"https://guides.github.com/activities/hello-world/\"}], \"practice_tasks\": [\"Build a responsive landing page using CSS Flexbox and Grid.\", \"Initialize a Git repository and push your project to GitHub.\"], \"total_hours\": 0}, {\"week\": 2, \"focus_skills\": [\"JavaScript (ES6+)\", \"Browser Developer Tools & Debugging\"], \"resources\": [{\"title\": \"JavaScript.info Modern JS Tutorial\", \"url\": \"https://javascript.info/\"}, {\"title\": \"Chrome DevTools Overview\", \"url\": \"https://developer.chrome.com/docs/devtools/\"}], \"practice_tasks\": [\"Write scripts utilizing ES6 arrow functions, destructuring, and array methods.\", \"Debug a broken script using breakpoints in Browser Developer Tools.\"], \"total_hours\": 0}, {\"week\": 3, \"focus_skills\": [\"JavaScript (ES6+)\", \"React.js or Vue.js\"], \"resources\": [{\"title\": \"React Official Tutorial\", \"url\": \"https://react.dev/learn\"}, {\"title\": \"MDN JavaScript Asynchronous Programming\", \"url\": \"https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous\"}], \"practice_tasks\": [\"Practice asynchronous JavaScript with fetch and async/await.\", \"Set up a basic React app using Vite and create your first components.\"], \"total_hours\": 0}, {\"week\": 4, \"focus_skills\": [\"React.js or Vue.js\", \"Browser Developer Tools & Debugging\"], \"resources\": [{\"title\": \"React Hooks Documentation\", \"url\": \"https://react.dev/reference/react\"}, {\"title\": \"React Developer Tools Extension\", \"url\": \"https://react.dev/learn/react-developer-tools\"}], \"practice_tasks\": [\"Build a simple interactive React application using useState and useEffect hooks.\", \"Inspect and debug your React components using React DevTools.\"], \"total_hours\": 0}]}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 2.09,
+      "parsed": {
+        "weeks": [
+          {
+            "week": 1,
+            "focus_skills": [
+              "Responsive Web Design & Flexbox/Grid",
+              "Git & GitHub"
+            ],
+            "resources": [
+              {
+                "title": "MDN CSS Flexbox Guide",
+                "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout"
+              },
+              {
+                "title": "GitHub Hello World Guide",
+                "url": "https://guides.github.com/activities/hello-world/"
+              }
+            ],
+            "practice_tasks": [
+              "Build a responsive landing page using CSS Flexbox and Grid.",
+              "Initialize a Git repository and push your project to GitHub."
+            ],
+            "total_hours": 0
+          },
+          {
+            "week": 2,
+            "focus_skills": [
+              "JavaScript (ES6+)",
+              "Browser Developer Tools & Debugging"
+            ],
+            "resources": [
+              {
+                "title": "JavaScript.info Modern JS Tutorial",
+                "url": "https://javascript.info/"
+              },
+              {
+                "title": "Chrome DevTools Overview",
+                "url": "https://developer.chrome.com/docs/devtools/"
+              }
+            ],
+            "practice_tasks": [
+              "Write scripts utilizing ES6 arrow functions, destructuring, and array methods.",
+              "Debug a broken script using breakpoints in Browser Developer Tools."
+            ],
+            "total_hours": 0
+          },
+          {
+            "week": 3,
+            "focus_skills": [
+              "JavaScript (ES6+)",
+              "React.js or Vue.js"
+            ],
+            "resources": [
+              {
+                "title": "React Official Tutorial",
+                "url": "https://react.dev/learn"
+              },
+              {
+                "title": "MDN JavaScript Asynchronous Programming",
+                "url": "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous"
+              }
+            ],
+            "practice_tasks": [
+              "Practice asynchronous JavaScript with fetch and async/await.",
+              "Set up a basic React app using Vite and create your first components."
+            ],
+            "total_hours": 0
+          },
+          {
+            "week": 4,
+            "focus_skills": [
+              "React.js or Vue.js",
+              "Browser Developer Tools & Debugging"
+            ],
+            "resources": [
+              {
+                "title": "React Hooks Documentation",
+                "url": "https://react.dev/reference/react"
+              },
+              {
+                "title": "React Developer Tools Extension",
+                "url": "https://react.dev/learn/react-developer-tools"
+              }
+            ],
+            "practice_tasks": [
+              "Build a simple interactive React application using useState and useEffect hooks.",
+              "Inspect and debug your React components using React DevTools."
+            ],
+            "total_hours": 0
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    }
+  ],
+  "status": "ok",
+  "final": {
+    "profile": {
+      "skills": [
+        {
+          "name": "HTML",
+          "level": "intermediate"
+        },
+        {
+          "name": "CSS",
+          "level": "intermediate"
+        }
+      ]
+    },
+    "requirements": {
+      "must_have": [
+        {
+          "skill": "HTML5 & CSS3",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "JavaScript (ES6+)",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "React.js or Vue.js",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Responsive Web Design & Flexbox/Grid",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "Git & GitHub",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Browser Developer Tools & Debugging",
+          "required_level": "beginner"
+        }
+      ],
+      "good_to_have": [
+        {
+          "skill": "TypeScript",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "CSS Preprocessors (Sass/SCSS) or Tailwind CSS",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "State Management (Redux Toolkit, Context API)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "RESTful APIs & Fetch/Axios",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Basic Testing (Jest, React Testing Library)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Web Accessibility (a11y) & SEO Basics",
+          "required_level": "beginner"
+        }
+      ]
+    },
+    "gaps": {
+      "gaps": [
+        {
+          "skill": "JavaScript (ES6+)",
+          "current_level": "none",
+          "required_level": "intermediate",
+          "priority": "high"
+        },
+        {
+          "skill": "React.js or Vue.js",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "high"
+        },
+        {
+          "skill": "Responsive Web Design & Flexbox/Grid",
+          "current_level": "none",
+          "required_level": "intermediate",
+          "priority": "high"
+        },
+        {
+          "skill": "Git & GitHub",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "medium"
+        },
+        {
+          "skill": "Browser Developer Tools & Debugging",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "medium"
+        }
+      ]
+    },
+    "plan": {
+      "weeks": [
+        {
+          "week": 1,
+          "focus_skills": [
+            "Responsive Web Design & Flexbox/Grid",
+            "Git & GitHub"
+          ],
+          "resources": [
+            {
+              "title": "MDN CSS Flexbox Guide",
+              "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout"
+            },
+            {
+              "title": "GitHub Hello World Guide",
+              "url": "https://guides.github.com/activities/hello-world/"
+            }
+          ],
+          "practice_tasks": [
+            "Build a responsive landing page using CSS Flexbox and Grid.",
+            "Initialize a Git repository and push your project to GitHub."
+          ],
+          "total_hours": 0
+        },
+        {
+          "week": 2,
+          "focus_skills": [
+            "JavaScript (ES6+)",
+            "Browser Developer Tools & Debugging"
+          ],
+          "resources": [
+            {
+              "title": "JavaScript.info Modern JS Tutorial",
+              "url": "https://javascript.info/"
+            },
+            {
+              "title": "Chrome DevTools Overview",
+              "url": "https://developer.chrome.com/docs/devtools/"
+            }
+          ],
+          "practice_tasks": [
+            "Write scripts utilizing ES6 arrow functions, destructuring, and array methods.",
+            "Debug a broken script using breakpoints in Browser Developer Tools."
+          ],
+          "total_hours": 0
+        },
+        {
+          "week": 3,
+          "focus_skills": [
+            "JavaScript (ES6+)",
+            "React.js or Vue.js"
+          ],
+          "resources": [
+            {
+              "title": "React Official Tutorial",
+              "url": "https://react.dev/learn"
+            },
+            {
+              "title": "MDN JavaScript Asynchronous Programming",
+              "url": "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous"
+            }
+          ],
+          "practice_tasks": [
+            "Practice asynchronous JavaScript with fetch and async/await.",
+            "Set up a basic React app using Vite and create your first components."
+          ],
+          "total_hours": 0
+        },
+        {
+          "week": 4,
+          "focus_skills": [
+            "React.js or Vue.js",
+            "Browser Developer Tools & Debugging"
+          ],
+          "resources": [
+            {
+              "title": "React Hooks Documentation",
+              "url": "https://react.dev/reference/react"
+            },
+            {
+              "title": "React Developer Tools Extension",
+              "url": "https://react.dev/learn/react-developer-tools"
+            }
+          ],
+          "practice_tasks": [
+            "Build a simple interactive React application using useState and useEffect hooks.",
+            "Inspect and debug your React components using React DevTools."
+          ],
+          "total_hours": 0
+        }
+      ]
+    }
+  },
+  "model": "gemini-3.5-flash-lite",
+  "run_at": "2026-11-22T02:27:16",
+  "wall_time_s": 22.9
+}

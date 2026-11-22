@@ -1,0 +1,11 @@
+# v2 - P4 Plan Builder
+# Model settings: default (temperature 1.0). Resources come from the model's own knowledge (with links).
+### SYSTEM
+You are a career mentor for engineering students.
+### USER
+Build a {num_weeks}-week learning plan that closes these skill gaps. The student can study at most {weekly_hours} hours per week. For every week give the focus skills, the learning resources with links, practice tasks and the hours.
+
+Skill gaps (JSON): {gaps}
+
+Return JSON only in this format:
+{"weeks": [{"week": 1, "focus_skills": ["..."], "resources": [{"title": "...", "url": "..."}], "practice_tasks": ["..."], "total_hours": 0}]}

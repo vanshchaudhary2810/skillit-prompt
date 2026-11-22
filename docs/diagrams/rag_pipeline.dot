@@ -1,0 +1,7 @@
+digraph G { rankdir=LR; node [fontname="Helvetica", fontsize=10, style="rounded,filled", shape=box, fillcolor="#EEF2FF", color="#4F46E5"]; edge [fontname="Helvetica", fontsize=9, color="#555555"];
+tr [label="Typed role\n'AI engineer'", fillcolor="#FEF3C7", color="#B45309"]; rj [label="roles.json\n13 role profiles", shape=cylinder, fillcolor="#DCFCE7", color="#15803D"];
+fm [label="Fuzzy matcher\nname + alias similarity"]; top [label="Top-3 profiles\n+ match scores"]; p2 [label="P2 prompt\n'use ONLY these profiles'", fillcolor="#E0F2FE", color="#0369A1"];
+gp [label="Gap skills from P3\n(+ alternatives)", fillcolor="#FEF3C7", color="#B45309"]; rs [label="resources.json\n64 free resources", shape=cylinder, fillcolor="#DCFCE7", color="#15803D"];
+tf [label="Skill-tag filter\n<= 4 per skill"]; ids [label="Resource list\n(IDs, title, hours; no URLs)"]; p4 [label="P4 prompt\n'use resource_id only'", fillcolor="#E0F2FE", color="#0369A1"];
+join [label="App joins IDs -> real URLs\n(model never writes a link)", fillcolor="#FEE2E2", color="#B91C1C"];
+tr -> fm; rj -> fm; fm -> top -> p2; gp -> tf; rs -> tf; tf -> ids -> p4 -> join; }

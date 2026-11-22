@@ -1,0 +1,6 @@
+[
+ "The readiness score is still worked out by the LLM: v4 fixed 4 of the 5 wrong scores, but in T02 it gave 65 where the formula gives 58. Next: compute the score in code from P1 + P2 and keep the LLM only for the explanation.",
+ "Only 13 role profiles and 64 resources are in the knowledge base; a role outside it is flagged or mapped to the closest one. Next: grow it and cross-check every role against at least 5 real postings.",
+ "Skill levels are inferred from the student's wording ('basic', 'good at'), which is subjective. Next: add a short self-check per skill in the app.",
+ "The free API tier limits speed and volume (the larger gemini-3.6-flash ran out of daily quota during testing, so all runs use Flash-Lite). Next: cache identical inputs and compare against ChatGPT/Claude in Milestone 3."
+]

@@ -1,0 +1,467 @@
+{
+  "version": "v2",
+  "inputs": {
+    "student_skills": "SQL advanced, Excel advanced, Power BI intermediate, Python intermediate, Statistics intermediate, Pandas intermediate",
+    "target_role": "Data Analyst",
+    "weekly_hours": 6,
+    "num_weeks": 4
+  },
+  "steps": [
+    {
+      "id": "P1",
+      "name": "Skill Normaliser",
+      "prompt_file": "prompts/v2/P1_skill_normaliser.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Read the student's skills below and convert them into a clean list of skills with a level for each (beginner, intermediate or advanced).\n\nStudent skills: SQL advanced, Excel advanced, Power BI intermediate, Python intermediate, Statistics intermediate, Pandas intermediate\n\nReturn JSON only in this format:\n{\"skills\": [{\"name\": \"...\", \"level\": \"beginner|intermediate|advanced\"}]}",
+      "raw": "```json\n{\n  \"skills\": [\n    {\n      \"name\": \"SQL\",\n      \"level\": \"advanced\"\n    },\n    {\n      \"name\": \"Excel\",\n      \"level\": \"advanced\"\n    },\n    {\n      \"name\": \"Power BI\",\n      \"level\": \"intermediate\"\n    },\n    {\n      \"name\": \"Python\",\n      \"level\": \"intermediate\"\n    },\n    {\n      \"name\": \"Statistics\",\n      \"level\": \"intermediate\"\n    },\n    {\n      \"name\": \"Pandas\",\n      \"level\": \"intermediate\"\n    }\n  ]\n}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 1.04,
+      "parsed": {
+        "skills": [
+          {
+            "name": "SQL",
+            "level": "advanced"
+          },
+          {
+            "name": "Excel",
+            "level": "advanced"
+          },
+          {
+            "name": "Power BI",
+            "level": "intermediate"
+          },
+          {
+            "name": "Python",
+            "level": "intermediate"
+          },
+          {
+            "name": "Statistics",
+            "level": "intermediate"
+          },
+          {
+            "name": "Pandas",
+            "level": "intermediate"
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    },
+    {
+      "id": "P2",
+      "name": "Role Requirements",
+      "prompt_file": "prompts/v2/P2_role_requirements.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "List the skills a fresher needs for an entry-level Data Analyst job. Split them into must-have and good-to-have skills and give the level needed for each.\n\nReturn JSON only in this format:\n{\"must_have\": [{\"skill\": \"...\", \"required_level\": \"beginner|intermediate|advanced\"}], \"good_to_have\": [{\"skill\": \"...\", \"required_level\": \"...\"}]}",
+      "raw": "{\n  \"must_have\": [\n    {\n      \"skill\": \"SQL\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"Excel\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"Python or R\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Data Visualization (Tableau or Power BI)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Basic Statistics\",\n      \"required_level\": \"beginner\"\n    }\n  ],\n  \"good_to_have\": [\n    {\n      \"skill\": \"Git/Version Control\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Cloud Data Warehouses (Snowflake, BigQuery)\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"NoSQL Databases\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"ETL/Data Pipeline Concepts\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Machine Learning Basics\",\n      \"required_level\": \"beginner\"\n    }\n  ]\n}",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 1.08,
+      "parsed": {
+        "must_have": [
+          {
+            "skill": "SQL",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "Excel",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "Python or R",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Data Visualization (Tableau or Power BI)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Basic Statistics",
+            "required_level": "beginner"
+          }
+        ],
+        "good_to_have": [
+          {
+            "skill": "Git/Version Control",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Cloud Data Warehouses (Snowflake, BigQuery)",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "NoSQL Databases",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "ETL/Data Pipeline Concepts",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Machine Learning Basics",
+            "required_level": "beginner"
+          }
+        ]
+      },
+      "json_strict": true,
+      "json_ok": true
+    },
+    {
+      "id": "P3",
+      "name": "Gap Analyser",
+      "prompt_file": "prompts/v2/P3_gap_analyser.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Compare the student's skills with the role requirements and list the skill gaps, most important first.\n\nStudent skills (JSON): {\"skills\": [{\"name\": \"SQL\", \"level\": \"advanced\"}, {\"name\": \"Excel\", \"level\": \"advanced\"}, {\"name\": \"Power BI\", \"level\": \"intermediate\"}, {\"name\": \"Python\", \"level\": \"intermediate\"}, {\"name\": \"Statistics\", \"level\": \"intermediate\"}, {\"name\": \"Pandas\", \"level\": \"intermediate\"}]}\nRole requirements (JSON): {\"must_have\": [{\"skill\": \"SQL\", \"required_level\": \"intermediate\"}, {\"skill\": \"Excel\", \"required_level\": \"intermediate\"}, {\"skill\": \"Python or R\", \"required_level\": \"beginner\"}, {\"skill\": \"Data Visualization (Tableau or Power BI)\", \"required_level\": \"beginner\"}, {\"skill\": \"Basic Statistics\", \"required_level\": \"beginner\"}], \"good_to_have\": [{\"skill\": \"Git/Version Control\", \"required_level\": \"beginner\"}, {\"skill\": \"Cloud Data Warehouses (Snowflake, BigQuery)\", \"required_level\": \"beginner\"}, {\"skill\": \"NoSQL Databases\", \"required_level\": \"beginner\"}, {\"skill\": \"ETL/Data Pipeline Concepts\", \"required_level\": \"beginner\"}, {\"skill\": \"Machine Learning Basics\", \"required_level\": \"beginner\"}]}\n\nReturn JSON only in this format:\n{\"gaps\": [{\"skill\": \"...\", \"current_level\": \"none|beginner|intermediate\", \"required_level\": \"...\", \"priority\": \"high|medium|low\"}]}",
+      "raw": "{\n  \"gaps\": [\n    {\n      \"skill\": \"Git/Version Control\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"high\"\n    },\n    {\n      \"skill\": \"ETL/Data Pipeline Concepts\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"medium\"\n    },\n    {\n      \"skill\": \"Cloud Data Warehouses (Snowflake, BigQuery)\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"medium\"\n    },\n    {\n      \"skill\": \"NoSQL Databases\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"low\"\n    },\n    {\n      \"skill\": \"Machine Learning Basics\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"low\"\n    }\n  ]\n}",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 1.32,
+      "parsed": {
+        "gaps": [
+          {
+            "skill": "Git/Version Control",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "high"
+          },
+          {
+            "skill": "ETL/Data Pipeline Concepts",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "medium"
+          },
+          {
+            "skill": "Cloud Data Warehouses (Snowflake, BigQuery)",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "medium"
+          },
+          {
+            "skill": "NoSQL Databases",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          },
+          {
+            "skill": "Machine Learning Basics",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "low"
+          }
+        ]
+      },
+      "json_strict": true,
+      "json_ok": true
+    },
+    {
+      "id": "P4",
+      "name": "Plan Builder",
+      "prompt_file": "prompts/v2/P4_plan_builder.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Build a 4-week learning plan that closes these skill gaps. The student can study at most 6 hours per week. For every week give the focus skills, the learning resources with links, practice tasks and the hours.\n\nSkill gaps (JSON): [{\"skill\": \"Git/Version Control\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"high\"}, {\"skill\": \"ETL/Data Pipeline Concepts\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"Cloud Data Warehouses (Snowflake, BigQuery)\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"medium\"}, {\"skill\": \"NoSQL Databases\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}, {\"skill\": \"Machine Learning Basics\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"low\"}]\n\nReturn JSON only in this format:\n{\"weeks\": [{\"week\": 1, \"focus_skills\": [\"...\"], \"resources\": [{\"title\": \"...\", \"url\": \"...\"}], \"practice_tasks\": [\"...\"], \"total_hours\": 0}]}",
+      "raw": "```json\n{\n  \"weeks\": [\n    {\n      \"week\": 1,\n      \"focus_skills\": [\n        \"Git/Version Control\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"Git and GitHub for Beginners - Crash Course\",\n          \"url\": \"https://www.youtube.com/watch?v=RGOj5yH7evk\"\n        },\n        {\n          \"title\": \"Atlassian Git Tutorial\",\n          \"url\": \"https://www.atlassian.com/git/tutorials\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Install Git and configure your username and email globally.\",\n        \"Create a local repository, make a few commits, and write a detailed README.md file.\",\n        \"Push your local repository to a new public GitHub repository and practice the pull/push workflow.\"\n      ],\n      \"total_hours\": 6\n    },\n    {\n      \"week\": 2,\n      \"focus_skills\": [\n        \"ETL/Data Pipeline Concepts\",\n        \"Cloud Data Warehouses (Snowflake, BigQuery)\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"Data Engineering 101: Introduction to Data Pipelines\",\n          \"url\": \"https://www.dataquest.io/blog/data-engineering-101-the-infrastructure-of-data-platforms/\"\n        },\n        {\n          \"title\": \"Google Cloud BigQuery Sandbox Quickstart\",\n          \"url\": \"https://cloud.google.com/bigquery/docs/quickstarts/load-data-console\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Map out a simple Extract, Transform, Load (ETL) pipeline on paper for a fictional dataset (e.g., e-commerce transactions).\",\n        \"Set up a free Google Cloud Console account and access the BigQuery sandbox.\",\n        \"Load a public CSV dataset into BigQuery and run basic SQL queries (SELECT, WHERE, GROUP BY).\"\n      ],\n      \"total_hours\": 6\n    },\n    {\n      \"week\": 3,\n      \"focus_skills\": [\n        \"NoSQL Databases\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"MongoDB University: Introduction to MongoDB\",\n          \"url\": \"https://learn.mongodb.com/\"\n        },\n        {\n          \"title\": \"SQL vs NoSQL Databases Explained\",\n          \"url\": \"https://www.freecodecamp.org/news/nosql-databases-explained/\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Set up a free MongoDB Atlas cluster and connect via the cloud shell or MongoDB Compass.\",\n        \"Insert a few sample JSON documents representing user profiles or product catalogs into a collection.\",\n        \"Practice querying, updating, and deleting documents using MongoDB query syntax.\"\n      ],\n      \"total_hours\": 6\n    },\n    {\n      \"week\": 4,\n      \"focus_skills\": [\n        \"Machine Learning Basics\"\n      ],\n      \"resources\": [\n        {\n          \"title\": \"Google Cloud Machine Learning Crash Course\",\n          \"url\": \"https://developers.google.com/machine-learning/crash-course\"\n        },\n        {\n          \"title\": \"Scikit-Learn Getting Started Tutorial\",\n          \"url\": \"https://scikit-learn.org/stable/getting_started.html\"\n        }\n      ],\n      \"practice_tasks\": [\n        \"Read through the core concepts of supervised vs. unsupervised learning in the ML crash course.\",\n        \"Write a simple Python script using Scikit-learn to train a basic linear regression or classification model on a built-in dataset.\",\n        \"Evaluate your model's accuracy and push your completed script and notebook to your GitHub repository from Week 1.\"\n      ],\n      \"total_hours\": 6\n    }\n  ]\n}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 2.69,
+      "parsed": {
+        "weeks": [
+          {
+            "week": 1,
+            "focus_skills": [
+              "Git/Version Control"
+            ],
+            "resources": [
+              {
+                "title": "Git and GitHub for Beginners - Crash Course",
+                "url": "https://www.youtube.com/watch?v=RGOj5yH7evk"
+              },
+              {
+                "title": "Atlassian Git Tutorial",
+                "url": "https://www.atlassian.com/git/tutorials"
+              }
+            ],
+            "practice_tasks": [
+              "Install Git and configure your username and email globally.",
+              "Create a local repository, make a few commits, and write a detailed README.md file.",
+              "Push your local repository to a new public GitHub repository and practice the pull/push workflow."
+            ],
+            "total_hours": 6
+          },
+          {
+            "week": 2,
+            "focus_skills": [
+              "ETL/Data Pipeline Concepts",
+              "Cloud Data Warehouses (Snowflake, BigQuery)"
+            ],
+            "resources": [
+              {
+                "title": "Data Engineering 101: Introduction to Data Pipelines",
+                "url": "https://www.dataquest.io/blog/data-engineering-101-the-infrastructure-of-data-platforms/"
+              },
+              {
+                "title": "Google Cloud BigQuery Sandbox Quickstart",
+                "url": "https://cloud.google.com/bigquery/docs/quickstarts/load-data-console"
+              }
+            ],
+            "practice_tasks": [
+              "Map out a simple Extract, Transform, Load (ETL) pipeline on paper for a fictional dataset (e.g., e-commerce transactions).",
+              "Set up a free Google Cloud Console account and access the BigQuery sandbox.",
+              "Load a public CSV dataset into BigQuery and run basic SQL queries (SELECT, WHERE, GROUP BY)."
+            ],
+            "total_hours": 6
+          },
+          {
+            "week": 3,
+            "focus_skills": [
+              "NoSQL Databases"
+            ],
+            "resources": [
+              {
+                "title": "MongoDB University: Introduction to MongoDB",
+                "url": "https://learn.mongodb.com/"
+              },
+              {
+                "title": "SQL vs NoSQL Databases Explained",
+                "url": "https://www.freecodecamp.org/news/nosql-databases-explained/"
+              }
+            ],
+            "practice_tasks": [
+              "Set up a free MongoDB Atlas cluster and connect via the cloud shell or MongoDB Compass.",
+              "Insert a few sample JSON documents representing user profiles or product catalogs into a collection.",
+              "Practice querying, updating, and deleting documents using MongoDB query syntax."
+            ],
+            "total_hours": 6
+          },
+          {
+            "week": 4,
+            "focus_skills": [
+              "Machine Learning Basics"
+            ],
+            "resources": [
+              {
+                "title": "Google Cloud Machine Learning Crash Course",
+                "url": "https://developers.google.com/machine-learning/crash-course"
+              },
+              {
+                "title": "Scikit-Learn Getting Started Tutorial",
+                "url": "https://scikit-learn.org/stable/getting_started.html"
+              }
+            ],
+            "practice_tasks": [
+              "Read through the core concepts of supervised vs. unsupervised learning in the ML crash course.",
+              "Write a simple Python script using Scikit-learn to train a basic linear regression or classification model on a built-in dataset.",
+              "Evaluate your model's accuracy and push your completed script and notebook to your GitHub repository from Week 1."
+            ],
+            "total_hours": 6
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    }
+  ],
+  "status": "ok",
+  "final": {
+    "profile": {
+      "skills": [
+        {
+          "name": "SQL",
+          "level": "advanced"
+        },
+        {
+          "name": "Excel",
+          "level": "advanced"
+        },
+        {
+          "name": "Power BI",
+          "level": "intermediate"
+        },
+        {
+          "name": "Python",
+          "level": "intermediate"
+        },
+        {
+          "name": "Statistics",
+          "level": "intermediate"
+        },
+        {
+          "name": "Pandas",
+          "level": "intermediate"
+        }
+      ]
+    },
+    "requirements": {
+      "must_have": [
+        {
+          "skill": "SQL",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "Excel",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "Python or R",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Data Visualization (Tableau or Power BI)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Basic Statistics",
+          "required_level": "beginner"
+        }
+      ],
+      "good_to_have": [
+        {
+          "skill": "Git/Version Control",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Cloud Data Warehouses (Snowflake, BigQuery)",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "NoSQL Databases",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "ETL/Data Pipeline Concepts",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Machine Learning Basics",
+          "required_level": "beginner"
+        }
+      ]
+    },
+    "gaps": {
+      "gaps": [
+        {
+          "skill": "Git/Version Control",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "high"
+        },
+        {
+          "skill": "ETL/Data Pipeline Concepts",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "medium"
+        },
+        {
+          "skill": "Cloud Data Warehouses (Snowflake, BigQuery)",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "medium"
+        },
+        {
+          "skill": "NoSQL Databases",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        },
+        {
+          "skill": "Machine Learning Basics",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "low"
+        }
+      ]
+    },
+    "plan": {
+      "weeks": [
+        {
+          "week": 1,
+          "focus_skills": [
+            "Git/Version Control"
+          ],
+          "resources": [
+            {
+              "title": "Git and GitHub for Beginners - Crash Course",
+              "url": "https://www.youtube.com/watch?v=RGOj5yH7evk"
+            },
+            {
+              "title": "Atlassian Git Tutorial",
+              "url": "https://www.atlassian.com/git/tutorials"
+            }
+          ],
+          "practice_tasks": [
+            "Install Git and configure your username and email globally.",
+            "Create a local repository, make a few commits, and write a detailed README.md file.",
+            "Push your local repository to a new public GitHub repository and practice the pull/push workflow."
+          ],
+          "total_hours": 6
+        },
+        {
+          "week": 2,
+          "focus_skills": [
+            "ETL/Data Pipeline Concepts",
+            "Cloud Data Warehouses (Snowflake, BigQuery)"
+          ],
+          "resources": [
+            {
+              "title": "Data Engineering 101: Introduction to Data Pipelines",
+              "url": "https://www.dataquest.io/blog/data-engineering-101-the-infrastructure-of-data-platforms/"
+            },
+            {
+              "title": "Google Cloud BigQuery Sandbox Quickstart",
+              "url": "https://cloud.google.com/bigquery/docs/quickstarts/load-data-console"
+            }
+          ],
+          "practice_tasks": [
+            "Map out a simple Extract, Transform, Load (ETL) pipeline on paper for a fictional dataset (e.g., e-commerce transactions).",
+            "Set up a free Google Cloud Console account and access the BigQuery sandbox.",
+            "Load a public CSV dataset into BigQuery and run basic SQL queries (SELECT, WHERE, GROUP BY)."
+          ],
+          "total_hours": 6
+        },
+        {
+          "week": 3,
+          "focus_skills": [
+            "NoSQL Databases"
+          ],
+          "resources": [
+            {
+              "title": "MongoDB University: Introduction to MongoDB",
+              "url": "https://learn.mongodb.com/"
+            },
+            {
+              "title": "SQL vs NoSQL Databases Explained",
+              "url": "https://www.freecodecamp.org/news/nosql-databases-explained/"
+            }
+          ],
+          "practice_tasks": [
+            "Set up a free MongoDB Atlas cluster and connect via the cloud shell or MongoDB Compass.",
+            "Insert a few sample JSON documents representing user profiles or product catalogs into a collection.",
+            "Practice querying, updating, and deleting documents using MongoDB query syntax."
+          ],
+          "total_hours": 6
+        },
+        {
+          "week": 4,
+          "focus_skills": [
+            "Machine Learning Basics"
+          ],
+          "resources": [
+            {
+              "title": "Google Cloud Machine Learning Crash Course",
+              "url": "https://developers.google.com/machine-learning/crash-course"
+            },
+            {
+              "title": "Scikit-Learn Getting Started Tutorial",
+              "url": "https://scikit-learn.org/stable/getting_started.html"
+            }
+          ],
+          "practice_tasks": [
+            "Read through the core concepts of supervised vs. unsupervised learning in the ML crash course.",
+            "Write a simple Python script using Scikit-learn to train a basic linear regression or classification model on a built-in dataset.",
+            "Evaluate your model's accuracy and push your completed script and notebook to your GitHub repository from Week 1."
+          ],
+          "total_hours": 6
+        }
+      ]
+    }
+  },
+  "model": "gemini-3.5-flash-lite",
+  "run_at": "2026-11-22T02:25:16",
+  "wall_time_s": 24.7
+}

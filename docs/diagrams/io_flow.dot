@@ -1,0 +1,9 @@
+digraph G { rankdir=LR; node [fontname="Helvetica", fontsize=10, style="rounded,filled", shape=box, fillcolor="#EEF2FF", color="#4F46E5"]; edge [fontname="Helvetica", fontsize=9, color="#555555"];
+i1 [label="student_skills\n(free text)", fillcolor="#FEF3C7", color="#B45309"]; i2 [label="target_role\n(free text)", fillcolor="#FEF3C7", color="#B45309"]; i3 [label="weekly_hours,\nnum_weeks", fillcolor="#FEF3C7", color="#B45309"];
+p1 [label="P1"]; p2 [label="P2"]; p3 [label="P3"]; p4 [label="P4"];
+o1 [label="profile JSON\n{skills:[name, level, evidence]}", shape=note, fillcolor="#FFFFFF"];
+o2 [label="requirements JSON\n{matched_role, must_have, good_to_have}", shape=note, fillcolor="#FFFFFF"];
+o3 [label="gaps JSON\n{gaps:[rank, priority, est_hours], readiness}", shape=note, fillcolor="#FFFFFF"];
+o4 [label="plan JSON\n{weeks:[items(resource_id,h), tasks(h)], deferred}", shape=note, fillcolor="#FFFFFF"];
+ui [label="Final output: gap table, week cards,\nresource links, automatic checks, JSON download", fillcolor="#FEF3C7", color="#B45309"];
+i1 -> p1 -> o1; i2 -> p2 -> o2; o1 -> p3; o2 -> p3 -> o3; o3 -> p4; i3 -> p4 -> o4 -> ui; }

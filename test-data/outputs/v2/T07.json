@@ -1,0 +1,543 @@
+{
+  "version": "v2",
+  "inputs": {
+    "student_skills": "py, ML, js, reactjs, gud at excell, mongo, photoshop",
+    "target_role": "MERN stack developer",
+    "weekly_hours": 6,
+    "num_weeks": 4
+  },
+  "steps": [
+    {
+      "id": "P1",
+      "name": "Skill Normaliser",
+      "prompt_file": "prompts/v2/P1_skill_normaliser.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Read the student's skills below and convert them into a clean list of skills with a level for each (beginner, intermediate or advanced).\n\nStudent skills: py, ML, js, reactjs, gud at excell, mongo, photoshop\n\nReturn JSON only in this format:\n{\"skills\": [{\"name\": \"...\", \"level\": \"beginner|intermediate|advanced\"}]}",
+      "raw": "```json\n{\n  \"skills\": [\n    {\n      \"name\": \"Python\",\n      \"level\": \"intermediate\"\n    },\n    {\n      \"name\": \"Machine Learning\",\n      \"level\": \"beginner\"\n    },\n    {\n      \"name\": \"JavaScript\",\n      \"level\": \"intermediate\"\n    },\n    {\n      \"name\": \"ReactJS\",\n      \"level\": \"intermediate\"\n    },\n    {\n      \"name\": \"Microsoft Excel\",\n      \"level\": \"intermediate\"\n    },\n    {\n      \"name\": \"MongoDB\",\n      \"level\": \"beginner\"\n    },\n    {\n      \"name\": \"Adobe Photoshop\",\n      \"level\": \"intermediate\"\n    }\n  ]\n}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 0.95,
+      "parsed": {
+        "skills": [
+          {
+            "name": "Python",
+            "level": "intermediate"
+          },
+          {
+            "name": "Machine Learning",
+            "level": "beginner"
+          },
+          {
+            "name": "JavaScript",
+            "level": "intermediate"
+          },
+          {
+            "name": "ReactJS",
+            "level": "intermediate"
+          },
+          {
+            "name": "Microsoft Excel",
+            "level": "intermediate"
+          },
+          {
+            "name": "MongoDB",
+            "level": "beginner"
+          },
+          {
+            "name": "Adobe Photoshop",
+            "level": "intermediate"
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    },
+    {
+      "id": "P2",
+      "name": "Role Requirements",
+      "prompt_file": "prompts/v2/P2_role_requirements.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "List the skills a fresher needs for an entry-level MERN stack developer job. Split them into must-have and good-to-have skills and give the level needed for each.\n\nReturn JSON only in this format:\n{\"must_have\": [{\"skill\": \"...\", \"required_level\": \"beginner|intermediate|advanced\"}], \"good_to_have\": [{\"skill\": \"...\", \"required_level\": \"...\"}]}",
+      "raw": "{\n  \"must_have\": [\n    {\n      \"skill\": \"JavaScript (ES6+)\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"HTML5 & CSS3\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"React.js\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"Node.js\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Express.js\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"MongoDB\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"RESTful APIs\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Git & GitHub\",\n      \"required_level\": \"beginner\"\n    }\n  ],\n  \"good_to_have\": [\n    {\n      \"skill\": \"TypeScript\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Redux Toolkit / Context API\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Tailwind CSS\",\n      \"required_level\": \"intermediate\"\n    },\n    {\n      \"skill\": \"Docker\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"JWT Authentication\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Jest / React Testing Library\",\n      \"required_level\": \"beginner\"\n    },\n    {\n      \"skill\": \"Next.js\",\n      \"required_level\": \"beginner\"\n    }\n  ]\n}",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 1.39,
+      "parsed": {
+        "must_have": [
+          {
+            "skill": "JavaScript (ES6+)",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "HTML5 & CSS3",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "React.js",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "Node.js",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Express.js",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "MongoDB",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "RESTful APIs",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Git & GitHub",
+            "required_level": "beginner"
+          }
+        ],
+        "good_to_have": [
+          {
+            "skill": "TypeScript",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Redux Toolkit / Context API",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Tailwind CSS",
+            "required_level": "intermediate"
+          },
+          {
+            "skill": "Docker",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "JWT Authentication",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Jest / React Testing Library",
+            "required_level": "beginner"
+          },
+          {
+            "skill": "Next.js",
+            "required_level": "beginner"
+          }
+        ]
+      },
+      "json_strict": true,
+      "json_ok": true
+    },
+    {
+      "id": "P3",
+      "name": "Gap Analyser",
+      "prompt_file": "prompts/v2/P3_gap_analyser.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Compare the student's skills with the role requirements and list the skill gaps, most important first.\n\nStudent skills (JSON): {\"skills\": [{\"name\": \"Python\", \"level\": \"intermediate\"}, {\"name\": \"Machine Learning\", \"level\": \"beginner\"}, {\"name\": \"JavaScript\", \"level\": \"intermediate\"}, {\"name\": \"ReactJS\", \"level\": \"intermediate\"}, {\"name\": \"Microsoft Excel\", \"level\": \"intermediate\"}, {\"name\": \"MongoDB\", \"level\": \"beginner\"}, {\"name\": \"Adobe Photoshop\", \"level\": \"intermediate\"}]}\nRole requirements (JSON): {\"must_have\": [{\"skill\": \"JavaScript (ES6+)\", \"required_level\": \"intermediate\"}, {\"skill\": \"HTML5 & CSS3\", \"required_level\": \"intermediate\"}, {\"skill\": \"React.js\", \"required_level\": \"intermediate\"}, {\"skill\": \"Node.js\", \"required_level\": \"beginner\"}, {\"skill\": \"Express.js\", \"required_level\": \"beginner\"}, {\"skill\": \"MongoDB\", \"required_level\": \"beginner\"}, {\"skill\": \"RESTful APIs\", \"required_level\": \"beginner\"}, {\"skill\": \"Git & GitHub\", \"required_level\": \"beginner\"}], \"good_to_have\": [{\"skill\": \"TypeScript\", \"required_level\": \"beginner\"}, {\"skill\": \"Redux Toolkit / Context API\", \"required_level\": \"beginner\"}, {\"skill\": \"Tailwind CSS\", \"required_level\": \"intermediate\"}, {\"skill\": \"Docker\", \"required_level\": \"beginner\"}, {\"skill\": \"JWT Authentication\", \"required_level\": \"beginner\"}, {\"skill\": \"Jest / React Testing Library\", \"required_level\": \"beginner\"}, {\"skill\": \"Next.js\", \"required_level\": \"beginner\"}]}\n\nReturn JSON only in this format:\n{\"gaps\": [{\"skill\": \"...\", \"current_level\": \"none|beginner|intermediate\", \"required_level\": \"...\", \"priority\": \"high|medium|low\"}]}",
+      "raw": "```json\n{\n  \"gaps\": [\n    {\n      \"skill\": \"HTML5 & CSS3\",\n      \"current_level\": \"none\",\n      \"required_level\": \"intermediate\",\n      \"priority\": \"high\"\n    },\n    {\n      \"skill\": \"Node.js\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"high\"\n    },\n    {\n      \"skill\": \"Express.js\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"high\"\n    },\n    {\n      \"skill\": \"RESTful APIs\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"high\"\n    },\n    {\n      \"skill\": \"Git & GitHub\",\n      \"current_level\": \"none\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"high\"\n    },\n    {\n      \"skill\": \"JavaScript (ES6+)\",\n      \"current_level\": \"intermediate\",\n      \"required_level\": \"intermediate\",\n      \"priority\": \"low\"\n    },\n    {\n      \"skill\": \"React.js\",\n      \"current_level\": \"intermediate\",\n      \"required_level\": \"intermediate\",\n      \"priority\": \"low\"\n    },\n    {\n      \"skill\": \"MongoDB\",\n      \"current_level\": \"beginner\",\n      \"required_level\": \"beginner\",\n      \"priority\": \"low\"\n    }\n  ]\n}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 1.45,
+      "parsed": {
+        "gaps": [
+          {
+            "skill": "HTML5 & CSS3",
+            "current_level": "none",
+            "required_level": "intermediate",
+            "priority": "high"
+          },
+          {
+            "skill": "Node.js",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "high"
+          },
+          {
+            "skill": "Express.js",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "high"
+          },
+          {
+            "skill": "RESTful APIs",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "high"
+          },
+          {
+            "skill": "Git & GitHub",
+            "current_level": "none",
+            "required_level": "beginner",
+            "priority": "high"
+          },
+          {
+            "skill": "JavaScript (ES6+)",
+            "current_level": "intermediate",
+            "required_level": "intermediate",
+            "priority": "low"
+          },
+          {
+            "skill": "React.js",
+            "current_level": "intermediate",
+            "required_level": "intermediate",
+            "priority": "low"
+          },
+          {
+            "skill": "MongoDB",
+            "current_level": "beginner",
+            "required_level": "beginner",
+            "priority": "low"
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    },
+    {
+      "id": "P4",
+      "name": "Plan Builder",
+      "prompt_file": "prompts/v2/P4_plan_builder.txt",
+      "system": "You are a career mentor for engineering students.",
+      "user": "Build a 4-week learning plan that closes these skill gaps. The student can study at most 6 hours per week. For every week give the focus skills, the learning resources with links, practice tasks and the hours.\n\nSkill gaps (JSON): [{\"skill\": \"HTML5 & CSS3\", \"current_level\": \"none\", \"required_level\": \"intermediate\", \"priority\": \"high\"}, {\"skill\": \"Node.js\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"high\"}, {\"skill\": \"Express.js\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"high\"}, {\"skill\": \"RESTful APIs\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"high\"}, {\"skill\": \"Git & GitHub\", \"current_level\": \"none\", \"required_level\": \"beginner\", \"priority\": \"high\"}, {\"skill\": \"JavaScript (ES6+)\", \"current_level\": \"intermediate\", \"required_level\": \"intermediate\", \"priority\": \"low\"}, {\"skill\": \"React.js\", \"current_level\": \"intermediate\", \"required_level\": \"intermediate\", \"priority\": \"low\"}, {\"skill\": \"MongoDB\", \"current_level\": \"beginner\", \"required_level\": \"beginner\", \"priority\": \"low\"}]\n\nReturn JSON only in this format:\n{\"weeks\": [{\"week\": 1, \"focus_skills\": [\"...\"], \"resources\": [{\"title\": \"...\", \"url\": \"...\"}], \"practice_tasks\": [\"...\"], \"total_hours\": 0}]}",
+      "raw": "```json\n{\"weeks\": [{\"week\": 1, \"focus_skills\": [\"Git & GitHub\", \"HTML5 & CSS3\"], \"resources\": [{\"title\": \"Git and GitHub for Beginners - Crash Course\", \"url\": \"https://www.youtube.com/watch?v=RGOj5yH7evk\"}, {\"title\": \"HTML & CSS Full Course - Beginner to Pro\", \"url\": \"https://www.youtube.com/watch?v=G3e-cpL7ofc\"}], \"practice_tasks\": [\"Initialize a local Git repository, make your first commit, and push it to a new GitHub repository.\", \"Build a static personal portfolio page using semantic HTML5 and modern CSS3 (Flexbox/Grid).\"], \"total_hours\": 6}, {\"week\": 2, \"focus_skills\": [\"HTML5 & CSS3\", \"RESTful APIs\"], \"resources\": [{\"title\": \"CSS Grid and Flexbox for Beginners\", \"url\": \"https://www.freecodecamp.org/news/css-grid-flexbox-tutorial/\"}, {\"title\": \"What is a REST API? - Codecademy\", \"url\": \"https://www.codecademy.com/article/what-is-a-rest-api\"}], \"practice_tasks\": [\"Refine your portfolio layout using CSS Grid and make it fully responsive for mobile devices.\", \"Use Postman or browser developer tools to fetch and inspect data from a public REST API (e.g., JSONPlaceholder).\"], \"total_hours\": 6}, {\"week\": 3, \"focus_skills\": [\"Node.js\", \"Express.js\"], \"resources\": [{\"title\": \"Node.js and Express.js - Full Course\", \"url\": \"https://www.youtube.com/watch?v=Oe421EPjeBE\"}, {\"title\": \"Express.js Getting Started Guide\", \"url\": \"https://expressjs.com/en/starter/installing.html\"}], \"practice_tasks\": [\"Initialize a Node.js project, install Express, and set up a basic server.\", \"Create custom GET and POST routes in Express to handle JSON data payloads.\"], \"total_hours\": 6}, {\"week\": 4, \"focus_skills\": [\"Node.js\", \"Express.js\", \"RESTful APIs\"], \"resources\": [{\"title\": \"Build a REST API with Node.js and Express\", \"url\": \"https://www.freecodecamp.org/news/free-code-camp-course-build-a-rest-api-with-node-js-and-express/\"}], \"practice_tasks\": [\"Build a complete CRUD RESTful API using Express.js with in-memory data storage.\", \"Test all API endpoints (GET, POST, PUT, DELETE) using Postman and push the completed project to GitHub.\"], \"total_hours\": 6}]}\n```",
+      "model": "gemini-3.5-flash-lite",
+      "latency_s": 2.71,
+      "parsed": {
+        "weeks": [
+          {
+            "week": 1,
+            "focus_skills": [
+              "Git & GitHub",
+              "HTML5 & CSS3"
+            ],
+            "resources": [
+              {
+                "title": "Git and GitHub for Beginners - Crash Course",
+                "url": "https://www.youtube.com/watch?v=RGOj5yH7evk"
+              },
+              {
+                "title": "HTML & CSS Full Course - Beginner to Pro",
+                "url": "https://www.youtube.com/watch?v=G3e-cpL7ofc"
+              }
+            ],
+            "practice_tasks": [
+              "Initialize a local Git repository, make your first commit, and push it to a new GitHub repository.",
+              "Build a static personal portfolio page using semantic HTML5 and modern CSS3 (Flexbox/Grid)."
+            ],
+            "total_hours": 6
+          },
+          {
+            "week": 2,
+            "focus_skills": [
+              "HTML5 & CSS3",
+              "RESTful APIs"
+            ],
+            "resources": [
+              {
+                "title": "CSS Grid and Flexbox for Beginners",
+                "url": "https://www.freecodecamp.org/news/css-grid-flexbox-tutorial/"
+              },
+              {
+                "title": "What is a REST API? - Codecademy",
+                "url": "https://www.codecademy.com/article/what-is-a-rest-api"
+              }
+            ],
+            "practice_tasks": [
+              "Refine your portfolio layout using CSS Grid and make it fully responsive for mobile devices.",
+              "Use Postman or browser developer tools to fetch and inspect data from a public REST API (e.g., JSONPlaceholder)."
+            ],
+            "total_hours": 6
+          },
+          {
+            "week": 3,
+            "focus_skills": [
+              "Node.js",
+              "Express.js"
+            ],
+            "resources": [
+              {
+                "title": "Node.js and Express.js - Full Course",
+                "url": "https://www.youtube.com/watch?v=Oe421EPjeBE"
+              },
+              {
+                "title": "Express.js Getting Started Guide",
+                "url": "https://expressjs.com/en/starter/installing.html"
+              }
+            ],
+            "practice_tasks": [
+              "Initialize a Node.js project, install Express, and set up a basic server.",
+              "Create custom GET and POST routes in Express to handle JSON data payloads."
+            ],
+            "total_hours": 6
+          },
+          {
+            "week": 4,
+            "focus_skills": [
+              "Node.js",
+              "Express.js",
+              "RESTful APIs"
+            ],
+            "resources": [
+              {
+                "title": "Build a REST API with Node.js and Express",
+                "url": "https://www.freecodecamp.org/news/free-code-camp-course-build-a-rest-api-with-node-js-and-express/"
+              }
+            ],
+            "practice_tasks": [
+              "Build a complete CRUD RESTful API using Express.js with in-memory data storage.",
+              "Test all API endpoints (GET, POST, PUT, DELETE) using Postman and push the completed project to GitHub."
+            ],
+            "total_hours": 6
+          }
+        ]
+      },
+      "json_strict": false,
+      "json_ok": true
+    }
+  ],
+  "status": "ok",
+  "final": {
+    "profile": {
+      "skills": [
+        {
+          "name": "Python",
+          "level": "intermediate"
+        },
+        {
+          "name": "Machine Learning",
+          "level": "beginner"
+        },
+        {
+          "name": "JavaScript",
+          "level": "intermediate"
+        },
+        {
+          "name": "ReactJS",
+          "level": "intermediate"
+        },
+        {
+          "name": "Microsoft Excel",
+          "level": "intermediate"
+        },
+        {
+          "name": "MongoDB",
+          "level": "beginner"
+        },
+        {
+          "name": "Adobe Photoshop",
+          "level": "intermediate"
+        }
+      ]
+    },
+    "requirements": {
+      "must_have": [
+        {
+          "skill": "JavaScript (ES6+)",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "HTML5 & CSS3",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "React.js",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "Node.js",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Express.js",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "MongoDB",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "RESTful APIs",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Git & GitHub",
+          "required_level": "beginner"
+        }
+      ],
+      "good_to_have": [
+        {
+          "skill": "TypeScript",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Redux Toolkit / Context API",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Tailwind CSS",
+          "required_level": "intermediate"
+        },
+        {
+          "skill": "Docker",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "JWT Authentication",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Jest / React Testing Library",
+          "required_level": "beginner"
+        },
+        {
+          "skill": "Next.js",
+          "required_level": "beginner"
+        }
+      ]
+    },
+    "gaps": {
+      "gaps": [
+        {
+          "skill": "HTML5 & CSS3",
+          "current_level": "none",
+          "required_level": "intermediate",
+          "priority": "high"
+        },
+        {
+          "skill": "Node.js",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "high"
+        },
+        {
+          "skill": "Express.js",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "high"
+        },
+        {
+          "skill": "RESTful APIs",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "high"
+        },
+        {
+          "skill": "Git & GitHub",
+          "current_level": "none",
+          "required_level": "beginner",
+          "priority": "high"
+        },
+        {
+          "skill": "JavaScript (ES6+)",
+          "current_level": "intermediate",
+          "required_level": "intermediate",
+          "priority": "low"
+        },
+        {
+          "skill": "React.js",
+          "current_level": "intermediate",
+          "required_level": "intermediate",
+          "priority": "low"
+        },
+        {
+          "skill": "MongoDB",
+          "current_level": "beginner",
+          "required_level": "beginner",
+          "priority": "low"
+        }
+      ]
+    },
+    "plan": {
+      "weeks": [
+        {
+          "week": 1,
+          "focus_skills": [
+            "Git & GitHub",
+            "HTML5 & CSS3"
+          ],
+          "resources": [
+            {
+              "title": "Git and GitHub for Beginners - Crash Course",
+              "url": "https://www.youtube.com/watch?v=RGOj5yH7evk"
+            },
+            {
+              "title": "HTML & CSS Full Course - Beginner to Pro",
+              "url": "https://www.youtube.com/watch?v=G3e-cpL7ofc"
+            }
+          ],
+          "practice_tasks": [
+            "Initialize a local Git repository, make your first commit, and push it to a new GitHub repository.",
+            "Build a static personal portfolio page using semantic HTML5 and modern CSS3 (Flexbox/Grid)."
+          ],
+          "total_hours": 6
+        },
+        {
+          "week": 2,
+          "focus_skills": [
+            "HTML5 & CSS3",
+            "RESTful APIs"
+          ],
+          "resources": [
+            {
+              "title": "CSS Grid and Flexbox for Beginners",
+              "url": "https://www.freecodecamp.org/news/css-grid-flexbox-tutorial/"
+            },
+            {
+              "title": "What is a REST API? - Codecademy",
+              "url": "https://www.codecademy.com/article/what-is-a-rest-api"
+            }
+          ],
+          "practice_tasks": [
+            "Refine your portfolio layout using CSS Grid and make it fully responsive for mobile devices.",
+            "Use Postman or browser developer tools to fetch and inspect data from a public REST API (e.g., JSONPlaceholder)."
+          ],
+          "total_hours": 6
+        },
+        {
+          "week": 3,
+          "focus_skills": [
+            "Node.js",
+            "Express.js"
+          ],
+          "resources": [
+            {
+              "title": "Node.js and Express.js - Full Course",
+              "url": "https://www.youtube.com/watch?v=Oe421EPjeBE"
+            },
+            {
+              "title": "Express.js Getting Started Guide",
+              "url": "https://expressjs.com/en/starter/installing.html"
+            }
+          ],
+          "practice_tasks": [
+            "Initialize a Node.js project, install Express, and set up a basic server.",
+            "Create custom GET and POST routes in Express to handle JSON data payloads."
+          ],
+          "total_hours": 6
+        },
+        {
+          "week": 4,
+          "focus_skills": [
+            "Node.js",
+            "Express.js",
+            "RESTful APIs"
+          ],
+          "resources": [
+            {
+              "title": "Build a REST API with Node.js and Express",
+              "url": "https://www.freecodecamp.org/news/free-code-camp-course-build-a-rest-api-with-node-js-and-express/"
+            }
+          ],
+          "practice_tasks": [
+            "Build a complete CRUD RESTful API using Express.js with in-memory data storage.",
+            "Test all API endpoints (GET, POST, PUT, DELETE) using Postman and push the completed project to GitHub."
+          ],
+          "total_hours": 6
+        }
+      ]
+    }
+  },
+  "model": "gemini-3.5-flash-lite",
+  "run_at": "2026-11-22T02:24:28",
+  "wall_time_s": 24.5
+}
