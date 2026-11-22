@@ -16,8 +16,8 @@ Items in CAPITALS (like TEAM_ID) are filled in once we have the real results and
 | 10 Number of prompts | 4 |
 | 11 Prototype link | https://skillit-spartans.streamlit.app |
 | 12 Repository link | https://github.com/vanshchaudhary2810/skillit-prompt |
-| 13 Reel link | REEL_LINK |
-| 14 Reel length (s) | REEL_SECONDS |
+| 13 Reel link | https://drive.google.com/drive/folders/1SGWkSHRiEF57uFlfx6jch0U3YTDm5Yem?usp=drive_link |
+| 14 Reel length (s) | 96 |
 | 15 Supporting document type | Technical report |
 | 16 Upload | SpartansDoCode_TechnicalReport.pdf |
 | 17 Number of test inputs | 14 |
