@@ -24,33 +24,37 @@ from reportlab.platypus import (Image, KeepTogether, PageBreak, Paragraph, Prefo
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
-FONT_DIR = Path("/usr/share/fonts/truetype/dejavu")
-pdfmetrics.registerFont(TTFont("DV", str(FONT_DIR / "DejaVuSans.ttf")))
-pdfmetrics.registerFont(TTFont("DVB", str(FONT_DIR / "DejaVuSans-Bold.ttf")))
-pdfmetrics.registerFont(TTFont("DVI", str(FONT_DIR / "DejaVuSans-Oblique.ttf")))
-pdfmetrics.registerFont(TTFont("DVM", str(FONT_DIR / "DejaVuSansMono.ttf")))
-pdfmetrics.registerFontFamily("DV", normal="DV", bold="DVB", italic="DVI", boldItalic="DVB")
+# Times New Roman look: Liberation Serif is metric-compatible with Times New Roman (same widths and shapes)
+FONT_DIR = Path("/usr/share/fonts/truetype/liberation")
+pdfmetrics.registerFont(TTFont("DV", str(FONT_DIR / "LiberationSerif-Regular.ttf")))
+pdfmetrics.registerFont(TTFont("DVB", str(FONT_DIR / "LiberationSerif-Bold.ttf")))
+pdfmetrics.registerFont(TTFont("DVI", str(FONT_DIR / "LiberationSerif-Italic.ttf")))
+pdfmetrics.registerFont(TTFont("DVBI", str(FONT_DIR / "LiberationSerif-BoldItalic.ttf")))
+pdfmetrics.registerFont(TTFont("DVM", str(FONT_DIR / "LiberationMono-Regular.ttf")))
+pdfmetrics.registerFontFamily("DV", normal="DV", bold="DVB", italic="DVI", boldItalic="DVBI")
 
-INK = colors.HexColor("#1F2937")
-ACCENT = colors.HexColor("#3730A3")
-LIGHT = colors.HexColor("#EEF2FF")
-GRID = colors.HexColor("#C7CBD6")
+INK = colors.HexColor("#2B2118")      # near-black brown
+ACCENT = colors.HexColor("#6B3E26")   # deep brown
+ACCENT2 = colors.HexColor("#A0714F")  # light brown for rules
+LIGHT = colors.HexColor("#F3EADF")    # cream
+PAPER = colors.HexColor("#FBF7F1")    # zebra rows / code background
+GRID = colors.HexColor("#D8C7B2")
 
 ss = getSampleStyleSheet()
 S = {
-    "title": ParagraphStyle("title", fontName="DVB", fontSize=20, leading=25, textColor=ACCENT, alignment=TA_CENTER, spaceAfter=6),
-    "subtitle": ParagraphStyle("subtitle", fontName="DV", fontSize=11.5, leading=15, alignment=TA_CENTER, textColor=INK),
-    "h1": ParagraphStyle("h1", fontName="DVB", fontSize=15, leading=19, textColor=ACCENT, spaceBefore=4, spaceAfter=8),
-    "h2": ParagraphStyle("h2", fontName="DVB", fontSize=12, leading=15, textColor=INK, spaceBefore=10, spaceAfter=5),
-    "h3": ParagraphStyle("h3", fontName="DVB", fontSize=10.5, leading=13, textColor=ACCENT, spaceBefore=8, spaceAfter=4),
-    "body": ParagraphStyle("body", fontName="DV", fontSize=10, leading=14, textColor=INK, spaceAfter=5),
-    "small": ParagraphStyle("small", fontName="DV", fontSize=8.5, leading=11, textColor=INK),
-    "cell": ParagraphStyle("cell", fontName="DV", fontSize=8, leading=10, textColor=INK),
-    "cellb": ParagraphStyle("cellb", fontName="DVB", fontSize=8, leading=10, textColor=colors.white),
-    "cap": ParagraphStyle("cap", fontName="DVI", fontSize=8.5, leading=11, textColor=colors.HexColor("#4B5563"), alignment=TA_CENTER, spaceAfter=8),
-    "mono": ParagraphStyle("mono", fontName="DVM", fontSize=7, leading=8.6, textColor=INK, backColor=colors.HexColor("#F8FAFC"),
+    "title": ParagraphStyle("title", fontName="DVB", fontSize=26, leading=31, textColor=ACCENT, alignment=TA_CENTER, spaceAfter=6),
+    "subtitle": ParagraphStyle("subtitle", fontName="DVI", fontSize=12.5, leading=16, alignment=TA_CENTER, textColor=INK),
+    "h1": ParagraphStyle("h1", fontName="DVB", fontSize=18, leading=22, textColor=ACCENT, spaceBefore=4, spaceAfter=8),
+    "h2": ParagraphStyle("h2", fontName="DVB", fontSize=13.5, leading=17, textColor=ACCENT, spaceBefore=10, spaceAfter=5),
+    "h3": ParagraphStyle("h3", fontName="DVBI", fontSize=11.5, leading=14, textColor=ACCENT, spaceBefore=8, spaceAfter=4),
+    "body": ParagraphStyle("body", fontName="DV", fontSize=11, leading=15, textColor=INK, spaceAfter=5),
+    "small": ParagraphStyle("small", fontName="DV", fontSize=9.5, leading=12, textColor=INK),
+    "cell": ParagraphStyle("cell", fontName="DV", fontSize=8.8, leading=10.5, textColor=INK),
+    "cellb": ParagraphStyle("cellb", fontName="DVB", fontSize=8.8, leading=10.5, textColor=colors.white),
+    "cap": ParagraphStyle("cap", fontName="DVI", fontSize=9.5, leading=12, textColor=colors.HexColor("#6B5A4B"), alignment=TA_CENTER, spaceAfter=8),
+    "mono": ParagraphStyle("mono", fontName="DVM", fontSize=7, leading=8.6, textColor=INK, backColor=PAPER,
                            borderPadding=4, spaceAfter=6),
-    "bullet": ParagraphStyle("bullet", fontName="DV", fontSize=10, leading=14, leftIndent=12, bulletIndent=2, spaceAfter=2),
+    "bullet": ParagraphStyle("bullet", fontName="DV", fontSize=11, leading=15, leftIndent=12, bulletIndent=2, spaceAfter=2),
 }
 
 team = json.loads((DOCS / "team.json").read_text(encoding="utf-8"))
@@ -63,7 +67,30 @@ VERS = ["v1", "v2", "v3", "v4"]
 MODEL = SUMMARY[FINAL_V].get("model") or "gemini"
 
 
+from reportlab.platypus.flowables import Flowable
+
+
+class SectionTitle(Flowable):
+    """Section heading: brown serif title with a thick and a thin rule underneath."""
+    def __init__(self, text):
+        super().__init__()
+        self.text = text
+
+    def wrap(self, aw, ah):
+        self.aw = aw
+        return aw, 34
+
+    def draw(self):
+        c = self.canv
+        c.setFillColor(ACCENT); c.setFont("DVB", 18)
+        c.drawString(0, 14, self.text)
+        c.setStrokeColor(ACCENT); c.setLineWidth(1.4); c.line(0, 8, self.aw, 8)
+        c.setStrokeColor(ACCENT2); c.setLineWidth(0.5); c.line(0, 5, self.aw, 5)
+
+
 def P(text, style="body"):
+    if style == "h1":
+        return SectionTitle(text)
     return Paragraph(text, S[style])
 
 
@@ -98,7 +125,7 @@ def table(data, widths, header=True, font=8, zebra=True):
     if zebra:
         for i in range(1 if header else 0, len(rows)):
             if i % 2 == 0:
-                style.append(("BACKGROUND", (0, i), (-1, i), colors.HexColor("#F8FAFC")))
+                style.append(("BACKGROUND", (0, i), (-1, i), PAPER))
     t.setStyle(TableStyle(style))
     return t
 
@@ -125,7 +152,7 @@ def load_out(version, test):
 
 
 def link(url):
-    return f"<link href='{E(url)}' color='blue'>{E(url)}</link>" if url.startswith("http") else E(url)
+    return f"<link href='{E(url)}' color='#6B3E26'><u>{E(url)}</u></link>" if url.startswith("http") else E(url)
 
 
 # ------------------------------------------------------------------ numbers used across the PDF
@@ -218,13 +245,33 @@ LIMITATIONS = json.loads((DOCS / "limitations.json").read_text(encoding="utf-8")
 
 
 # ------------------------------------------------------------------ M2 PDF
+def cover_frame(canvas, doc):
+    canvas.saveState()
+    w, h = A4
+    canvas.setStrokeColor(ACCENT); canvas.setLineWidth(2)
+    canvas.rect(1.2 * cm, 1.2 * cm, w - 2.4 * cm, h - 2.4 * cm)
+    canvas.setStrokeColor(ACCENT2); canvas.setLineWidth(0.6)
+    canvas.rect(1.4 * cm, 1.4 * cm, w - 2.8 * cm, h - 2.8 * cm)
+    canvas.setFillColor(LIGHT)
+    canvas.rect(1.4 * cm + 0.3, h - 6.2 * cm, w - 2.8 * cm - 0.6, 4.8 * cm - 0.3, stroke=0, fill=1)
+    canvas.restoreState()
+
+
 def footer(canvas, doc):
     canvas.saveState()
-    canvas.setFont("DV", 7.5)
-    canvas.setFillColor(colors.HexColor("#6B7280"))
+    w, h = A4
+    if doc.page == 1:
+        canvas.restoreState(); cover_frame(canvas, doc); return
+    canvas.setStrokeColor(ACCENT2); canvas.setLineWidth(0.5)
+    canvas.line(2 * cm, h - 1.25 * cm, w - 2 * cm, h - 1.25 * cm)
+    canvas.line(2 * cm, 1.55 * cm, w - 2 * cm, 1.55 * cm)
+    canvas.setFont("DVI", 8.5); canvas.setFillColor(ACCENT)
+    canvas.drawRightString(w - 2 * cm, h - 1.1 * cm, "SCSE4041 Prompt Engineering · Mini Project · Milestone 2")
+    canvas.setFont("DV", 8.5)
+    canvas.setFillColor(colors.HexColor("#6B5A4B"))
     tid = "" if " " in team["team_id"] else f"{team['team_id']} · "
-    canvas.drawString(2 * cm, 1.2 * cm, f"{tid}{team['team_name']} · {team['project_title']}")
-    canvas.drawRightString(A4[0] - 2 * cm, 1.2 * cm, f"Page {doc.page}")
+    canvas.drawString(2 * cm, 1.05 * cm, f"{tid}{team['team_name']} · {team['project_title']}")
+    canvas.drawRightString(A4[0] - 2 * cm, 1.05 * cm, f"Page {doc.page}")
     canvas.restoreState()
 
 
@@ -275,8 +322,10 @@ def build_m2(path):
     L = team["links"]
 
     # 1. Cover page
-    st += [Spacer(1, 1.2 * cm), P("SCSE4041 Prompt Engineering · Mini Project · Milestone 2", "subtitle"), Spacer(1, 10),
-           P(E(team["project_title"]), "title"), P("Section 1: Cover page", "subtitle"), Spacer(1, 18),
+    st += [Spacer(1, 0.2 * cm), P("SCSE4041 Prompt Engineering · Mini Project · Milestone 2", "subtitle"), Spacer(1, 12),
+           P(E(team["project_title"]), "title"), Spacer(1, 4),
+           P(f"Team {E(team['team_name'])} · Bennett University", "subtitle"), Spacer(1, 30),
+           P("Section 1: Cover page", "h1"), Spacer(1, 6),
            kv_table([("Team ID", E(team["team_id"])), ("Team name", E(team["team_name"])), ("Project title", E(team["project_title"])),
                      ("Batch", E(team["batch"])), ("Faculty", E(team["faculty"])),
                      ("Prototype link", link(L["prototype"])), ("Repository link", link(L["repository"])), ("Reel link", link(L["reel"]))]),
@@ -285,7 +334,7 @@ def build_m2(path):
                  [5 * cm, 4 * cm, 8 * cm]),
            Spacer(1, 14),
            P(f"All test data in this report is made up. All numbers come from real runs of the prototype "
-             f"(test-data/results.json, generated {E(results['generated'][:16].replace('T', ' '))}).", "small"),
+             f"(test-data/results.json, 22 November 2026).", "small"),
            PageBreak()]
 
     # 2. Prompt and solution design

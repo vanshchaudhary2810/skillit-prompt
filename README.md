@@ -4,7 +4,7 @@
 Team **SPARTANS DO CODE**, Bennett University
 
 🔗 **Prototype:** https://skillit-spartans.streamlit.app
-🎬 **Reel:** https://drive.google.com/drive/folders/1SGWkSHRiEF57uFlfx6jch0U3YTDm5Yem?usp=drive_link
+🎬 **Reel:** https://drive.google.com/drive/folders/1SGWkSHRiEF57uFlfx6jch0U3YTDm5Yem
 
 ## What it does
 B.Tech students often know their dream job but not which skills they are missing or how to fit learning into their week.

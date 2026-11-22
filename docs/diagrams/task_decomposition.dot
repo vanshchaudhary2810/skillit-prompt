@@ -1,4 +1,4 @@
-digraph G { rankdir=TB; node [fontname="Helvetica", fontsize=11, style="rounded,filled", shape=box, fillcolor="#EEF2FF", color="#4F46E5"]; edge [color="#555555"];
+digraph G { rankdir=TB; node [fontname="Liberation Serif", fontsize=11, style="rounded,filled", shape=box, fillcolor="#F3EADF", color="#8B5A2B"]; edge [color="#555555"];
 g [label="Goal: a personalised, realistic learning plan\nfor the student's target job", fillcolor="#FEF3C7", color="#B45309"];
 a [label="1. Understand the student\nP1: free text -> standard skills + levels"];
 b [label="2. Understand the role\nP2: typed role -> must-have / good-to-have"];

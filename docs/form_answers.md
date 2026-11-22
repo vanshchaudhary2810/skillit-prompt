@@ -4,7 +4,7 @@ Items in CAPITALS (like TEAM_ID) are filled in once we have the real results and
 
 | Q | Answer |
 |---|---|
-| 1 Team ID | TEAM_ID |
+| 1 Team ID | PE-B49-35 |
 | 2 Team name | SPARTANS DO CODE |
 | 3 Project title | Skill-it: Skill Gap Analyser and Learning Plan Builder |
 | 4 Team leader name | VANSH CHAUDHARY |
@@ -16,7 +16,7 @@ Items in CAPITALS (like TEAM_ID) are filled in once we have the real results and
 | 10 Number of prompts | 4 |
 | 11 Prototype link | https://skillit-spartans.streamlit.app |
 | 12 Repository link | https://github.com/vanshchaudhary2810/skillit-prompt |
-| 13 Reel link | https://drive.google.com/drive/folders/1SGWkSHRiEF57uFlfx6jch0U3YTDm5Yem?usp=drive_link |
+| 13 Reel link | https://drive.google.com/drive/folders/1SGWkSHRiEF57uFlfx6jch0U3YTDm5Yem |
 | 14 Reel length (s) | 96 |
 | 15 Supporting document type | Technical report |
 | 16 Upload | SpartansDoCode_TechnicalReport.pdf |
@@ -24,7 +24,7 @@ Items in CAPITALS (like TEAM_ID) are filled in once we have the real results and
 | 18 Number of prompt versions | 4 |
 | 19 Prototype status | Some modules working |
 | 20 Working modules (one per line) | see list below |
-| 21 Upload M2 PDF | M2_TEAM_ID_SkillIt.pdf |
+| 21 Upload M2 PDF | M2_PE-B49-35_SkillIt.pdf |
 | 22 Main task of each member | see lines below |
 | 23 Anything the evaluator should know | see text below |
 | 24 Confirmation | Tick only after all 3 members agree to Section 7 |
